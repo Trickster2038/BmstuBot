@@ -80,7 +80,7 @@ async def process_name_invalid(message: types.Message):
 
 @dp.message_handler(lambda message: dbutils.validShortString(message.text), state=RegisterStates.name)
 async def process_name_valid(message: types.Message):
-    dbutils.write_name(message.from_user.id, message.text)
+    dbutils.write_name(message.from_user.id, message.text, message.from_user.username)
     await message.answer("Введите фамилию (кириллицей):")
     await RegisterStates.surname.set()
 
@@ -88,10 +88,10 @@ async def process_name_valid(message: types.Message):
 async def process_name_invalid(message: types.Message):
     return await message.reply("Недопустимые символы или длина фамилии, попробуйте снова")
 
-@dp.message_handler(lambda message: dbutils.validShortString(message.text), state=RegisterStates.name)
+@dp.message_handler(lambda message: dbutils.validShortString(message.text), state=RegisterStates.surname)
 async def process_name_valid(message: types.Message):
     dbutils.write_surname(message.from_user.id, message.text)
-    await message.answer("фамилия корректна")
+    await message.answer("Фамилия корректна")
     await RegisterStates.default.set()
 
 # ===========================

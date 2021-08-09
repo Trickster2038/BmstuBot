@@ -17,10 +17,15 @@ def connect():
     global cursor
     cursor = conn.cursor()
 
-def write_name(id, str):
+def write_name(id, str, nick):
     name = make_capital(str)
-    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, null, default, default, default, default)"\
-        .format(id, name))
+    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, null, default, default, default, default, '{{{}}}')"\
+        .format(id, name, nick))
+
+def write_surname(id, str):
+    surname = make_capital(str)
+    cursor.execute("UPDATE public.\"users\" set \"surname\" = '{{{}}}' where id = {}"\
+        .format(surname, id))
 
 def id_exists(id):
     cursor.execute("SELECT * FROM public.users where id = {}".format(id))
