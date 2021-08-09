@@ -19,5 +19,13 @@ def connect():
 
 def write_name(id, str):
     name = make_capital(str)
-    cursor.execute("insert into public.\"users\" values ({}, '{{{}}}', null, null, null, null, null, default, default, default, default)"\
+    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, null, default, default, default, default)"\
         .format(id, name))
+
+def id_exists(id):
+    cursor.execute("SELECT * FROM public.users where id = {}".format(id))
+    res = cursor.fetchone()
+    return res != None
+
+def delete(id):
+    cursor.execute("DELETE FROM public.users where id = {}".format(id))
