@@ -20,6 +20,8 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 logging.basicConfig(level=logging.INFO)
 
+dbutils.connect()
+
 
 # TODO: delete
 @dp.message_handler(commands="test1")
@@ -33,10 +35,11 @@ async def cmd_register(message: types.Message):
 
 @dp.message_handler(lambda message: not dbutils.validShortString(message.text), state=RegisterStates.name)
 async def process_age_invalid(message: types.Message):
-    return await message.reply("Недопустимые символы в имени")
+    return await message.reply("Недопустимые символы или длина имени")
 
 @dp.message_handler(lambda message: dbutils.validShortString(message.text), state=RegisterStates.name)
 async def process_age_invalid(message: types.Message):
+    dbutils.write_name(message.from_user.id, message.text)
     return await message.reply("Имя допустимо")
 
 if __name__ == "__main__":
