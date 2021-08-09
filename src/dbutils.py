@@ -27,6 +27,10 @@ def write_surname(id, str):
     cursor.execute("UPDATE public.\"users\" set \"surname\" = '{{{}}}' where id = {}"\
         .format(surname, id))
 
+def write_faculty(id, code):
+    cursor.execute("UPDATE public.\"users\" set \"faculty\" = {} where id = {}"\
+        .format(code, id))
+
 def id_exists(id):
     cursor.execute("SELECT * FROM public.users where id = {}".format(id))
     res = cursor.fetchone()

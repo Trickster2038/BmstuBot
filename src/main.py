@@ -16,15 +16,20 @@ from aiogram.dispatcher.filters import Text
 # register
 # delete
 
+# TODO: real data, position=id, num=number of depts
+FACULTIES = [["ИУ", 11],["ФН", 14],["СГН", 11],["МТ", 11],["РЛ", 11]]
+
 class RegisterStates(StatesGroup):
-    default = State()
+    # default = State()
     name = State()
     surname = State()
     confirm = State()
+    faculty = State()
+    department = State()
 
-# TODO: connect Redis storage
 bot = Bot(token="1940130843:AAHhJtTJBlJMLUignP8Z70znzl9BQ0MBeuE")
 
+# TODO: connect Redis storage
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 logging.basicConfig(level=logging.INFO)
@@ -91,8 +96,20 @@ async def process_name_invalid(message: types.Message):
 @dp.message_handler(lambda message: dbutils.validShortString(message.text), state=RegisterStates.surname)
 async def process_name_valid(message: types.Message):
     dbutils.write_surname(message.from_user.id, message.text)
-    await message.answer("Фамилия корректна")
-    await RegisterStates.default.set()
+    await RegisterStates.faculty.set()
+    keyboard = types.InlineKeyboardMarkup()
+    for i in range(len(FACULTIES)):
+    	key = types.InlineKeyboardButton(text=FACULTIES[i][0], callback_data=str(i))
+    	keyboard.add(key)
+    await message.answer("Выберете кафедру", reply_markup=keyboard)
+    
+
+@dp.callback_query_handler(state=RegisterStates.faculty)
+async def callback_faculty(call: types.CallbackQuery):
+	code = int(call.data)
+	dbutils.write_faculty(call.from_user.id, code)
+	await call.message.answer("Информация о факультете сохранена")
+	await RegisterStates.department.set()
 
 # ===========================
 
