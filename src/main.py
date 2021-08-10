@@ -1,7 +1,7 @@
 import logging
 import dbutils
 import asyncio
-from dialogs.states import RegisterStates
+
 # import register
 from aiogram import Bot, Dispatcher, executor, types
 
@@ -13,6 +13,8 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters import Text
 
 from dialogs.commands import *
+from dialogs.states import RegisterStates
+from dialogs.delete import *
 
 # CMD:
 # help
@@ -40,25 +42,15 @@ async def cmd_cancel(message: types.Message, state: FSMContext):
 
 # ===========================
 
-@dp.message_handler(commands="delete")
-async def cmd_delete(message: types.Message):
-    await RegisterStates.confirm.set()
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    buttons = ["Да", "Нет"]
-    keyboard.add(*buttons)
-    await message.answer("Вы уверены, что хотите удалить учетную запись?", reply_markup=keyboard)
-
-@dp.message_handler(Text(equals="Да"), state=RegisterStates.confirm)
-async def yes_delete(message: types.Message, state: FSMContext):
-    await state.finish()
-    dbutils.delete(message.from_user.id)
-    await message.reply("Аккаунт удален", reply_markup=types.ReplyKeyboardRemove())
+# @dp.message_handler(commands="delete")
 
 
-@dp.message_handler(Text(equals="Нет"), state=RegisterStates.confirm)
-async def no_delete(message: types.Message, state: FSMContext):
-    await state.finish()
-    await message.reply("Удаление отменено", reply_markup=types.ReplyKeyboardRemove())
+# @dp.message_handler(Text(equals="Да"), state=RegisterStates.confirm)
+
+
+
+# @dp.message_handler(Text(equals="Нет"), state=RegisterStates.confirm)
+
 
 # ===========================
 
@@ -116,6 +108,8 @@ async def main():
     dp = Dispatcher(bot, storage=MemoryStorage())
     logging.basicConfig(level=logging.INFO)
     dbutils.connect()
+
+    register_handlers_delete(dp)
 
     await set_commands(bot)
     await dp.start_polling()
