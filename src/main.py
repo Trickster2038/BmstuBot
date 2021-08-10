@@ -1,5 +1,7 @@
 import logging
 import dbutils
+import asyncio
+from dialogs.states import RegisterStates
 # import register
 from aiogram import Bot, Dispatcher, executor, types
 
@@ -10,31 +12,21 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from aiogram.dispatcher.filters import Text
 
+from dialogs.commands import *
+
 # CMD:
 # help
 # cancel
 # register
 # delete
 
-# TODO: real data, position=id, num=number of depts
-FACULTIES = [["ИУ", 11],["ФН", 14],["СГН", 11],["МТ", 11],["РЛ", 11]]
-
-class RegisterStates(StatesGroup):
-    # default = State()
-    name = State()
-    surname = State()
-    confirm = State()
-    faculty = State()
-    department = State()
-
 bot = Bot(token="1940130843:AAHhJtTJBlJMLUignP8Z70znzl9BQ0MBeuE")
 
-# TODO: connect Redis storage
+# TODO: connect Redis storage?
 dp = Dispatcher(bot, storage=MemoryStorage())
 
-logging.basicConfig(level=logging.INFO)
-
-dbutils.connect()
+# TODO: real data, position=id, num=number of depts
+FACULTIES = [["ИУ", 11],["ФН", 14],["СГН", 11],["МТ", 11],["РЛ", 11]]
 
 @dp.message_handler(commands="cancel", state="*")
 async def cmd_cancel(message: types.Message, state: FSMContext):
@@ -99,17 +91,17 @@ async def process_name_valid(message: types.Message):
     await RegisterStates.faculty.set()
     keyboard = types.InlineKeyboardMarkup()
     for i in range(len(FACULTIES)):
-    	key = types.InlineKeyboardButton(text=FACULTIES[i][0], callback_data=str(i))
-    	keyboard.add(key)
+        key = types.InlineKeyboardButton(text=FACULTIES[i][0], callback_data=str(i))
+        keyboard.add(key)
     await message.answer("Выберете кафедру", reply_markup=keyboard)
     
 
 @dp.callback_query_handler(state=RegisterStates.faculty)
 async def callback_faculty(call: types.CallbackQuery):
-	code = int(call.data)
-	dbutils.write_faculty(call.from_user.id, code)
-	await call.message.answer("Информация о факультете сохранена")
-	await RegisterStates.department.set()
+    code = int(call.data)
+    dbutils.write_faculty(call.from_user.id, code)
+    await call.message.answer("Информация о факультете сохранена")
+    await RegisterStates.department.set()
 
 # ===========================
 
@@ -117,6 +109,16 @@ async def callback_faculty(call: types.CallbackQuery):
 async def cmd_default(message: types.Message):
     await message.answer("Неизвестная команда, попробуйте /help")
 
-if __name__ == "__main__":
-    # Запуск бота
-    executor.start_polling(dp, skip_updates=True)
+async def main():
+    bot = Bot(token="1940130843:AAHhJtTJBlJMLUignP8Z70znzl9BQ0MBeuE")
+
+    # TODO: connect Redis storage?
+    dp = Dispatcher(bot, storage=MemoryStorage())
+    logging.basicConfig(level=logging.INFO)
+    dbutils.connect()
+
+    await set_commands(bot)
+    await dp.start_polling()
+
+if __name__ == '__main__':
+    asyncio.run(main())
