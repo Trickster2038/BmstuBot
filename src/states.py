@@ -7,5 +7,5 @@ class RegisterStates(StatesGroup):
     confirm = State()
     faculty = State()
     department = State()
-    # department2 = State()
     course = State()
+    bio = State()

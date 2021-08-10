@@ -20,6 +20,7 @@ async def process_name_invalid(message: types.Message):
 
 async def process_name_valid(message: types.Message):
     dbutils.write_name(message.from_user.id, message.text, message.from_user.username)
+    await message.answer("Имя сохранено")
     await message.answer("Введите фамилию (кириллицей):")
     await RegisterStates.surname.set()
 
@@ -27,6 +28,7 @@ async def process_surname_invalid(message: types.Message):
     return await message.reply("Недопустимые символы или длина фамилии, попробуйте снова")
 
 async def process_surname_valid(message: types.Message):
+    await message.answer("Фамилия сохранена")
     faculties = settings.Other.faculties
     dbutils.write_surname(message.from_user.id, message.text)
     await RegisterStates.faculty.set()
@@ -71,7 +73,21 @@ async def callback_course(call: types.CallbackQuery):
     code = int(call.data)
     dbutils.write_course(call.from_user.id, code)
     await call.message.answer("Информация о курсе сохранена")
-    await process_course(call.from_user.id, call.bot)
+    await call.message.answer("Расскажите о себе (контакты, любимые предметы и т.д.)")
+    await RegisterStates.bio.set()
+
+async def process_bio_invalid(message: types.Message):
+    return await message.reply("Недопустимые символы, попробуйте снова")
+
+async def process_bio_valid(message: types.Message):
+    dbutils.write_bio(message.from_user.id, message.text)
+    await message.answer("Информация 'о себе' сохранена")
+    fl = dbutils.finish_registration(message.from_user.id)
+    if fl:
+        await message.answer("Аккаунт зарегистрирован, не забывайте про /avatar и /verify")
+    else:
+        await message.answer("Что-то пошло не так. Удалите аккаунт и создайте заново")
+
 
 def register_handlers_register(dp: Dispatcher):
     dp.register_message_handler(cmd_register, commands="register")
@@ -82,3 +98,5 @@ def register_handlers_register(dp: Dispatcher):
     dp.register_callback_query_handler(callback_faculty, state=RegisterStates.faculty)
     dp.register_callback_query_handler(callback_department, state=RegisterStates.department)
     dp.register_callback_query_handler(callback_course, state=RegisterStates.course)
+    dp.register_message_handler(process_bio_invalid, lambda message: not dbutils.validLongString(message.text), state=RegisterStates.bio)
+    dp.register_message_handler(process_bio_valid, lambda message: dbutils.validLongString(message.text), state=RegisterStates.bio)

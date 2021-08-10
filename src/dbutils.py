@@ -5,6 +5,9 @@ import re
 def validShortString(str):
     return (len(str) < 20) and (re.match( r'[a-яА-Я]', str, re.M|re.I))
 
+def validLongString(str):
+    return (len(str) < 400) 
+
 def make_capital(str):
     return  str[0].upper() + str[1:].lower()
 
@@ -19,7 +22,7 @@ def connect():
 
 def write_name(id, str, nick):
     name = make_capital(str)
-    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, null, default, default, default, default, '{{{}}}', null)"\
+    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, default, default, default, default, '{{{}}}', null)"\
         .format(id, name, nick))
 
 def write_surname(id, str):
@@ -39,6 +42,20 @@ def write_course(id, code):
     cursor.execute("UPDATE public.\"users\" set \"course\" = {} where id = {}"\
         .format(code, id))
 
+def write_bio(id, bio):
+    bio = [bio]
+    cursor.execute("""
+            Update
+                public.users
+            set
+                bio = %(bio)s
+            WHERE
+                id = %(id)s
+        """, {
+            'bio': bio,
+            'id': id
+        })
+
 def id_exists(id):
     cursor.execute("SELECT * FROM public.users where id = {}".format(id))
     res = cursor.fetchone()
@@ -51,3 +68,15 @@ def get_faculty_id(id):
 
 def delete(id):
     cursor.execute("DELETE FROM public.users where id = {}".format(id))
+
+def finish_registration(id):
+    cursor.execute("SELECT * from public.users where id = {}".format(id))
+    result = cursor.fetchone()
+    fl = True
+    for x in result:
+        if x == None:
+            fl = False
+    if fl:
+        cursor.execute("UPDATE public.\"users\" set \"is_filled\" = True where id = {}"\
+            .format(id))
+    return fl
