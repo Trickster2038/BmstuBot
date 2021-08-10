@@ -35,6 +35,10 @@ def write_department(id, code):
     cursor.execute("UPDATE public.\"users\" set \"department\" = {} where id = {}"\
         .format(code, id))
 
+def write_course(id, code):
+    cursor.execute("UPDATE public.\"users\" set \"course\" = {} where id = {}"\
+        .format(code, id))
+
 def id_exists(id):
     cursor.execute("SELECT * FROM public.users where id = {}".format(id))
     res = cursor.fetchone()

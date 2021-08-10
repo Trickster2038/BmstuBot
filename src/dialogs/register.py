@@ -40,9 +40,6 @@ async def callback_faculty(call: types.CallbackQuery):
     code = int(call.data)
     dbutils.write_faculty(call.from_user.id, code)
     await call.message.answer("Информация о факультете сохранена")
-    # await RegisterStates.department.set()
-
-    # danger?
     await process_department(call.from_user.id, call.bot)
 
 async def process_department(user_id, bot):
@@ -54,14 +51,27 @@ async def process_department(user_id, bot):
         key = types.InlineKeyboardButton(text=str(i+1), callback_data=str(i+1))
         keyboard.add(key)
     await bot.send_message(user_id, "Выберете номер кафедры", reply_markup=keyboard)
-    # await message.answer("Выберете номер кафедры", reply_markup=keyboard)
     await RegisterStates.department.set()
 
 async def callback_department(call: types.CallbackQuery):
     code = int(call.data)
     dbutils.write_department(call.from_user.id, code)
     await call.message.answer("Информация о номере кафедры сохранена")
+    await process_course(call.from_user.id, call.bot)
+
+async def process_course(user_id, bot):
+    keyboard = types.InlineKeyboardMarkup()
+    for i in range(6):
+        key = types.InlineKeyboardButton(text=str(i+1), callback_data=str(i+1))
+        keyboard.add(key)
+    await bot.send_message(user_id, "Выберете курс", reply_markup=keyboard)
     await RegisterStates.course.set()
+
+async def callback_course(call: types.CallbackQuery):
+    code = int(call.data)
+    dbutils.write_course(call.from_user.id, code)
+    await call.message.answer("Информация о курсе сохранена")
+    await process_course(call.from_user.id, call.bot)
 
 def register_handlers_register(dp: Dispatcher):
     dp.register_message_handler(cmd_register, commands="register")
@@ -70,5 +80,5 @@ def register_handlers_register(dp: Dispatcher):
     dp.register_message_handler(process_surname_invalid, lambda message: not dbutils.validShortString(message.text), state=RegisterStates.surname)
     dp.register_message_handler(process_surname_valid, lambda message: dbutils.validShortString(message.text), state=RegisterStates.surname)
     dp.register_callback_query_handler(callback_faculty, state=RegisterStates.faculty)
-    # dp.register_message_handler(process_department, state=RegisterStates.department)
     dp.register_callback_query_handler(callback_department, state=RegisterStates.department)
+    dp.register_callback_query_handler(callback_course, state=RegisterStates.course)
