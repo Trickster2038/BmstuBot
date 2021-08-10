@@ -19,7 +19,7 @@ def connect():
 
 def write_name(id, str, nick):
     name = make_capital(str)
-    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, null, default, default, default, default, '{{{}}}')"\
+    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, null, default, default, default, default, '{{{}}}', null)"\
         .format(id, name, nick))
 
 def write_surname(id, str):
@@ -31,10 +31,19 @@ def write_faculty(id, code):
     cursor.execute("UPDATE public.\"users\" set \"faculty\" = {} where id = {}"\
         .format(code, id))
 
+def write_department(id, code):
+    cursor.execute("UPDATE public.\"users\" set \"department\" = {} where id = {}"\
+        .format(code, id))
+
 def id_exists(id):
     cursor.execute("SELECT * FROM public.users where id = {}".format(id))
     res = cursor.fetchone()
     return res != None
+
+def get_faculty_id(id):
+    cursor.execute("SELECT faculty FROM public.users where id = {}".format(id))
+    res = cursor.fetchone()
+    return int(res[0])
 
 def delete(id):
     cursor.execute("DELETE FROM public.users where id = {}".format(id))
