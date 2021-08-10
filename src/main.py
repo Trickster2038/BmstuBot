@@ -2,55 +2,24 @@ import logging
 import dbutils
 import asyncio
 
-# import register
 from aiogram import Bot, Dispatcher, executor, types
-
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-
 from aiogram.dispatcher.filters import Text
 
 from dialogs.commands import *
 from dialogs.states import RegisterStates
 from dialogs.delete import *
+import settings
 
-# CMD:
-# help
-# cancel
-# register
-# delete
-
-bot = Bot(token="1940130843:AAHhJtTJBlJMLUignP8Z70znzl9BQ0MBeuE")
+bot = Bot(token=settings.Other.token)
 
 # TODO: connect Redis storage?
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 # TODO: real data, position=id, num=number of depts
 FACULTIES = [["ИУ", 11],["ФН", 14],["СГН", 11],["МТ", 11],["РЛ", 11]]
-
-@dp.message_handler(commands="cancel", state="*")
-async def cmd_cancel(message: types.Message, state: FSMContext):
-    await state.finish()
-    await message.answer("Регистрация отменена")
-
-@dp.message_handler(commands="help", state="*")
-async def cmd_cancel(message: types.Message, state: FSMContext):
-    await state.finish()
-    await message.answer("< Здесь будет help >")
-
-# ===========================
-
-# @dp.message_handler(commands="delete")
-
-
-# @dp.message_handler(Text(equals="Да"), state=RegisterStates.confirm)
-
-
-
-# @dp.message_handler(Text(equals="Нет"), state=RegisterStates.confirm)
-
 
 # ===========================
 
@@ -97,12 +66,8 @@ async def callback_faculty(call: types.CallbackQuery):
 
 # ===========================
 
-@dp.message_handler()
-async def cmd_default(message: types.Message):
-    await message.answer("Неизвестная команда, попробуйте /help")
-
 async def main():
-    bot = Bot(token="1940130843:AAHhJtTJBlJMLUignP8Z70znzl9BQ0MBeuE")
+    bot = Bot(token=settings.Other.token)
 
     # TODO: connect Redis storage?
     dp = Dispatcher(bot, storage=MemoryStorage())
@@ -110,6 +75,7 @@ async def main():
     dbutils.connect()
 
     register_handlers_delete(dp)
+    register_handlers_common(dp)
 
     await set_commands(bot)
     await dp.start_polling()

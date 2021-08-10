@@ -1,8 +1,9 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from dialogs.states import RegisterStates
 from aiogram import Dispatcher, types
 from aiogram.dispatcher.filters import Text
+
+from dialogs.states import RegisterStates
 import dbutils
 
 def register_handlers_delete(dp: Dispatcher):
