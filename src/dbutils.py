@@ -22,7 +22,7 @@ def connect():
 
 def write_name(id, str, nick):
     name = make_capital(str)
-    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, default, default, default, default, '{{{}}}', null)"\
+    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, default, default, default, '{{{}}}', null, default, default)"\
         .format(id, name, nick))
 
 def write_surname(id, str):
@@ -64,10 +64,12 @@ def id_exists(id):
 def is_filled(id):
     cursor.execute("SELECT is_filled from public.users where id = {}".format(id))
     result = cursor.fetchone()
+    if result == None:
+        result = [False]
     return result[0]
 
 def drop_trusted(id):
-    cursor.execute("UPDATE public.\"users\" set \"trusted\" = False where id = {}"\
+    cursor.execute("UPDATE public.\"users\" set \"trusted\" = 0 where id = {}"\
         .format(id))   
 
 def get_faculty_id(id):

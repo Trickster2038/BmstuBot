@@ -13,4 +13,5 @@ class DeleteStates(StatesGroup):
 	confirm = State()
 
 class AvatarStates(StatesGroup):
+	confirm = State()
 	send = State()

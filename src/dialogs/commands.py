@@ -5,16 +5,16 @@ from aiogram.dispatcher import FSMContext
 async def set_commands(bot: Bot):
     commands = [
         BotCommand(command="/help", description="Помощь"),
-        BotCommand(command="/cancel", description="Сброс состояния"),
+        BotCommand(command="/cancel", description="Вернуться к командам"),
         BotCommand(command="/register", description="Регистрация"),
         BotCommand(command="/delete", description="Удалить профиль"),
-        BotCommand(command="/avatar", description="Добавить аватар")
+        BotCommand(command="/avatar", description="Добавить/обновить аватар")
     ]
     await bot.set_my_commands(commands)
 
 async def cmd_cancel(message: types.Message, state: FSMContext):
     await state.finish()
-    await message.answer("Регистрация отменена")
+    await message.answer("Возврат к режиму команд")
 
 async def cmd_help(message: types.Message, state: FSMContext):
     await state.finish()

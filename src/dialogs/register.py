@@ -9,7 +9,7 @@ import settings
 
 async def cmd_register(message: types.Message, state: FSMContext):
     if dbutils.id_exists(message.from_user.id):
-        await message.answer("Вы уже зарегистрированы, удалите профиль, если что-то пошло не так")
+        await message.answer("Вы уже зарегистрированы, удалите профиль /delete, если что-то пошло не так")
         await state.finish()
     else:
         await message.answer("Введите имя (кириллицей):")
