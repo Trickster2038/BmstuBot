@@ -31,7 +31,7 @@ async def no_avatar(message: types.Message, state: FSMContext):
 
 async def process_avatar(message: types.Message, state: FSMContext):
 	dbutils.drop_trusted(message.from_user.id)
-	path = "verify/" + str(message.from_user.id) + ".jpg"
+	path = "avatars/" + str(message.from_user.id) + ".jpg"
 	await message.photo[-1].download(path)
 	await message.answer("Фото сохранено")
 	await state.finish()
@@ -63,8 +63,8 @@ async def no_verify(message: types.Message, state: FSMContext):
     await message.reply("Отправка фото отменена", reply_markup=types.ReplyKeyboardRemove())
 
 async def process_verify(message: types.Message, state: FSMContext):
-	dbutils.drop_trusted(message.from_user.id)
-	path = "avatars/" + str(message.from_user.id) + ".jpg"
+	dbutils.turn_moderate(message.from_user.id)
+	path = "verify/" + str(message.from_user.id) + ".jpg"
 	await message.photo[-1].download(path)
 	await message.answer("Фото сохранено")
 	await state.finish()
@@ -75,7 +75,8 @@ def register_handlers_avatar(dp: Dispatcher):
     dp.register_message_handler(no_avatar, Text(equals="Нет"), state=AvatarStates.confirm)
     dp.register_message_handler(process_avatar, content_types=['photo'], state=AvatarStates.send)
 
-    dp.register_message_handler(cmd_avatar, commands="verify")
-    dp.register_message_handler(yes_avatar, Text(equals="Да"), state=VerifyStates.confirm)
-    dp.register_message_handler(no_avatar, Text(equals="Нет"), state=VerifyStates.confirm)
-    dp.register_message_handler(process_avatar, content_types=['photo'], state=VerifyStates.send)
+def register_handlers_verify(dp: Dispatcher):
+    dp.register_message_handler(cmd_verify, commands="verify")
+    dp.register_message_handler(yes_verify, Text(equals="Да"), state=VerifyStates.confirm)
+    dp.register_message_handler(no_verify, Text(equals="Нет"), state=VerifyStates.confirm)
+    dp.register_message_handler(process_verify, content_types=['photo'], state=VerifyStates.send)

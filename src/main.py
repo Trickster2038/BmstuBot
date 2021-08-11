@@ -9,6 +9,7 @@ from dialogs.commands import *
 from dialogs.delete import *
 from dialogs.register import *
 from avatar import *
+from whoami import *
 import settings
 
 async def main():
@@ -23,6 +24,8 @@ async def main():
     register_handlers_delete(dp)
     register_handlers_register(dp)
     register_handlers_avatar(dp)
+    register_handlers_verify(dp)
+    register_handlers_whoami(dp)
     register_handlers_default(dp)
     
 

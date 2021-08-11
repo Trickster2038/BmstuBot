@@ -21,8 +21,13 @@ def connect():
     global cursor
     cursor = conn.cursor()
 
+def get_info(id):
+    cursor.execute("SELECT name, surname, faculty, department, course, trusted, bio  from public.users where id = {}".format(id))
+    result = cursor.fetchone()
+    return result
+
 def avatar_exists(id):
-    return os.path.isfile(str(id) + ".jpg")
+    return os.path.isfile("avatars/" + str(id) + ".jpg")
 
 def write_name(id, str, nick):
     name = make_capital(str)
@@ -74,6 +79,10 @@ def is_filled(id):
 
 def drop_trusted(id):
     cursor.execute("UPDATE public.\"users\" set \"trusted\" = 0 where id = {}"\
+        .format(id))   
+
+def turn_moderate(id):
+    cursor.execute("UPDATE public.\"users\" set \"trusted\" = 1 where id = {}"\
         .format(id))   
 
 def get_faculty_id(id):
