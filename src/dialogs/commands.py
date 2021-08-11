@@ -7,7 +7,8 @@ async def set_commands(bot: Bot):
         BotCommand(command="/help", description="Помощь"),
         BotCommand(command="/cancel", description="Сброс состояния"),
         BotCommand(command="/register", description="Регистрация"),
-        BotCommand(command="/delete", description="Удалить профиль")
+        BotCommand(command="/delete", description="Удалить профиль"),
+        BotCommand(command="/avatar", description="Добавить аватар")
     ]
     await bot.set_my_commands(commands)
 
@@ -25,4 +26,6 @@ async def cmd_default(message: types.Message):
 def register_handlers_common(dp: Dispatcher):
     dp.register_message_handler(cmd_cancel, commands="cancel", state="*")
     dp.register_message_handler(cmd_help, commands="help", state="*")
-    dp.register_message_handler(cmd_default)
+
+def register_handlers_default(dp: Dispatcher):
+	dp.register_message_handler(cmd_default)

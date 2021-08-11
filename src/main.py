@@ -11,6 +11,7 @@ from dialogs.commands import *
 from states import RegisterStates
 from dialogs.delete import *
 from dialogs.register import *
+from avatar import *
 import settings
 
 bot = Bot(token=settings.Other.token)
@@ -26,9 +27,12 @@ async def main():
     logging.basicConfig(level=logging.INFO)
     dbutils.connect()
 
+    register_handlers_common(dp)
     register_handlers_delete(dp)
     register_handlers_register(dp)
-    register_handlers_common(dp)
+    register_handlers_avatar(dp)
+    register_handlers_default(dp)
+    
 
     await set_commands(bot)
     await dp.start_polling()

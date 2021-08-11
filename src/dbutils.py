@@ -61,6 +61,15 @@ def id_exists(id):
     res = cursor.fetchone()
     return res != None
 
+def is_filled(id):
+    cursor.execute("SELECT is_filled from public.users where id = {}".format(id))
+    result = cursor.fetchone()
+    return result[0]
+
+def drop_trusted(id):
+    cursor.execute("UPDATE public.\"users\" set \"trusted\" = False where id = {}"\
+        .format(id))   
+
 def get_faculty_id(id):
     cursor.execute("SELECT faculty FROM public.users where id = {}".format(id))
     res = cursor.fetchone()
