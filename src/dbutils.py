@@ -1,5 +1,6 @@
 import settings
 import psycopg2
+import os.path
 import re
 
 def validShortString(str):
@@ -19,6 +20,9 @@ def connect():
     conn.autocommit = True
     global cursor
     cursor = conn.cursor()
+
+def avatar_exists(id):
+    return os.path.isfile(str(id) + ".jpg")
 
 def write_name(id, str, nick):
     name = make_capital(str)

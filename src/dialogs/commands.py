@@ -8,7 +8,8 @@ async def set_commands(bot: Bot):
         BotCommand(command="/cancel", description="Вернуться к командам"),
         BotCommand(command="/register", description="Регистрация"),
         BotCommand(command="/delete", description="Удалить профиль"),
-        BotCommand(command="/avatar", description="Добавить/обновить аватар")
+        BotCommand(command="/avatar", description="Добавить/обновить аватар"),
+        BotCommand(command="/verify", description="Верифицировать аккаунт")
     ]
     await bot.set_my_commands(commands)
 

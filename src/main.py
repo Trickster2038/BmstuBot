@@ -1,23 +1,15 @@
 import logging
 import asyncio
 
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import Bot, Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.dispatcher.filters import Text
 
 from dialogs.commands import *
-from states import RegisterStates
 from dialogs.delete import *
 from dialogs.register import *
 from avatar import *
 import settings
-
-bot = Bot(token=settings.Other.token)
-
-# TODO: connect Redis storage?
-dp = Dispatcher(bot, storage=MemoryStorage())
 
 async def main():
     bot = Bot(token=settings.Other.token)
