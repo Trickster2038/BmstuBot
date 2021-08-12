@@ -22,7 +22,7 @@ def connect():
     cursor = conn.cursor()
 
 def get_info(id):
-    cursor.execute("SELECT name, surname, faculty, department, course, trusted, bio, username  from public.users where id = {}".format(id))
+    cursor.execute("SELECT name, surname, faculty, department, course, trusted, bio, username, is_moderator, is_curator  from public.users where id = {}".format(id))
     result = cursor.fetchone()
     return result
 
