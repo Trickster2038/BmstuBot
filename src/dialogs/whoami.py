@@ -5,15 +5,23 @@ import settings
 
 async def cmd_whoami(message: types.Message):
     if dbutils.is_filled(message.from_user.id):
-        await show_profile(message.from_user.id, message.from_user.id, message.bot)
+        await show_profile(message.from_user.id, message.from_user.id, message.bot, False, True)
     else:
         await message.answer("Ваш аккаунт не заполнен, зарегистрируйтесь /register")
 
-async def show_profile(id_check, id_send, bot):
+async def show_profile(id_check, id_send, bot, with_nick, with_id):
     data = dbutils.get_info(id_check)
     faculties = settings.Other.faculties
     trust_mods = ["не подтверждены", "на модерации", "подтверждены"]
-    s = data[0][0] + " " + data[1][0] + "\n\n"
+    if with_nick or with_id:
+        s = data[0][0] + " " + data[1][0] + "\n"
+        if with_nick:
+            s += "username: " + "@" + data[7][0] + "\n"
+        if with_id:
+            s += "id: " + str(id_check) + "\n" 
+        s += "\n"
+    else:
+        s = data[0][0] + " " + data[1][0] + "\n\n"
     s += "кафедра: " + faculties[int(data[2])][0] + "-" + str(int(data[3])) + "\n"
     s += "курс: " + str(int(data[4])) + "\n"
     s += "данные аккаунта: " + trust_mods[int(data[5])] + "\n\n"
@@ -21,6 +29,14 @@ async def show_profile(id_check, id_send, bot):
 
     if dbutils.avatar_exists(id_check):
         photo = open("avatars/" + str(id_check) + ".jpg", 'rb')
+    else:
+        photo = open("default_avatar.jpg", 'rb')
+    await bot.send_photo(chat_id=id_send, photo=photo, caption=s)
+
+async def show_verify(id_check, id_send, bot):
+    s = "verification photo"
+    if dbutils.verify_exists(id_check):
+        photo = open("verify/" + str(id_check) + ".jpg", 'rb')
     else:
         photo = open("default_avatar.jpg", 'rb')
     await bot.send_photo(chat_id=id_send, photo=photo, caption=s)

@@ -55,7 +55,7 @@ async def confirm_verify(message: types.Message):
     await message.answer("Если у вас доверенная учетная запись, понадобится повторная модерация, продолжить?", reply_markup=keyboard)
 
 async def yes_verify(message: types.Message, state: FSMContext):
-    await message.answer("Пришлите фото", reply_markup=types.ReplyKeyboardRemove())
+    await message.answer("Пришлите фото документа, подтверждающего данные аккаунта (пропуск/студ. билет/зач. книжка)", reply_markup=types.ReplyKeyboardRemove())
     await VerifyStates.send.set()
 
 async def no_verify(message: types.Message, state: FSMContext):

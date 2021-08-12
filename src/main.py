@@ -8,8 +8,9 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from dialogs.commands import *
 from dialogs.delete import *
 from dialogs.register import *
-from avatar import *
-from whoami import *
+from dialogs.avatar import *
+from dialogs.whoami import *
+from dialogs.moderate import *
 import settings
 
 async def main():
@@ -26,8 +27,8 @@ async def main():
     register_handlers_avatar(dp)
     register_handlers_verify(dp)
     register_handlers_whoami(dp)
+    register_handlers_moderate(dp)
     register_handlers_default(dp)
-    
 
     await set_commands(bot)
     await dp.start_polling()

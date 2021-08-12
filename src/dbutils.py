@@ -22,12 +22,22 @@ def connect():
     cursor = conn.cursor()
 
 def get_info(id):
-    cursor.execute("SELECT name, surname, faculty, department, course, trusted, bio  from public.users where id = {}".format(id))
+    cursor.execute("SELECT name, surname, faculty, department, course, trusted, bio, username  from public.users where id = {}".format(id))
     result = cursor.fetchone()
+    return result
+
+def pop_moderator_pool(id):
+    cursor.execute("SELECT id  from public.users where id <> {} and trusted = 1 ORDER BY RANDOM() LIMIT 1".format(id))
+    result = cursor.fetchone()
+    if result != None:
+        result = int(result[0])
     return result
 
 def avatar_exists(id):
     return os.path.isfile("avatars/" + str(id) + ".jpg")
+
+def verify_exists(id):
+    return os.path.isfile("verify/" + str(id) + ".jpg")
 
 def write_name(id, str, nick):
     name = make_capital(str)
@@ -77,9 +87,20 @@ def is_filled(id):
         result = [False]
     return result[0]
 
+def is_moderator(id):
+    cursor.execute("SELECT is_moderator from public.users where id = {}".format(id))
+    result = cursor.fetchone()
+    if result == None:
+        result = [False]
+    return result[0]
+
 def drop_trusted(id):
     cursor.execute("UPDATE public.\"users\" set \"trusted\" = 0 where id = {}"\
         .format(id))   
+
+def grant_trusted(id):
+    cursor.execute("UPDATE public.\"users\" set \"trusted\" = 2 where id = {}"\
+        .format(id))
 
 def turn_moderate(id):
     cursor.execute("UPDATE public.\"users\" set \"trusted\" = 1 where id = {}"\
