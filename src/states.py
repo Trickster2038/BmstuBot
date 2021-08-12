@@ -19,3 +19,9 @@ class AvatarStates(StatesGroup):
 class VerifyStates(StatesGroup):
 	confirm = State()
 	send = State()
+
+class ChangeStates(StatesGroup):
+	select = State()
+	bio = State()
+	course = State()
+	curator = State()

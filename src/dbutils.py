@@ -41,7 +41,7 @@ def verify_exists(id):
 
 def write_name(id, str, nick):
     name = make_capital(str)
-    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, default, default, default, '{{{}}}', null, default, default)"\
+    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, default, default, default, '{{{}}}', null, default, default, default)"\
         .format(id, name, nick))
 
 def write_surname(id, str):
@@ -60,6 +60,10 @@ def write_department(id, code):
 def write_course(id, code):
     cursor.execute("UPDATE public.\"users\" set \"course\" = {} where id = {}"\
         .format(code, id))
+
+def write_curator(id, fl):
+    cursor.execute("UPDATE public.\"users\" set \"is_curator\" = {} where id = {}"\
+        .format(fl, id))
 
 def write_bio(id, bio):
     bio = [bio]
