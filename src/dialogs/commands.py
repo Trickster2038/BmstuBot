@@ -11,7 +11,8 @@ async def set_commands(bot: Bot):
         BotCommand(command="/avatar", description="Добавить/обновить аватар"),
         BotCommand(command="/verify", description="Верифицировать аккаунт"),
         BotCommand(command="/whoami", description="Показать мой профиль"),
-        BotCommand(command="/change", description="Изменить данные профиля")
+        BotCommand(command="/change", description="Изменить данные профиля"),
+        BotCommand(command="/friends", description="Друзья")
         # hidden: /moderate
     ]
     await bot.set_my_commands(commands)

@@ -12,6 +12,7 @@ from dialogs.avatar import *
 from dialogs.whoami import *
 from dialogs.moderate import *
 from dialogs.change import *
+from dialogs.friends import *
 import settings
 
 async def main():
@@ -30,6 +31,7 @@ async def main():
     register_handlers_whoami(dp)
     register_handlers_moderate(dp)
     register_handlers_change(dp)
+    register_handlers_friends(dp)
     register_handlers_default(dp)
 
     await set_commands(bot)

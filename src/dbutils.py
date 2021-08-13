@@ -129,3 +129,16 @@ def finish_registration(id):
         cursor.execute("UPDATE public.\"users\" set \"is_filled\" = True where id = {}"\
             .format(id))
     return fl
+
+# =========================================
+
+def pop_potential_friend(id):
+    data = get_info(id)
+    cursor.execute("SELECT id  from public.users where id <> {} and faculty = {} and ".format(id, data[2]) + \
+        "department = {} and course > {} and is_curator ".format(data[3], data[4]) + \
+        "and 0 = (select count(*) from friends where user1 = {} and user2 = id)".format(id) + \
+        "ORDER BY RANDOM() LIMIT 1")
+    result = cursor.fetchone()
+    if result != None:
+        result = int(result[0])
+    return result

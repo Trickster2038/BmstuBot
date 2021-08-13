@@ -62,9 +62,9 @@ async def callback_curator(call: types.CallbackQuery, state: FSMContext):
 
 def register_handlers_change(dp: Dispatcher):
     dp.register_message_handler(cmd_change, commands="change")
-    dp.register_callback_query_handler(process_callback_bio, lambda call: call.data == "change_bio") #, state=ChangeStates.select)
-    dp.register_callback_query_handler(process_callback_course, lambda call: call.data == "change_course") #, state=ChangeStates.select)
-    dp.register_callback_query_handler(process_callback_curator, lambda call: call.data == "change_curator") #, state=ChangeStates.select)
+    dp.register_callback_query_handler(process_callback_bio, lambda call: call.data == "change_bio") 
+    dp.register_callback_query_handler(process_callback_course, lambda call: call.data == "change_course") 
+    dp.register_callback_query_handler(process_callback_curator, lambda call: call.data == "change_curator") 
     dp.register_message_handler(process_bio, state=ChangeStates.bio)
     dp.register_callback_query_handler(callback_course, state=ChangeStates.course)
     dp.register_callback_query_handler(callback_curator, state=ChangeStates.curator)

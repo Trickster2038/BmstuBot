@@ -10,9 +10,6 @@ async def cmd_moderate(message: types.Message):
         await message.answer("Чтобы стать модератором, обратитесь к администратору системы")
 
 async def moderate(message):
-    # if not dbutils.is_moderator(message.from_user.id):
-    #     await message.answer("Чтобы стать модератором, обратитесь к администратору системы")
-    # else:
     check_id = dbutils.pop_moderator_pool(message.from_user.id)
     if check_id != None:
         await whoami.show_profile(check_id, message.from_user.id, message.bot, False, False)
