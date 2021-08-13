@@ -21,7 +21,7 @@ class VerifyStates(StatesGroup):
 	send = State()
 
 class ChangeStates(StatesGroup):
-	select = State()
+	# select = State()
 	bio = State()
 	course = State()
 	curator = State()

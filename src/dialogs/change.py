@@ -13,13 +13,13 @@ async def cmd_change(message: types.Message, state: FSMContext):
 
 async def select_change(message: types.Message):
     keyboard = types.InlineKeyboardMarkup()
-    key = types.InlineKeyboardButton(text="О себе", callback_data= "bio")
+    key = types.InlineKeyboardButton(text="О себе", callback_data= "change_bio")
     keyboard.add(key)
-    key = types.InlineKeyboardButton(text="Курс", callback_data= "course")
+    key = types.InlineKeyboardButton(text="Курс", callback_data= "change_course")
     keyboard.add(key)
-    key = types.InlineKeyboardButton(text="Режим наставника", callback_data= "curator")
+    key = types.InlineKeyboardButton(text="Режим наставника", callback_data= "change_curator")
     keyboard.add(key)
-    await ChangeStates.select.set()
+    # await ChangeStates.select.set()
     await message.bot.send_message(message.from_user.id, text="Изменить поле:", reply_markup=keyboard)
 
 async def process_callback_bio(call: types.CallbackQuery):
@@ -62,9 +62,9 @@ async def callback_curator(call: types.CallbackQuery, state: FSMContext):
 
 def register_handlers_change(dp: Dispatcher):
     dp.register_message_handler(cmd_change, commands="change")
-    dp.register_callback_query_handler(process_callback_bio, lambda call: call.data == "bio", state=ChangeStates.select)
-    dp.register_callback_query_handler(process_callback_course, lambda call: call.data == "course", state=ChangeStates.select)
-    dp.register_callback_query_handler(process_callback_curator, lambda call: call.data == "curator", state=ChangeStates.select)
+    dp.register_callback_query_handler(process_callback_bio, lambda call: call.data == "change_bio") #, state=ChangeStates.select)
+    dp.register_callback_query_handler(process_callback_course, lambda call: call.data == "change_course") #, state=ChangeStates.select)
+    dp.register_callback_query_handler(process_callback_curator, lambda call: call.data == "change_curator") #, state=ChangeStates.select)
     dp.register_message_handler(process_bio, state=ChangeStates.bio)
     dp.register_callback_query_handler(callback_course, state=ChangeStates.course)
     dp.register_callback_query_handler(callback_curator, state=ChangeStates.curator)
