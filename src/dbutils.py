@@ -142,3 +142,11 @@ def pop_potential_friend(id):
     if result != None:
         result = int(result[0])
     return result
+
+def request_friendship(id_from, id_to):
+    cursor.execute("SELECT count(*) from friends where user1 = {} and user2 = {}".format(id_from, id_to))
+    result = cursor.fetchone()
+    new_request = (int(result[0]) == 0)
+    if new_request:
+        cursor.execute("INSERT into public.\"friends\" values (default, {}, {}, default)".format(id_from, id_to))
+    return new_request
