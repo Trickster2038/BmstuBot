@@ -132,11 +132,22 @@ def finish_registration(id):
 
 # =========================================
 
-def pop_potential_friend(id):
+def pop_potential_friend_unsafe(id):
     data = get_info(id)
     cursor.execute("SELECT id  from public.users where id <> {} and faculty = {} and ".format(id, data[2]) + \
-        "department = {} and course > {} and is_curator ".format(data[3], data[4]) + \
-        "and 0 = (select count(*) from friends where user1 = {} and user2 = id)".format(id) + \
+        "department = {} and course > {} and is_curator and is_filled ".format(data[3], data[4]) + \
+        "and 0 = (select count(*) from friends where user1 = {} and user2 = id) ".format(id) + \
+        "ORDER BY RANDOM() LIMIT 1")
+    result = cursor.fetchone()
+    if result != None:
+        result = int(result[0])
+    return result
+
+def pop_potential_friend_safe(id):
+    data = get_info(id)
+    cursor.execute("SELECT id  from public.users where id <> {} and faculty = {} and ".format(id, data[2]) + \
+        "department = {} and course > {} and is_curator and is_filled and trusted = 2 ".format(data[3], data[4]) + \
+        "and 0 = (select count(*) from friends where user1 = {} and user2 = id) ".format(id) + \
         "ORDER BY RANDOM() LIMIT 1")
     result = cursor.fetchone()
     if result != None:
@@ -150,3 +161,25 @@ def request_friendship(id_from, id_to):
     if new_request:
         cursor.execute("INSERT into public.\"friends\" values (default, {}, {}, default)".format(id_from, id_to))
     return new_request
+
+def get_incoming(id, n):
+    cursor.execute("SELECT user1  from public.friends where user2 =  {} and not applied ORDER BY RANDOM() LIMIT {}"\
+        .format(id, n))
+    result = cursor.fetchall()
+    data = []
+    for x in result:
+        data.append(int(x[0]))
+    return data
+
+def discard_friend(id1, id2):
+    cursor.execute("DELETE from public.friends where (user1 = {} and user2 = {}) or (user1 = {} and user2 = {})"\
+        .format(id1, id2, id2, id1))
+
+def apply_friend(apply_id, id):
+    cursor.execute("SELECT count(*) from friends where user1 = {} and user2 = {} and not applied".format(apply_id, id))
+    result = cursor.fetchone()
+    request_exists = (int(result[0]) == 1)
+    if request_exists:
+        cursor.execute("UPDATE public.\"friends\" set \"applied\" = True where user1 = {} and user2 = {}"\
+        .format(apply_id, id))
+    return request_exists

@@ -9,7 +9,7 @@ async def cmd_whoami(message: types.Message):
     else:
         await message.answer("Ваш аккаунт не заполнен, зарегистрируйтесь /register")
 
-async def show_profile(id_check, id_send, bot, with_nick, with_id, with_moderator=False, with_curator=False):
+async def show_profile(id_check, id_send, bot, with_nick=False, with_id=False, with_moderator=False, with_curator=False):
     data = dbutils.get_info(id_check)
     faculties = settings.Other.faculties
     trust_mods = ["не подтверждены", "на модерации", "подтверждены"]
