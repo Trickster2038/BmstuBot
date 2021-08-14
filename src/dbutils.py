@@ -134,10 +134,12 @@ def finish_registration(id):
 
 def pop_potential_friend_unsafe(id):
     data = get_info(id)
-    cursor.execute("SELECT id  from public.users where id <> {} and faculty = {} and ".format(id, data[2]) + \
-        "department = {} and course > {} and is_curator and is_filled ".format(data[3], data[4]) + \
-        "and 0 = (select count(*) from friends where user1 = {} and user2 = id) ".format(id) + \
-        "ORDER BY RANDOM() LIMIT 1")
+    req = """SELECT users.id  from users, friends where users.id <> {} and faculty = {}
+        and department = {} and course > {} and is_curator and is_filled and not(user1 = {} and user2 = users.id)
+        and user1 = {}
+        ORDER BY RANDOM() LIMIT 1""".format(id, data[2], data[3], data[4], id, id)
+    cursor.execute(req)
+    # print(req)
     result = cursor.fetchone()
     if result != None:
         result = int(result[0])
@@ -145,10 +147,12 @@ def pop_potential_friend_unsafe(id):
 
 def pop_potential_friend_safe(id):
     data = get_info(id)
-    cursor.execute("SELECT id  from public.users where id <> {} and faculty = {} and ".format(id, data[2]) + \
-        "department = {} and course > {} and is_curator and is_filled and trusted = 2 ".format(data[3], data[4]) + \
-        "and 0 = (select count(*) from friends where user1 = {} and user2 = id) ".format(id) + \
-        "ORDER BY RANDOM() LIMIT 1")
+    req = """SELECT users.id  from users, friends where users.id <> {} and faculty = {}
+        and department = {} and course > {} and is_curator and is_filled and trusted = 2
+        and not(user1 = {} and user2 = users.id)
+        and user1 = {}
+        ORDER BY RANDOM() LIMIT 1""".format(id, data[2], data[3], data[4], id, id)
+    cursor.execute(req)
     result = cursor.fetchone()
     if result != None:
         result = int(result[0])
@@ -183,3 +187,13 @@ def apply_friend(apply_id, id):
         cursor.execute("UPDATE public.\"friends\" set \"applied\" = True where user1 = {} and user2 = {}"\
         .format(apply_id, id))
     return request_exists
+
+def get_outcoming(id, n):
+    req = "SELECT user2 from public.friends where user1 = {} and not applied ORDER BY RANDOM() LIMIT {}"\
+        .format(id, n)
+    cursor.execute(req)
+    result = cursor.fetchall()
+    data = []
+    for x in result:
+        data.append(int(x[0]))
+    return data

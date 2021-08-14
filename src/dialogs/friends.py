@@ -38,7 +38,7 @@ async def callback_search(call: types.CallbackQuery):
         friend_id = dbutils.pop_potential_friend_safe(call.from_user.id)
 
     if friend_id == None:
-        await call.bot.send_message(call.from_user.id, "Не найдено потенциальных друзей")   
+        await call.bot.send_message(call.from_user.id, "Не найдено потенциальных наставников")   
     else:
         await whoami.show_profile(friend_id, call.from_user.id, call.bot)
         keyboard = types.InlineKeyboardMarkup()
@@ -85,6 +85,19 @@ async def callback_apply(call: types.CallbackQuery):
     else:
         await call.bot.send_message(call.from_user.id, "Заявка уже принята или удалена")
 
+async def callback_outcoming(call: types.CallbackQuery):
+    n = settings.Friends.limit
+    outcoming_list = dbutils.get_outcoming(call.from_user.id, n)
+    if outcoming_list == []:
+        await call.bot.send_message(call.from_user.id, "Список пуст")
+    else:
+        for x in outcoming_list:
+            await whoami.show_profile(x, call.from_user.id, call.bot, with_nick=True)
+            keyboard = types.InlineKeyboardMarkup()
+            key = types.InlineKeyboardButton(text="Отменить", callback_data= "friends_discard_" + str(x))
+            keyboard.add(key)
+            await call.bot.send_message(call.from_user.id, text="Выберете действие:", reply_markup=keyboard)
+
 def register_handlers_friends(dp: Dispatcher):
     dp.register_message_handler(cmd_friends, commands="friends")
     dp.register_callback_query_handler(callback_search, lambda call: call.data.startswith("friends_search_"))
@@ -92,3 +105,4 @@ def register_handlers_friends(dp: Dispatcher):
     dp.register_callback_query_handler(callback_incoming, lambda call: call.data == "friends_incoming")
     dp.register_callback_query_handler(callback_discard, lambda call: call.data.startswith("friends_discard_"))
     dp.register_callback_query_handler(callback_apply, lambda call: call.data.startswith("friends_apply_"))
+    dp.register_callback_query_handler(callback_outcoming, lambda call: call.data == "friends_outcoming")
