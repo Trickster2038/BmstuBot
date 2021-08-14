@@ -197,3 +197,22 @@ def get_outcoming(id, n):
     for x in result:
         data.append(int(x[0]))
     return data
+
+def get_curators(id, n):
+    req = "SELECT user2 from public.friends where user1 = {} and applied ORDER BY RANDOM() LIMIT {}"\
+        .format(id, n)
+    cursor.execute(req)
+    result = cursor.fetchall()
+    data = []
+    for x in result:
+        data.append(int(x[0]))
+    return data
+
+def get_mypeople(id, n):
+    cursor.execute("SELECT user1  from public.friends where user2 =  {} and applied ORDER BY RANDOM() LIMIT {}"\
+        .format(id, n))
+    result = cursor.fetchall()
+    data = []
+    for x in result:
+        data.append(int(x[0]))
+    return data

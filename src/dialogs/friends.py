@@ -24,9 +24,9 @@ async def select_mode(message: types.Message):
     keyboard.add(key)
     key = types.InlineKeyboardButton(text="Входящие заявки", callback_data= "friends_incoming")
     keyboard.add(key)
-    key = types.InlineKeyboardButton(text="Наставники", callback_data= "curators_list")
+    key = types.InlineKeyboardButton(text="Наставники", callback_data= "list_curators")
     keyboard.add(key)
-    key = types.InlineKeyboardButton(text="Подопечные", callback_data= "my_curator_list")
+    key = types.InlineKeyboardButton(text="Подопечные", callback_data= "list_mypeople")
     keyboard.add(key)
     await message.bot.send_message(message.from_user.id, text="Выберете категорию:", reply_markup=keyboard) 
 
@@ -98,6 +98,24 @@ async def callback_outcoming(call: types.CallbackQuery):
             keyboard.add(key)
             await call.bot.send_message(call.from_user.id, text="Выберете действие:", reply_markup=keyboard)
 
+async def callback_lists(call: types.CallbackQuery):
+    n = settings.Friends.limit
+    mode = call.data.split("_")[1]
+    if mode == "curators":
+        data = dbutils.get_curators(call.from_user.id, n)
+    else:
+        data = dbutils.get_mypeople(call.from_user.id, n)
+
+    if data == []:
+        await call.bot.send_message(call.from_user.id, "Список пуст")
+    else:
+        for x in data:
+            await whoami.show_profile(x, call.from_user.id, call.bot, with_nick=True)
+            keyboard = types.InlineKeyboardMarkup()
+            key = types.InlineKeyboardButton(text="Удалить", callback_data= "friends_discard_" + str(x))
+            keyboard.add(key)
+            await call.bot.send_message(call.from_user.id, text="Выберете действие:", reply_markup=keyboard)    
+
 def register_handlers_friends(dp: Dispatcher):
     dp.register_message_handler(cmd_friends, commands="friends")
     dp.register_callback_query_handler(callback_search, lambda call: call.data.startswith("friends_search_"))
@@ -106,3 +124,4 @@ def register_handlers_friends(dp: Dispatcher):
     dp.register_callback_query_handler(callback_discard, lambda call: call.data.startswith("friends_discard_"))
     dp.register_callback_query_handler(callback_apply, lambda call: call.data.startswith("friends_apply_"))
     dp.register_callback_query_handler(callback_outcoming, lambda call: call.data == "friends_outcoming")
+    dp.register_callback_query_handler(callback_lists, lambda call:  call.data.startswith("list_"))
