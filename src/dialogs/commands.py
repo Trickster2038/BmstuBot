@@ -7,11 +7,12 @@ async def set_commands(bot: Bot):
         BotCommand(command="/help", description="Помощь"),
         BotCommand(command="/cancel", description="Вернуться к командам"),
         BotCommand(command="/register", description="Регистрация"),
-        BotCommand(command="/delete", description="Удалить профиль"),
-        BotCommand(command="/avatar", description="Добавить/обновить аватар"),
-        BotCommand(command="/verify", description="Верифицировать аккаунт"),
-        BotCommand(command="/whoami", description="Показать мой профиль"),
-        BotCommand(command="/change", description="Изменить данные профиля"),
+        # BotCommand(command="/delete", description="Удалить профиль"),
+        # BotCommand(command="/avatar", description="Добавить/обновить аватар"),
+        # BotCommand(command="/verify", description="Верифицировать аккаунт"),
+        # BotCommand(command="/whoami", description="Показать мой профиль"),
+        # BotCommand(command="/change", description="Изменить данные профиля"),
+        BotCommand(command="/profile", description="Настроить профиль"),
         BotCommand(command="/friends", description="Друзья")
         # hidden: /moderate
     ]

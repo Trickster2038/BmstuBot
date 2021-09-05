@@ -13,6 +13,7 @@ from dialogs.whoami import *
 from dialogs.moderate import *
 from dialogs.change import *
 from dialogs.friends import *
+from dialogs.menu import *
 import settings
 
 async def main():
@@ -24,6 +25,7 @@ async def main():
     dbutils.connect()
 
     register_handlers_common(dp)
+    register_handlers_menu(dp)
     register_handlers_delete(dp)
     register_handlers_register(dp)
     register_handlers_avatar(dp)

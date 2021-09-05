@@ -52,4 +52,5 @@ async def show_verify(id_check, id_send, bot):
     await bot.send_photo(chat_id=id_send, photo=photo, caption=s)
 
 def register_handlers_whoami(dp: Dispatcher):
-    dp.register_message_handler(cmd_whoami, commands="whoami")
+    dp.register_callback_query_handler(cmd_whoami, lambda call: call.data == "menu_show_profile") 
+    # dp.register_message_handler(cmd_whoami, commands="whoami")

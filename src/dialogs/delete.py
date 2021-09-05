@@ -23,6 +23,7 @@ async def no_delete(message: types.Message, state: FSMContext):
     await message.reply("Удаление отменено", reply_markup=types.ReplyKeyboardRemove())
 
 def register_handlers_delete(dp: Dispatcher):
-    dp.register_message_handler(cmd_delete, commands="delete")
+    dp.register_callback_query_handler(cmd_delete, lambda call: call.data == "menu_delete") 
+    # dp.register_message_handler(cmd_delete, commands="delete")
     dp.register_message_handler(yes_delete, Text(equals="Да"), state=DeleteStates.confirm)
     dp.register_message_handler(no_delete, Text(equals="Нет"), state=DeleteStates.confirm)
