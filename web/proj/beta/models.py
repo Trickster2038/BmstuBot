@@ -6,6 +6,10 @@ class Friendship(models.Model):
     side2 = models.IntegerField()
     accepted = models.BooleanField()
 
+class People(models.Model):
+    id = models.AutoField(primary_key=True)
+    surname = models.CharField(max_length=20)
+
 class Auth(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=20)
