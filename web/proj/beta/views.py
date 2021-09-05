@@ -6,7 +6,8 @@ from django.db import connection,transaction
 def index(request):
     return HttpResponse('Hello World! \
         <br/><a href="test">Test</a>\
-        <br/><a href="friends">Friends</a>')
+        <br/><a href="friends">Friends</a>\
+        <br/><a href="login/">Login</a>')
 
 def test(request):
     return render(request, "beta/test.html")
