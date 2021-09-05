@@ -19,6 +19,7 @@ from beta import views
 
 urlpatterns = [
     path('test', views.test, name='home'),
+    path('friends', views.friends, name='home'),
     path('', views.index, name='home'),
     path('admin/', admin.site.urls),
 ]
