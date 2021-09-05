@@ -4,14 +4,15 @@ from states import ChangeStates
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 
-async def cmd_change(message: types.Message, state: FSMContext):
-    if dbutils.is_filled(message.from_user.id):
-        await select_change(message)
+async def cmd_change(call: types.CallbackQuery, state: FSMContext):
+    if dbutils.is_filled(call.from_user.id):
+        await select_change(call)
     else:
-        await message.answer("Сначала зарегистрируйтесь /register")
+        await call.bot.send_message(call.from_user.id, "Сначала зарегистрируйтесь /register")
+        # await message.answer("Сначала зарегистрируйтесь /register")
         await state.finish()
 
-async def select_change(message: types.Message):
+async def select_change(call: types.CallbackQuery):
     keyboard = types.InlineKeyboardMarkup()
     key = types.InlineKeyboardButton(text="О себе", callback_data= "change_bio")
     keyboard.add(key)
@@ -20,7 +21,7 @@ async def select_change(message: types.Message):
     key = types.InlineKeyboardButton(text="Режим наставника", callback_data= "change_curator")
     keyboard.add(key)
     # await ChangeStates.select.set()
-    await message.bot.send_message(message.from_user.id, text="Изменить поле:", reply_markup=keyboard)
+    await call.bot.send_message(call.from_user.id, text="Изменить поле:", reply_markup=keyboard)
 
 async def process_callback_bio(call: types.CallbackQuery):
     await ChangeStates.bio.set()

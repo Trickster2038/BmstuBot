@@ -3,11 +3,12 @@ from aiogram import Dispatcher, types
 import dbutils
 import settings
 
-async def cmd_whoami(message: types.Message):
-    if dbutils.is_filled(message.from_user.id):
-        await show_profile(message.from_user.id, message.from_user.id, message.bot, False, True, True, True)
+async def cmd_whoami(call: types.CallbackQuery):
+    if dbutils.is_filled(call.from_user.id):
+        await show_profile(call.from_user.id, call.from_user.id, call.bot, False, True, True, True)
     else:
-        await message.answer("Ваш аккаунт не заполнен, зарегистрируйтесь /register")
+        await call.bot.send_message(call.from_user.id, "Ваш аккаунт не заполнен, зарегистрируйтесь /register")
+        # await message.answer("Ваш аккаунт не заполнен, зарегистрируйтесь /register")
 
 async def show_profile(id_check, id_send, bot, with_nick=False, with_id=False, with_moderator=False, with_curator=False):
     data = dbutils.get_info(id_check)
