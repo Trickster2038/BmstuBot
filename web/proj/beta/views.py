@@ -1,13 +1,15 @@
-from beta.models import Friendship, People
+from beta.models import Friendship, People, Person
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db import connection,transaction
+from django.shortcuts import redirect
  
 def index(request):
     return HttpResponse('Hello World! \
-        <br/><a href="test">Test</a>\
-        <br/><a href="friends">Friends</a>\
-        <br/><a href="login/">Login</a>')
+        <br/><a href="test/">Test</a>\
+        <br/><a href="friends/">Friends</a>\
+        <br/><a href="login/">Login</a>\
+        <br/><a href="profile/">Profile</a>')
 
 def test(request):
     return render(request, "beta/test.html")
@@ -28,5 +30,16 @@ def friends(request):
     data = {"friends": friends}
 
     return render(request, "beta/friends.html", context=data)
+
+def profile(request):
+    if request.user.is_authenticated:
+        me = Person.objects.raw('SELECT id,name, surname, department, \
+            course, faculty, username, is_moderator, is_curator \
+            from users where id = {}'.format(request.user.username))
+        print(me)
+        data = {"me": me}
+        return render(request, "beta/profile.html", context=data)
+    else:
+        return redirect('/login/')
 
 # Create your views here.
