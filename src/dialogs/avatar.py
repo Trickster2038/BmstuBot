@@ -32,7 +32,7 @@ async def no_avatar(message: types.Message, state: FSMContext):
 
 async def process_avatar(message: types.Message, state: FSMContext):
 	dbutils.drop_trusted(message.from_user.id)
-	path = "avatars/" + str(message.from_user.id) + ".jpg"
+	path = "../media/avatars/" + str(message.from_user.id) + ".jpg"
 	await message.photo[-1].download(path)
 	await message.answer("Фото сохранено")
 	await state.finish()
@@ -68,7 +68,7 @@ async def no_verify(message: types.Message, state: FSMContext):
 
 async def process_verify(message: types.Message, state: FSMContext):
 	dbutils.turn_moderate(message.from_user.id)
-	path = "verify/" + str(message.from_user.id) + ".jpg"
+	path = "../media/verify/" + str(message.from_user.id) + ".jpg"
 	await message.photo[-1].download(path)
 	await message.answer("Фото сохранено")
 	await state.finish()

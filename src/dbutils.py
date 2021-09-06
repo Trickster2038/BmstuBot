@@ -38,10 +38,10 @@ def pop_moderator_pool(id):
     return result
 
 def avatar_exists(id):
-    return os.path.isfile("avatars/" + str(id) + ".jpg")
+    return os.path.isfile("../media/avatars/" + str(id) + ".jpg")
 
 def verify_exists(id):
-    return os.path.isfile("verify/" + str(id) + ".jpg")
+    return os.path.isfile("../media/verify/" + str(id) + ".jpg")
 
 def write_name(id, str, nick):
     name = make_capital(str)
