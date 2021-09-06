@@ -2,73 +2,63 @@
   <html  lang="en">
   <head>
     <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
-    <title>Инфопортал 'Наставник'</title>
-  </head>
-  <body>
+    <style type="text/css">
+    div.sidebar{
+      padding: 0px;
+      border-radius: 8px;
+    }
+    nav.sidebar{
+      border-bottom-right-radius: 8px;
+    }
+/*    nav.sidebar{
+      width: 100%;
+    }*/
+  </style>
+  <title>Инфопортал 'Наставник'</title>
+</head>
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="/">Инфопортал 'Наставник'</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Инфопортал 'Наставник'</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Аккаунт</a>
-          </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Аккаунт</a>
+        </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="#">Выход</a>
-          </li>
-        </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Выход</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ============================= -->
+
+  <div  class="container-fluid">
+    <div  class="row justify-content-left">
+
+      <div class="col-4 sidebar"> 
+        <nav class="nav flex-column col-8 bg-dark sidebar">
+          <a class="nav-link text-light" href="#">Active</a>
+          <a class="nav-link text-light" href="#">Link</a>
+          <a class="nav-link text-light" href="#">Link</a>
+        </nav>
       </div>
-    </nav>
 
+      <!-- ============================= -->
 
-    <!-- ============================= -->
-
-    <ul class="nav flex-column col-2 bg-dark">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-  </li>
-</ul>
-<!--     <div  class="container">
-      <div  class="row justify-content-left">
-        <div  class="col-4">
-          <div class="bg-dark flex-column nav">
-
-            <nav id="sidebar">
-              aaaaaaaaaaaaa
-            </nav>
-
-            <div id="content">
-              bbbbbbbbbbbbbbb
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- ============================ -->
-
-    </div>  
-
-    <div  class="container">
-      <div  class="row justify-content-center">
-        <div  class="col-4">
-          <!-- <h1  class="text-center">Django Authentication Example</h1> -->
-          {% block main %}
-          {% endblock %}
-        </div>
+      <div  class="col-4">
+        <!-- <h1  class="text-center">Django Authentication Example</h1> -->
+        {% block main %}
+        {% endblock %}
       </div>
     </div>
-  </body>
-  </html>
+  </div>
+</body>
+</html>
