@@ -14,6 +14,7 @@ from dialogs.moderate import *
 from dialogs.change import *
 from dialogs.friends import *
 from dialogs.menu import *
+from dialogs.web import *
 import settings
 
 async def main():
@@ -33,6 +34,7 @@ async def main():
     register_handlers_whoami(dp)
     register_handlers_moderate(dp)
     register_handlers_change(dp)
+    register_handlers_web(dp)
     register_handlers_friends(dp)
     register_handlers_default(dp)
 

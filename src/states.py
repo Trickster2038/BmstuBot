@@ -25,3 +25,6 @@ class ChangeStates(StatesGroup):
 	bio = State()
 	course = State()
 	curator = State()
+
+class WebStates(StatesGroup):
+	password = State()

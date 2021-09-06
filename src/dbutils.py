@@ -1,7 +1,10 @@
 import settings
 import psycopg2
+import datetime
 import os.path
+import os
 import re
+from django.contrib.auth.hashers import make_password
 
 def validShortString(str):
     return (len(str) < 20) and (re.match( r'[a-яА-Я]', str, re.M|re.I))
@@ -13,6 +16,7 @@ def make_capital(str):
     return  str[0].upper() + str[1:].lower()
 
 def connect():
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'django_settings'
     db = settings.DB
     global conn
     conn = psycopg2.connect(dbname=db.name, user=db.user, 
@@ -216,3 +220,23 @@ def get_mypeople(id, n):
     for x in result:
         data.append(int(x[0]))
     return data
+
+# ==========================================
+
+def set_password(id, password):
+    id = str(id)
+    password_hash = make_password(password)
+
+    query = "SELECT count(*) from auth_user where username='{}'".format(id)
+    cursor.execute(query)
+    result = cursor.fetchone()
+    is_new = (int(result[0]) == 0)
+
+    if is_new:
+        ts = datetime.datetime.now()
+        ts = str(ts).split(".")[0]
+        query = "INSERT into auth_user values (default, '{}', TIMESTAMP '{}', false, '{}',\
+        '', '', '', false , true, TIMESTAMP '{}')".format(password_hash, ts, id, ts)
+    else:
+        query = "UPDATE auth_user set password='{}' where username='{}'".format(password_hash, id)
+    cursor.execute(query)
