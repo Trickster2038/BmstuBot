@@ -42,4 +42,8 @@ def profile(request):
     else:
         return redirect('/login/')
 
+def asyncview(request):
+    print("ajax test")
+    return HttpResponse('ajax ok')
+
 # Create your views here.
