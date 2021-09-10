@@ -1,3 +1,5 @@
+{% extends  'fullcard.html' %}
+{% block upper %}
 <!DOCTYPE html>
 
 <head>
@@ -12,12 +14,8 @@
 <body>
     <div>
     <h1>Test template</h1>
-        <a class="btn btn-primary" href="asyncview/">Bootstrap btn</a>
-        {% if user.is_authenticated %}
-        <p>Hi {{ user.username }}!</p>
-        {% else %}
-        <p>You are not logged in.</p>
-        <a href="{% url 'login' %}">Log In</a>
-        {% endif %}
+    {% endblock %}
+    {% block lower %}
     </div>
 </body>
+{% endblock %}
