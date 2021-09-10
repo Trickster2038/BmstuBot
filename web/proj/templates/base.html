@@ -4,11 +4,19 @@
     <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
     <style type="text/css">
     div.sidebar{
+      margin: 0px;
       padding: 0px;
       border-radius: 8px;
     }
     nav.sidebar{
       border-bottom-right-radius: 8px;
+    }
+    #sidebar-container {
+      margin: 0px;
+      padding: 0px;
+    } 
+    #main-row {
+      margin: 0px;
     }
 /*    nav.sidebar{
       width: 100%;
@@ -40,8 +48,8 @@
 
   <!-- ============================= -->
 
-  <div  class="container-fluid">
-    <div  class="row justify-content-left">
+  <div  class="container-fluid"  id="sidebar-container">
+    <div  class="row justify-content-left" id="main-row">
 
       <div class="col-4 sidebar"> 
         <nav class="nav flex-column col-8 bg-dark sidebar">
