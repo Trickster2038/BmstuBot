@@ -32,15 +32,16 @@ def friends(request):
     return render(request, "beta/friends.html", context=data)
 
 def profile(request):
-    if request.user.is_authenticated:
-        me = Person.objects.raw('SELECT id,name, surname, department, \
-            course, faculty, username, is_moderator, is_curator \
-            from users where id = {}'.format(request.user.username))
-        print(me)
-        data = {"me": me}
-        return render(request, "beta/profile.html", context=data)
-    else:
-        return redirect('/login/')
+    me = Person.objects.raw('SELECT id,name, surname, department, \
+        course, faculty, username, is_moderator, is_curator \
+        from users where id = {}'.format(request.user.username))
+    me = me[0]
+    me.name = me.name[0]
+    me.surname = me.surname[0]
+    me.username = me.username[0]
+    print(me)
+    data = {"person": me}
+    return render(request, "beta/profile.html", context=data)
 
 def asyncview(request):
     print("ajax test")

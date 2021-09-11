@@ -1,9 +1,9 @@
-{% extends  'base.html' %}
+{% extends  'fullcard.html' %}
 
-{% block main %}
-<h1>profile</h1>
-{% for x in me %}
-{{x.name}}
-{% endfor %}
+{% block upper %}
+<h1>Profile</h1>
+<p>Hi {{ user.username }}!</p>
+{% endblock %}
 
+{% block lower %}
 {% endblock %}
