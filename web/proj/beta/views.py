@@ -1,4 +1,4 @@
-from beta.models import Friendship, People, Person, PersonT
+from beta.models import Friendship, People, Person, PersonT, FriendsT
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db import connection,transaction
@@ -9,7 +9,8 @@ def index(request):
         <br/><a href="test/">Test</a>\
         <br/><a href="friends/">Friends</a>\
         <br/><a href="login/">Login</a>\
-        <br/><a href="profile/">Profile</a>')
+        <br/><a href="profile/">Profile</a>\
+        <br/><a href="outgoing/">Outgoing</a>')
 
 def test(request):
     return render(request, "beta/test.html")
@@ -32,18 +33,22 @@ def friends(request):
     return render(request, "beta/friends.html", context=data)
 
 def profile(request):
-    # me = Person.objects.raw('SELECT id,name, surname, department, \
-    #     course, bio, username, faculty, is_moderator, is_curator \
-    #     from users where id = {}'.format(request.user.username))
-    # me = me[0]
-    # me.name = me.name[0]
-    # me.surname = me.surname[0]
-    # me.username = me.username[0]
     print("session: " + request.user.username)
     me = PersonT.objects.get(id=request.user.username)
     print(me)
     data = {"person": me}
     return render(request, "beta/profile.html", context=data)
+
+def outgoing(request):
+    friends = FriendsT.objects.filter(user1=request.user.username)
+    friends_list = []
+    for x in friends:
+        friends_list.append(PersonT.objects.get(id=x.user2))
+    data = {"friends": friends_list}
+    print(data)
+    return render(request, "beta/outgoing.html", context=data)
+
+
 
 def asyncview(request):
     print("ajax test")

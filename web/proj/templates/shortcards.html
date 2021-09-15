@@ -6,11 +6,19 @@
 {% endblock %}
 
 {% block center %}
+<style type="text/css">
+    .shortcard {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+</style>
+
+{% for person in friends %}
 <div>
-    <div class="card">
+    <div class="card shortcard">
         <div class="card-body">
             <p> {{ person.name }} {{ person.surname }}</p>
-            <p>ID: {{ person.id }}</p>
+            <p>ID: SECURED</p>
             <p> Username: @{{ person.username}}</p>
             {% if person.is_moderator %}
                 <p>Moderator: <input type="checkbox" checked></p>
@@ -20,6 +28,7 @@
         </div>
     </div>
 </div>
+{% endfor %}
 {% endblock %}
 
 {% block lower %}

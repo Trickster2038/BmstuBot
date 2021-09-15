@@ -22,6 +22,7 @@ from beta import views
 urlpatterns = [
     path('test/', views.test, name='test'),
     path('friends/', views.friends, name='friends'),
+    path('outgoing/', views.outgoing, name='outgoing'),
     path('profile/', views.profile, name='profile'),
     path('login/', authviews.LoginView.as_view(), name='login'),
     path('logout/', authviews.LogoutView.as_view(), name='logout'),

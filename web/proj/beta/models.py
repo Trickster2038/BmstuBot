@@ -54,7 +54,7 @@ class FriendsT(models.Model):
 
 class FacultyT(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=5)
     departments = models.IntegerField()
 
 
