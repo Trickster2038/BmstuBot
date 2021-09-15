@@ -52,7 +52,7 @@ class FriendsT(models.Model):
     user2 = models.IntegerField()
     applied = models.BooleanField()
 
-class FacultyT(models.Model):
+class FacultiesT(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=5)
     departments = models.IntegerField()
