@@ -1,4 +1,4 @@
-from beta.models import Friendship, People, Person
+from beta.models import Friendship, People, Person, PersonT
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db import connection,transaction
@@ -32,13 +32,15 @@ def friends(request):
     return render(request, "beta/friends.html", context=data)
 
 def profile(request):
-    me = Person.objects.raw('SELECT id,name, surname, department, \
-        course, bio, username, faculty, is_moderator, is_curator \
-        from users where id = {}'.format(request.user.username))
-    me = me[0]
-    me.name = me.name[0]
-    me.surname = me.surname[0]
-    me.username = me.username[0]
+    # me = Person.objects.raw('SELECT id,name, surname, department, \
+    #     course, bio, username, faculty, is_moderator, is_curator \
+    #     from users where id = {}'.format(request.user.username))
+    # me = me[0]
+    # me.name = me.name[0]
+    # me.surname = me.surname[0]
+    # me.username = me.username[0]
+    print("session: " + request.user.username)
+    me = PersonT.objects.get(id=int(request.user.username))
     print(me)
     data = {"person": me}
     return render(request, "beta/profile.html", context=data)
