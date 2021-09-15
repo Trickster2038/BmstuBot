@@ -33,7 +33,7 @@ def friends(request):
 
 def profile(request):
     me = Person.objects.raw('SELECT id,name, surname, department, \
-        course, faculty, username, is_moderator, is_curator \
+        course, bio, username, faculty, is_moderator, is_curator \
         from users where id = {}'.format(request.user.username))
     me = me[0]
     me.name = me.name[0]
