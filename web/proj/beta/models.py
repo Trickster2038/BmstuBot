@@ -44,6 +44,18 @@ class PersonT(models.Model):
     trusted = models.IntegerField()
 
     is_moderator = models.BooleanField()
-    is_curator = models.BooleanField()    
+    is_curator = models.BooleanField()
+
+class FriendsT(models.Model):
+    id = models.AutoField(primary_key=True)
+    user1 = models.IntegerField()
+    user2 = models.IntegerField()
+    applied = models.BooleanField()
+
+class FacultyT(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=20)
+    departments = models.IntegerField()
+
 
 # Create your models here.

@@ -1,7 +1,15 @@
 {% extends  'fullcard.html' %}
 
 {% block upper %}
-<h1>Profile</h1>
+<style type="text/css">
+#header {
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+</style>
+<div class="card" id="header">
+	<h1 align="center" class="card-body">Profile</h1>
+</div>
 <p>Hi {{ user.username }}!</p>
 {% endblock %}
 

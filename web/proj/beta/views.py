@@ -40,7 +40,7 @@ def profile(request):
     # me.surname = me.surname[0]
     # me.username = me.username[0]
     print("session: " + request.user.username)
-    me = PersonT.objects.get(id=int(request.user.username))
+    me = PersonT.objects.get(id=request.user.username)
     print(me)
     data = {"person": me}
     return render(request, "beta/profile.html", context=data)
