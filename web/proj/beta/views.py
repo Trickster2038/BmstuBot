@@ -3,6 +3,15 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.db import connection,transaction
 from django.shortcuts import redirect
+from django.conf import settings
+
+# from django.contrib.staticfiles.templatetags.staticfiles import static
+
+from django.templatetags.static import static
+from django.contrib.staticfiles import finders
+# from django.contrib.staticfiles.storage import staticfiles_storage
+
+import os
  
 def index(request):
     return HttpResponse('Hello World! \
@@ -40,11 +49,18 @@ def profile(request):
     return render(request, "beta/profile.html", context=data)
 
 def outgoing(request):
-    friends = FriendsT.objects.filter(user1=request.user.username)
+    friends = FriendsT.objects.filter(user1=request.user.username, applied=False)
     friends_list = []
+    # print("> " + str(settings.BASE_DIR))
     for x in friends:
         p = PersonT.objects.get(id=x.user2)
-        friends_list.append({"rowdata": p, "path": "path1"})
+        picture = finders.find('avatars/' + str(x.user2) + '.jpg')
+        fl = (picture != None)
+        # print("> " + url + " " + str(fl) + " " + str(gg)) 
+        friends_list.append({"rowdata": p, 
+            "avatar": fl, \
+            "path_avatar": 'avatars/' + str(x.user2) + '.jpg'})
+
     data = {"friends": friends_list, "caption": "Outgoing"}
     print(data)
     return render(request, "shortcards.html", context=data)
