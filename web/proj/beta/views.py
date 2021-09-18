@@ -1,6 +1,6 @@
 from beta.models import Friendship, People, Person, PersonT, FriendsT, FacultiesT
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db import connection,transaction
 from django.shortcuts import redirect
 from django.conf import settings
@@ -49,6 +49,7 @@ def profile(request):
     return render(request, "beta/profile.html", context=data)
 
 def outgoing(request):
+    # print(request.session[settings.LANGUAGE_SESSION_KEY])
     friends = FriendsT.objects.filter(user1=request.user.username, applied=False)
     friends_list = []
     trustmap = ["no", "on check", "yes"]
@@ -87,5 +88,17 @@ def async_delete_outgoing(request):
     print("> delete view")
     FriendsT.objects.filter(user1=request.user.username, user2=target, applied=False).delete()
 
+def set_language(request):
+    if not settings.LANGUAGE_SESSION_KEY in request.session:
+        request.session[settings.LANGUAGE_SESSION_KEY] = "en-us"
+    if request.session[settings.LANGUAGE_SESSION_KEY] == "en-us":
+        lang = "ru"
+    else:
+        lang = "en-us"
+    request.session[settings.LANGUAGE_SESSION_KEY] = lang
+    response = HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
+    print(request.session[settings.LANGUAGE_SESSION_KEY])
+    return response
 
 # Create your views here.

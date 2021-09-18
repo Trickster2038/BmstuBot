@@ -1,5 +1,6 @@
 {% extends  'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block main %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/cards.css' %}"/>
@@ -27,7 +28,7 @@
             <hr/>
             <p class="name"> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
             <hr/>
-            <p>Department: {{ person.rowdata.department }}</p>
+            <p>{% trans 'Department' %}: {{ person.rowdata.department }}</p>
             <p>Course: {{ person.rowdata.course }}</p>
             <p>Bio: {{ person.rowdata.bio }}</p>
 
