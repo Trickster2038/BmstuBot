@@ -69,10 +69,11 @@ def outgoing(request):
     print(data)
     return render(request, "shortcards.html", context=data)
 
-
-
 def asyncview(request):
-    print("> ajax test")
+    print("> ajax test view")
+    if request.method=="POST":
+        target=request.POST['target']
+        print("> ajax target: " + target)
     return HttpResponse('ajax ok')
 
 # Create your views here.
