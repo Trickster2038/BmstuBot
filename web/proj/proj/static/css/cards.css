@@ -1,0 +1,21 @@
+#header {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+.shortcard {
+        margin-top: 8px;
+        margin-bottom: 8px;
+}
+img.avatar {
+    max-height: 70%;
+    max-width: 70%;
+}
+div.avatar {
+    text-align: center;
+}
+div.action {
+    text-align: center;
+}
+button.action {
+    width: 100%;
+}

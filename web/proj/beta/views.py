@@ -61,14 +61,18 @@ def outgoing(request):
             "avatar": fl, \
             "path_avatar": 'avatars/' + str(x.user2) + '.jpg'})
 
-    data = {"friends": friends_list, "caption": "Outgoing"}
+    data = {"friends": friends_list, \
+    "caption": "Outgoing", \
+    "btn_style": "btn-outline-danger", \
+    "btn_text": "Cancel", \
+    "action": "delete_outgoing"}
     print(data)
     return render(request, "shortcards.html", context=data)
 
 
 
 def asyncview(request):
-    print("ajax test")
+    print("> ajax test")
     return HttpResponse('ajax ok')
 
 # Create your views here.

@@ -2,24 +2,8 @@
 {% load static %}
 
 {% block main %}
-
-<style type="text/css">
-#header {
-    margin-top: 16px;
-    margin-bottom: 16px;
-}
-.shortcard {
-        margin-top: 8px;
-        margin-bottom: 8px;
-}
-img.avatar {
-    max-height: 70%;
-    max-width: 70%;
-}
-div.avatar{
-    text-align: center;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'css/cards.css' %}"/>
+<script type="text/javascript" src="{% static 'js/actions.js'%}"></script>
 
 <div class="card" id="header">
     <h1 align="center" class="card-body">{{ caption }}</h1>
@@ -29,21 +13,27 @@ div.avatar{
 <div>
     <div class="card shortcard">
         <div class="card-body">
-<div class="avatar">
-            {% if person.avatar %}
-            <img class="avatar" src="{% static person.path_avatar %}">
-            {% else %}
-            <img class="avatar" src="{% static  'default_avatar.jpg'%}">
-            {% endif %}
-</div>
+            <div class="avatar">
+                {% if person.avatar %}
+                <img class="avatar" src="{% static person.path_avatar %}">
+                {% else %}
+                <img class="avatar" src="{% static  'default_avatar.jpg'%}">
+                {% endif %}
+            </div>
             <p> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
             <p>ID: SECURED</p>
             <p> Username: @{{ person.rowdata.username}}</p>
             {% if person.rowdata.is_moderator %}
-                <p>Moderator: <input type="checkbox" checked></p>
+            <p>Moderator: <input type="checkbox" checked></p>
             {% else %}
-                <p>Moderator: <input type="checkbox"></p>
+            <p>Moderator: <input type="checkbox"></p>
             {% endif %}
+
+            <div class="action">
+                <button class="btn {{ btn_style }} action" 
+                onclick="send_ajax({{ person.rowdata.id}}, '{{ action }}')">
+                {{ btn_text }}</button>
+            </div>
         </div>
     </div>
 </div>
