@@ -1,6 +1,9 @@
 function send_ajax(target, action) {
     console.log("> actions.js called")
 
+    const card_id = "#card-" + target
+    $( card_id ).animate( { height: 0, opacity: 0 , margin: 0}, 1000, "swing", $( this ).remove())
+
     const csrftoken = getCookie('csrftoken');
 
     $.ajax({

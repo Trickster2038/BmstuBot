@@ -15,7 +15,7 @@
 
 {% for person in friends %}
 <div>
-    <div class="card shortcard">
+    <div class="card shortcard" id="card-{{ person.rowdata.id }}">
         <div class="card-body">
             <div class="avatar">
                 {% if person.avatar %}
