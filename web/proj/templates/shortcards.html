@@ -2,25 +2,29 @@
 
 {% block main %}
 
-{% block upper %}
-{% endblock %}
-
-{% block center %}
 <style type="text/css">
-    .shortcard {
+#header {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+.shortcard {
         margin-top: 8px;
         margin-bottom: 8px;
-    }
+}
 </style>
+
+<div class="card" id="header">
+    <h1 align="center" class="card-body">{{ caption }}</h1>
+</div>
 
 {% for person in friends %}
 <div>
     <div class="card shortcard">
         <div class="card-body">
-            <p> {{ person.name }} {{ person.surname }}</p>
+            <p> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
             <p>ID: SECURED</p>
-            <p> Username: @{{ person.username}}</p>
-            {% if person.is_moderator %}
+            <p> Username: @{{ person.rowdata.username}}</p>
+            {% if person.rowdata.is_moderator %}
                 <p>Moderator: <input type="checkbox" checked></p>
             {% else %}
                 <p>Moderator: <input type="checkbox"></p>
@@ -29,9 +33,5 @@
     </div>
 </div>
 {% endfor %}
-{% endblock %}
-
-{% block lower %}
-{% endblock %}
 
 {% endblock %}

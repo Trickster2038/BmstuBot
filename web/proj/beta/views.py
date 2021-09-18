@@ -43,10 +43,11 @@ def outgoing(request):
     friends = FriendsT.objects.filter(user1=request.user.username)
     friends_list = []
     for x in friends:
-        friends_list.append(PersonT.objects.get(id=x.user2))
-    data = {"friends": friends_list}
+        p = PersonT.objects.get(id=x.user2)
+        friends_list.append({"rowdata": p, "path": "path1"})
+    data = {"friends": friends_list, "caption": "Outgoing"}
     print(data)
-    return render(request, "beta/outgoing.html", context=data)
+    return render(request, "shortcards.html", context=data)
 
 
 
