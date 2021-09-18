@@ -30,4 +30,6 @@ urlpatterns = [
     # path('accounts/', include('django.contrib.auth.urls')), 
     path('admin/', admin.site.urls),
     path('asyncview/', views.asyncview),
+
+    path('asyncDeleteOutgoing/', views.async_delete_outgoing),
 ]

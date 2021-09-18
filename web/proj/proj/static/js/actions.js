@@ -6,9 +6,15 @@ function send_ajax(target, action) {
 
     const csrftoken = getCookie('csrftoken');
 
+    // console.log(action == 'delete_outgoing')
+
+    if(action == 'delete_outgoing') {
+        url = "http://localhost:8000/asyncDeleteOutgoing/"
+    }
+
     $.ajax({
         type: "POST",
-        url: "http://localhost:8000/asyncview/",
+        url: url,
     data: { csrfmiddlewaretoken: csrftoken,   // < here 
         state:"inactive", 
         target: target

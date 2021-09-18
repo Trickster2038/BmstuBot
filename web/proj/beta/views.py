@@ -76,4 +76,10 @@ def asyncview(request):
         print("> ajax target: " + target)
     return HttpResponse('ajax ok')
 
+def async_delete_outgoing(request):
+    target=request.POST['target']
+    print("> delete view")
+    FriendsT.objects.filter(user1=request.user.username, user2=target, applied=False).delete()
+
+
 # Create your views here.
