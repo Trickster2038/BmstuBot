@@ -19,3 +19,9 @@ div.action {
 button.action {
     width: 100%;
 }
+p {
+    margin-bottom: 8px;
+}
+p.name {
+    text-align: center;
+}

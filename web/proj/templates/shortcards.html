@@ -24,14 +24,14 @@
                 <img class="avatar" src="{% static  'default_avatar.jpg'%}">
                 {% endif %}
             </div>
-            <p> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
-            <p>ID: SECURED</p>
-            <p> Username: @{{ person.rowdata.username}}</p>
-            {% if person.rowdata.is_moderator %}
-            <p>Moderator: <input type="checkbox" checked></p>
-            {% else %}
-            <p>Moderator: <input type="checkbox"></p>
-            {% endif %}
+            <hr/>
+            <p class="name"> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
+            <hr/>
+            <p>Department: {{ person.rowdata.department }}</p>
+            <p>Course: {{ person.rowdata.course }}</p>
+            <p>Bio: {{ person.rowdata.bio }}</p>
+
+            <p>Trusted: {{ person.rowdata.trusted }}<p>
 
             <div class="action">
                 <button class="btn {{ btn_style }} action" 

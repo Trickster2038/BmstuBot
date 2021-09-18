@@ -1,4 +1,4 @@
-from beta.models import Friendship, People, Person, PersonT, FriendsT
+from beta.models import Friendship, People, Person, PersonT, FriendsT, FacultiesT
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db import connection,transaction
@@ -51,9 +51,15 @@ def profile(request):
 def outgoing(request):
     friends = FriendsT.objects.filter(user1=request.user.username, applied=False)
     friends_list = []
+    trustmap = ["no", "on check", "yes"]
     # print("> " + str(settings.BASE_DIR))
     for x in friends:
         p = PersonT.objects.get(id=x.user2)
+
+        p.trusted = trustmap[p.trusted]
+        p.faculty = FacultiesT.objects.get(id=p.faculty).name
+        p.department = p.faculty + str(p.department)
+
         picture = finders.find('avatars/' + str(x.user2) + '.jpg')
         fl = (picture != None)
         # print("> " + url + " " + str(fl) + " " + str(gg)) 
