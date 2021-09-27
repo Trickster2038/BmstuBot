@@ -10,6 +10,7 @@ from django.conf import settings
 from django.templatetags.static import static
 from django.contrib.staticfiles import finders
 # from django.contrib.staticfiles.storage import staticfiles_storage
+from django.contrib.auth.decorators import login_required
 
 import os
  
@@ -41,6 +42,7 @@ def friends(request):
 
     return render(request, "beta/friends.html", context=data)
 
+@login_required(login_url='/login/')
 def profile(request):
     print("session: " + request.user.username)
     me = PersonT.objects.get(id=request.user.username)
@@ -48,6 +50,7 @@ def profile(request):
     data = {"person": me}
     return render(request, "beta/profile.html", context=data)
 
+@login_required(login_url='/login/')
 def outgoing(request):
     # print(request.session[settings.LANGUAGE_SESSION_KEY])
     friends = FriendsT.objects.filter(user1=request.user.username, applied=False)
@@ -76,6 +79,35 @@ def outgoing(request):
     print(data)
     return render(request, "shortcards.html", context=data)
 
+@login_required(login_url='/login/')
+def incoming(request):
+    # print(request.session[settings.LANGUAGE_SESSION_KEY])
+    friends = FriendsT.objects.filter(user2=request.user.username, applied=False)
+    friends_list = []
+    trustmap = ["no", "on check", "yes"]
+    # print("> " + str(settings.BASE_DIR))
+    for x in friends:
+        p = PersonT.objects.get(id=x.user1)
+
+        p.trusted = trustmap[p.trusted]
+        p.faculty = FacultiesT.objects.get(id=p.faculty).name
+        p.department = p.faculty + str(p.department)
+
+        picture = finders.find('avatars/' + str(x.user1) + '.jpg')
+        fl = (picture != None)
+        # print("> " + url + " " + str(fl) + " " + str(gg)) 
+        friends_list.append({"rowdata": p, 
+            "avatar": fl, \
+            "path_avatar": 'avatars/' + str(x.user1) + '.jpg'})
+
+    data = {"friends": friends_list, \
+    "caption": "Incoming", \
+    "btn_style": "btn-outline-danger", \
+    "btn_text": "Cancel", \
+    "action": "delete_outgoing"}
+    print(data)
+    return render(request, "shortcards.html", context=data)
+
 def asyncview(request):
     print("> ajax test view")
     if request.method=="POST":
@@ -83,6 +115,7 @@ def asyncview(request):
         print("> ajax target: " + target)
     return HttpResponse('ajax ok')
 
+@login_required(login_url='/login/')
 def async_delete_outgoing(request):
     target=request.POST['target']
     print("> delete view")
