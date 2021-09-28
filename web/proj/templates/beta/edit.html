@@ -4,6 +4,20 @@
 
 {% block main %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/cards.css' %}"/>
-<h1>edit</h1>
+<div class="card" id="header">
+	<h1 align="center" class="card-body">Edit profile</h1>
+</div>
+
+<div>
+	<div class="card shortcard" id="card-{{ person.rowdata.id }}">
+		<div class="card-body">
+			<form action="/edit/" method="post">
+				{% csrf_token %}
+				{{ form }}
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

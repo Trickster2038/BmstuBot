@@ -12,6 +12,8 @@ from django.contrib.staticfiles import finders
 # from django.contrib.staticfiles.storage import staticfiles_storage
 from django.contrib.auth.decorators import login_required
 
+from .forms import NameForm
+
 import os
 
 
@@ -67,7 +69,20 @@ def profile(request):
 
 @login_required(login_url='/login/')
 def edit(request):
-    return render(request, "beta/edit.html")
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        print("> " + str(request.POST['your_name']))
+        return HttpResponse('Form test')
+
+    else:
+        form = NameForm()
+
+    return render(request, 'beta/edit.html', {'form': form})
+
+@login_required(login_url='/login/')
+def edit_handler(request):
+    print("> edit handler")
+    return HttpResponse('Form test')
 
 @login_required(login_url='/login/')
 def outgoing(request):

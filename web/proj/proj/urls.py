@@ -26,6 +26,7 @@ urlpatterns = [
     path('incoming/', views.incoming, name='icoming'),
     path('profile/', views.profile, name='profile'),
     path('edit/', views.edit, name='edit'),
+    path('edit-handler/', views.edit_handler, name='edit_handler'),
 
     path('login/', authviews.LoginView.as_view(), name='login'),
     path('logout/', authviews.LogoutView.as_view(), name='logout'),
