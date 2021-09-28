@@ -35,6 +35,7 @@ urlpatterns = [
     path('asyncDeleteOutgoing/', views.async_delete_outgoing),
     path('asyncDeleteIncoming/', views.async_delete_incoming),
     path('asyncAcceptIncoming/', views.async_accept_incoming),
+    path('asyncDeleteFriend/', views.async_delete_friend),
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]

@@ -23,6 +23,8 @@ import os
 # - delete friends
 # - check 0 incoming and outgoing
 # - i18n
+# - logout
+# - full profile
 
 TRUSTMAP = ["not checked", "on check", "checked"]
  
@@ -159,10 +161,9 @@ def friends(request):
         data = {"friends": friends_list, \
         "caption": _("Friends"), \
         "btn_text": _("Delete"), \
-        "action": "delete_outgoing", \
-        "alt_btn": False}
+        "action": "delete_friend"}
         # print(data)
-        return render(request, "shortcards.html", context=data)
+        return render(request, "fullcards.html", context=data)
     else:
         return render(request, "empty_list.html")
 
@@ -192,6 +193,13 @@ def async_accept_incoming(request):
     p = FriendsT.objects.get(user2=request.user.username, user1=target, applied=False)
     p.applied = True
     p.save()
+
+@login_required(login_url='/login/')
+def async_delete_friend(request):
+    target=request.POST['target']
+    print("> delete in view")
+    FriendsT.objects.filter(user2=request.user.username, user1=target, applied=True).delete()
+    FriendsT.objects.filter(user1=request.user.username, user2=target, applied=True).delete()
 
 def set_language(request):
     if not settings.LANGUAGE_SESSION_KEY in request.session:

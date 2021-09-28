@@ -14,6 +14,8 @@ function send_ajax(target, action) {
         url = "http://localhost:8000/asyncDeleteIncoming/"
     } else if(action == "accept_incoming"){
         url = "http://localhost:8000/asyncAcceptIncoming/"
+    } else if(action == "delete_friend"){
+        url = "http://localhost:8000/asyncDeleteFriend/"
     }
 
     $.ajax({
