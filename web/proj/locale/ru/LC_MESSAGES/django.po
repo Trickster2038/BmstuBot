@@ -62,7 +62,7 @@ msgstr "Сменить язык"
 
 #: templates/base.html:47
 msgid "Exit"
-msgstr ""
+msgstr "Выход"
 
 #: templates/base.html:61
 msgid "Outgoing"

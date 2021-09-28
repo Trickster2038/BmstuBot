@@ -10,6 +10,10 @@ function send_ajax(target, action) {
 
     if(action == 'delete_outgoing') {
         url = "http://localhost:8000/asyncDeleteOutgoing/"
+    } else if(action == 'delete_incoming'){
+        url = "http://localhost:8000/asyncDeleteIncoming/"
+    } else if(action == "accept_incoming"){
+        url = "http://localhost:8000/asyncAcceptIncoming/"
     }
 
     $.ajax({
@@ -20,7 +24,6 @@ function send_ajax(target, action) {
         target: target
     },
     success: function() {
-        // alert("pocohuntus")
         console.log("ajax delivered")
     }
 })

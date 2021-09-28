@@ -1,4 +1,4 @@
-from beta.models import Friendship, People, Person, PersonT, FriendsT, FacultiesT
+from beta.models import PersonT, FriendsT, FacultiesT
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import connection,transaction
@@ -15,10 +15,16 @@ from django.contrib.auth.decorators import login_required
 from .forms import NameForm
 
 from django.utils.translation import gettext as _
+from django.db.models import Q
 
 import os
 
-TRUSTMAP = [_("not checked"), _("on check"), _("checked")]
+# TODO
+# - delete friends
+# - check 0 incoming and outgoing
+# - i18n
+
+TRUSTMAP = ["not checked", "on check", "checked"]
  
 def index(request):
     return HttpResponse('Hello World! \
@@ -28,32 +34,12 @@ def index(request):
         <br/><a href="profile/">Profile</a>\
         <br/><a href="outgoing/">Outgoing</a>')
 
-def test(request):
-    return render(request, "beta/test.html")
-
-def friends(request):
-    cursor = connection.cursor()
-    cursor.execute("UPDATE users set surname[1]='Козлов3' where surname[1]='Козлов2'")
-    transaction.commit()
-
-    for p in People.objects.raw('SELECT id, surname FROM users'):
-        print("id:" + str(p.id))
-        # print("id:" + str(p.id2))
-        print("surname:" + str(p.surname))
-    p = People.objects.raw('SELECT id, surname FROM users')
-    friends = []
-    for x in p:
-        friends.append(str(x.surname[0]))
-    data = {"friends": friends}
-
-    return render(request, "beta/friends.html", context=data)
-
 @login_required(login_url='/login/')
 def profile(request):
-    print("session: " + request.user.username)
+    # print("session: " + request.user.username)
     p = PersonT.objects.get(id=request.user.username)
 
-    p.trusted = TRUSTMAP[p.trusted]
+    p.trusted = _(TRUSTMAP[p.trusted])
     p.faculty = FacultiesT.objects.get(id=p.faculty).name
     p.department = p.faculty + str(p.department)
 
@@ -63,7 +49,7 @@ def profile(request):
     me = {"rowdata": p, 
         "avatar": fl, \
         "path_avatar": 'avatars/' + str(request.user.username) + '.jpg'}
-    print(me)
+    # print(me)
 
     data = {"person": me}
     return render(request, "beta/profile.html", context=data)
@@ -81,21 +67,19 @@ def edit(request):
 
     return render(request, 'beta/edit.html', {'form': form})
 
-@login_required(login_url='/login/')
-def edit_handler(request):
-    print("> edit handler")
-    return HttpResponse('Form test')
+# @login_required(login_url='/login/')
+# def edit_handler(request):
+#     print("> edit handler")
+#     return HttpResponse('Form test')
 
 @login_required(login_url='/login/')
 def outgoing(request):
-    # print(request.session[settings.LANGUAGE_SESSION_KEY])
     friends = FriendsT.objects.filter(user1=request.user.username, applied=False)
     friends_list = []
-    # print("> " + str(settings.BASE_DIR))
     for x in friends:
         p = PersonT.objects.get(id=x.user2)
 
-        p.trusted = TRUSTMAP[p.trusted]
+        p.trusted = _(TRUSTMAP[p.trusted])
         p.faculty = FacultiesT.objects.get(id=p.faculty).name
         p.department = p.faculty + str(p.department)
 
@@ -107,40 +91,80 @@ def outgoing(request):
             "path_avatar": 'avatars/' + str(x.user2) + '.jpg'})
 
     data = {"friends": friends_list, \
-    "caption": "Outgoing", \
-    "btn_style": "btn-outline-danger", \
+    "caption": _("Outgoing"), \
     "btn_text": _("Cancel"), \
-    "action": "delete_outgoing"}
-    print(data)
+    "action": "delete_outgoing", \
+    "alt_btn": False}
+    # print(data)
     return render(request, "shortcards.html", context=data)
 
 @login_required(login_url='/login/')
 def incoming(request):
-    # print(request.session[settings.LANGUAGE_SESSION_KEY])
     friends = FriendsT.objects.filter(user2=request.user.username, applied=False)
     friends_list = []
-    # print("> " + str(settings.BASE_DIR))
     for x in friends:
         p = PersonT.objects.get(id=x.user1)
 
-        p.trusted = TRUSTMAP[p.trusted]
+        p.trusted = _(TRUSTMAP[p.trusted])
         p.faculty = FacultiesT.objects.get(id=p.faculty).name
         p.department = p.faculty + str(p.department)
 
         picture = finders.find('avatars/' + str(x.user1) + '.jpg')
         fl = (picture != None)
-        # print("> " + url + " " + str(fl) + " " + str(gg)) 
         friends_list.append({"rowdata": p, 
             "avatar": fl, \
             "path_avatar": 'avatars/' + str(x.user1) + '.jpg'})
 
     data = {"friends": friends_list, \
-    "caption": "Incoming", \
-    "btn_style": "btn-outline-danger", \
+    "caption": _("Incoming"), \
     "btn_text": _("Discard"), \
-    "action": "delete_incoming"}
-    print(data)
+    "action": "delete_incoming", \
+    "alt_btn": True, \
+    "alt_btn_text": _("Accept"), \
+    "alt_action": "accept_incoming"}
+    # print(data)
     return render(request, "shortcards.html", context=data)
+
+@login_required(login_url='/login/')
+def friends(request):
+    friends1 = FriendsT.objects.filter(user1=request.user.username, applied=True)
+    friends2 = FriendsT.objects.filter(user2=request.user.username, applied=True)
+    if friends1.count() + friends2.count() != 0:
+        friends_list = []
+        for x in friends1:
+            p = PersonT.objects.get(id=x.user2)
+
+            p.trusted = _(TRUSTMAP[p.trusted])
+            p.faculty = FacultiesT.objects.get(id=p.faculty).name
+            p.department = p.faculty + str(p.department)
+
+            picture = finders.find('avatars/' + str(x.user2) + '.jpg')
+            fl = (picture != None)
+            friends_list.append({"rowdata": p, 
+                "avatar": fl, \
+                "path_avatar": 'avatars/' + str(x.user2) + '.jpg'})
+        for x in friends2:
+            p = PersonT.objects.get(id=x.user1)
+
+            p.trusted = _(TRUSTMAP[p.trusted])
+            p.faculty = FacultiesT.objects.get(id=p.faculty).name
+            p.department = p.faculty + str(p.department)
+
+            picture = finders.find('avatars/' + str(x.user1) + '.jpg')
+            fl = (picture != None)
+            friends_list.append({"rowdata": p, 
+                "avatar": fl, \
+                "path_avatar": 'avatars/' + str(x.user1) + '.jpg'})
+
+        data = {"friends": friends_list, \
+        "caption": _("Friends"), \
+        "btn_text": _("Delete"), \
+        "action": "delete_outgoing", \
+        "alt_btn": False}
+        # print(data)
+        return render(request, "shortcards.html", context=data)
+    else:
+        return render(request, "empty_list.html")
 
 def asyncview(request):
     print("> ajax test view")
@@ -152,8 +176,22 @@ def asyncview(request):
 @login_required(login_url='/login/')
 def async_delete_outgoing(request):
     target=request.POST['target']
-    print("> delete view")
+    print("> delete out view")
     FriendsT.objects.filter(user1=request.user.username, user2=target, applied=False).delete()
+
+@login_required(login_url='/login/')
+def async_delete_incoming(request):
+    target=request.POST['target']
+    print("> delete in view")
+    FriendsT.objects.filter(user2=request.user.username, user1=target, applied=False).delete()
+
+@login_required(login_url='/login/')
+def async_accept_incoming(request):
+    target=request.POST['target']
+    print("> delete in view")
+    p = FriendsT.objects.get(user2=request.user.username, user1=target, applied=False)
+    p.applied = True
+    p.save()
 
 def set_language(request):
     if not settings.LANGUAGE_SESSION_KEY in request.session:

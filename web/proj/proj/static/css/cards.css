@@ -18,9 +18,7 @@ div.action {
 }
 button.action {
     width: 100%;
-}
-a.action {
-    width: 100%;
+    margin-top: 8px;
 }
 p {
     margin-bottom: 8px;

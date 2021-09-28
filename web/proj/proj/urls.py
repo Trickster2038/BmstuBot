@@ -15,27 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as authviews
-#from django.contrib.auth.views import logout
 from django.urls import path, include
 from beta import views
 
 urlpatterns = [
-    path('test/', views.test, name='test'),
-    path('friends/', views.friends, name='friends'),
     path('outgoing/', views.outgoing, name='outgoing'),
     path('incoming/', views.incoming, name='icoming'),
+    path('friends/', views.friends, name='friends'),
     path('profile/', views.profile, name='profile'),
     path('edit/', views.edit, name='edit'),
-    path('edit-handler/', views.edit_handler, name='edit_handler'),
+    # path('edit-handler/', views.edit_handler, name='edit_handler'),
 
     path('login/', authviews.LoginView.as_view(), name='login'),
     path('logout/', authviews.LogoutView.as_view(), name='logout'),
     path('', views.index, name='home'),
-    # path('accounts/', include('django.contrib.auth.urls')), 
     path('admin/', admin.site.urls),
     path('asyncview/', views.asyncview),
 
     path('asyncDeleteOutgoing/', views.async_delete_outgoing),
+    path('asyncDeleteIncoming/', views.async_delete_incoming),
+    path('asyncAcceptIncoming/', views.async_accept_incoming),
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]

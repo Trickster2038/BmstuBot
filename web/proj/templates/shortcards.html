@@ -34,8 +34,16 @@
 
             <p>{% trans 'Trusted' %}: {{ person.rowdata.trusted }}<p>
 
+            {% if alt_btn %}
             <div class="action">
-                <button class="btn {{ btn_style }} action" 
+                <button class="btn btn-outline-primary action" 
+                onclick="send_ajax({{ person.rowdata.id}}, '{{ alt_action }}')">
+                {{ alt_btn_text }}</button>
+            </div>
+            {% endif %}
+
+            <div class="action">
+                <button class="btn btn-outline-danger action" 
                 onclick="send_ajax({{ person.rowdata.id}}, '{{ action }}')">
                 {{ btn_text }}</button>
             </div>
