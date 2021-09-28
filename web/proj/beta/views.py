@@ -14,6 +14,8 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import NameForm
 
+from django.utils.translation import gettext as _
+
 import os
 
 
@@ -109,7 +111,7 @@ def outgoing(request):
     data = {"friends": friends_list, \
     "caption": "Outgoing", \
     "btn_style": "btn-outline-danger", \
-    "btn_text": "Cancel", \
+    "btn_text": _("Cancel"), \
     "action": "delete_outgoing"}
     print(data)
     return render(request, "shortcards.html", context=data)
@@ -138,7 +140,7 @@ def incoming(request):
     data = {"friends": friends_list, \
     "caption": "Incoming", \
     "btn_style": "btn-outline-danger", \
-    "btn_text": "Discard", \
+    "btn_text": _("Discard"), \
     "action": "delete_incoming"}
     print(data)
     return render(request, "shortcards.html", context=data)

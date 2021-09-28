@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-18 17:34+0300\n"
+"POT-Creation-Date: 2021-09-28 12:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,26 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\templates\shortcards.html:31
+#: beta/views.py:114
+msgid "Cancel"
+msgstr "Отменить"
+
+#: beta/views.py:143
+msgid "Discard"
+msgstr "Отказать"
+
+#: templates/beta/profile.html:37 templates/shortcards.html:31
 msgid "Department"
 msgstr "Кафедра"
+
+#: templates/shortcards.html:32
+msgid "Course"
+msgstr "Курс"
+
+#: templates/shortcards.html:33
+msgid "Bio"
+msgstr "О себе"
+
+#: templates/shortcards.html:35
+msgid "Trusted"
+msgstr "Модерация"
