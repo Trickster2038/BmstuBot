@@ -1,4 +1,9 @@
 from django import forms
 
+COURSE_CHOICES = [('1', '1'), ('2', '2'), ('3', '3'),\
+('4', '4'), ('5', '5'), ('6', '6')]
+
 class NameForm(forms.Form):
-    your_name = forms.CharField(label='Your name', max_length=100)
+    name = forms.CharField(label='Name', max_length=100)
+    surname = forms.CharField(label='Surname', max_length=100)
+    course = forms.ChoiceField(widget=forms.RadioSelect, choices=COURSE_CHOICES)

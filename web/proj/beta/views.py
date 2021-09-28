@@ -71,10 +71,11 @@ def profile(request):
 def edit(request):
     if request.method == 'POST':
         form = NameForm(request.POST)
-        print("> " + str(request.POST['your_name']))
+        print("> " + str(request.POST['name']))
         return HttpResponse('Form test')
 
     else:
+        # initial={'tank': 123}
         form = NameForm()
 
     return render(request, 'beta/edit.html', {'form': form})
