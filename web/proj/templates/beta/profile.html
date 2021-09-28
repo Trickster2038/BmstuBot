@@ -35,13 +35,13 @@
 			<p class="name"> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
 			<hr/>
 			<p>{% trans 'Department' %}: {{ person.rowdata.department }}</p>
-			<p>Course: {{ person.rowdata.course }}</p>
-			<p>Bio: {{ person.rowdata.bio }}</p>
+			<p>{% trans 'Course' %}: {{ person.rowdata.course }}</p>
+			<p>{% trans 'Bio' %}: {{ person.rowdata.bio }}</p>
 
-			<p>Trusted: {{ person.rowdata.trusted }}<p>
+			<p>{% trans 'Trusted' %}: {{ person.rowdata.trusted }}<p>
 				<div class="action">
 					<a class="btn btn-outline-primary action" href="/edit/" id="edit">
-				Edit </a>
+				{% trans 'Edit' %} </a>
 			</div>
 		</div>
 	</div>

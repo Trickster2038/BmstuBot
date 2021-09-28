@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 12:19+0000\n"
+"POT-Creation-Date: 2021-09-28 13:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,26 +20,82 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: beta/views.py:114
+#: beta/forms.py:8
+msgid "Name"
+msgstr "Имя"
+
+#: beta/forms.py:9
+msgid "Surname"
+msgstr "Фамилия"
+
+#: beta/views.py:21
+msgid "not checked"
+msgstr "Не проверен"
+
+#: beta/views.py:21
+msgid "on check"
+msgstr "На проверке"
+
+#: beta/views.py:21
+msgid "checked"
+msgstr "Проверен"
+
+#: beta/views.py:112
 msgid "Cancel"
 msgstr "Отменить"
 
-#: beta/views.py:143
+#: beta/views.py:140
 msgid "Discard"
 msgstr "Отказать"
+
+#: templates/base.html:26
+msgid "Info.Portal"
+msgstr "Инфопортал 'Наставник'"
+
+#: templates/base.html:39
+msgid "Account"
+msgstr "Аккаунт"
+
+#: templates/base.html:43
+msgid "Switch Locale"
+msgstr "Сменить язык"
+
+#: templates/base.html:47
+msgid "Exit"
+msgstr ""
+
+#: templates/base.html:61
+msgid "Outgoing"
+msgstr "Исходящие"
+
+#: templates/base.html:62
+msgid "Incoming"
+msgstr "Входящие"
+
+#: templates/base.html:63
+msgid "Friends"
+msgstr "Друзья"
+
+#: templates/base.html:64
+msgid "Search"
+msgstr "Поиск"
 
 #: templates/beta/profile.html:37 templates/shortcards.html:31
 msgid "Department"
 msgstr "Кафедра"
 
-#: templates/shortcards.html:32
+#: templates/beta/profile.html:38 templates/shortcards.html:32
 msgid "Course"
 msgstr "Курс"
 
-#: templates/shortcards.html:33
+#: templates/beta/profile.html:39 templates/shortcards.html:33
 msgid "Bio"
 msgstr "О себе"
 
-#: templates/shortcards.html:35
+#: templates/beta/profile.html:41 templates/shortcards.html:35
 msgid "Trusted"
 msgstr "Модерация"
+
+#: templates/beta/profile.html:44
+msgid "Edit"
+msgstr "Изменить"

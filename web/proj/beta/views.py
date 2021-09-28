@@ -18,7 +18,7 @@ from django.utils.translation import gettext as _
 
 import os
 
-
+TRUSTMAP = [_("not checked"), _("on check"), _("checked")]
  
 def index(request):
     return HttpResponse('Hello World! \
@@ -50,11 +50,10 @@ def friends(request):
 
 @login_required(login_url='/login/')
 def profile(request):
-    trustmap = ["no", "on check", "yes"]
     print("session: " + request.user.username)
     p = PersonT.objects.get(id=request.user.username)
 
-    p.trusted = trustmap[p.trusted]
+    p.trusted = TRUSTMAP[p.trusted]
     p.faculty = FacultiesT.objects.get(id=p.faculty).name
     p.department = p.faculty + str(p.department)
 
@@ -92,12 +91,11 @@ def outgoing(request):
     # print(request.session[settings.LANGUAGE_SESSION_KEY])
     friends = FriendsT.objects.filter(user1=request.user.username, applied=False)
     friends_list = []
-    trustmap = ["no", "on check", "yes"]
     # print("> " + str(settings.BASE_DIR))
     for x in friends:
         p = PersonT.objects.get(id=x.user2)
 
-        p.trusted = trustmap[p.trusted]
+        p.trusted = TRUSTMAP[p.trusted]
         p.faculty = FacultiesT.objects.get(id=p.faculty).name
         p.department = p.faculty + str(p.department)
 
@@ -121,12 +119,11 @@ def incoming(request):
     # print(request.session[settings.LANGUAGE_SESSION_KEY])
     friends = FriendsT.objects.filter(user2=request.user.username, applied=False)
     friends_list = []
-    trustmap = ["no", "on check", "yes"]
     # print("> " + str(settings.BASE_DIR))
     for x in friends:
         p = PersonT.objects.get(id=x.user1)
 
-        p.trusted = trustmap[p.trusted]
+        p.trusted = TRUSTMAP[p.trusted]
         p.faculty = FacultiesT.objects.get(id=p.faculty).name
         p.department = p.faculty + str(p.department)
 
