@@ -1,18 +1,50 @@
-{% extends  'fullcard.html' %}
+{% extends  'base.html' %}
+{% load static %}
 {% load i18n %}
 
-{% block upper %}
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cards.css' %}"/>
 <style type="text/css">
 #header {
 	margin-top: 16px;
 	margin-bottom: 16px;
 }
+#edit {
+	width: 100%;
+}
 </style>
+
+
+
 <div class="card" id="header">
 	<h1 align="center" class="card-body">Profile</h1>
 </div>
 <p>Hi {{ user.username }}!</p>
-{% endblock %}
 
-{% block lower %}
+<div>
+	<div class="card shortcard" id="card-{{ person.rowdata.id }}">
+		<div class="card-body">
+			<div class="avatar">
+				{% if person.avatar %}
+				<img class="avatar" src="{% static person.path_avatar %}">
+				{% else %}
+				<img class="avatar" src="{% static  'default_avatar.jpg'%}">
+				{% endif %}
+			</div>
+			<hr/>
+			<p class="name"> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
+			<hr/>
+			<p>{% trans 'Department' %}: {{ person.rowdata.department }}</p>
+			<p>Course: {{ person.rowdata.course }}</p>
+			<p>Bio: {{ person.rowdata.bio }}</p>
+
+			<p>Trusted: {{ person.rowdata.trusted }}<p>
+				<div class="action">
+					<a class="btn btn-outline-primary action" href="/edit/" id="edit">
+				Edit </a>
+			</div>
+		</div>
+	</div>
+</div>
+
 {% endblock %}

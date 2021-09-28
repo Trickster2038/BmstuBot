@@ -13,6 +13,8 @@ from django.contrib.staticfiles import finders
 from django.contrib.auth.decorators import login_required
 
 import os
+
+
  
 def index(request):
     return HttpResponse('Hello World! \
@@ -44,11 +46,28 @@ def friends(request):
 
 @login_required(login_url='/login/')
 def profile(request):
+    trustmap = ["no", "on check", "yes"]
     print("session: " + request.user.username)
-    me = PersonT.objects.get(id=request.user.username)
+    p = PersonT.objects.get(id=request.user.username)
+
+    p.trusted = trustmap[p.trusted]
+    p.faculty = FacultiesT.objects.get(id=p.faculty).name
+    p.department = p.faculty + str(p.department)
+
+    picture = finders.find('avatars/' + str(request.user.username) + '.jpg')
+    fl = (picture != None)
+
+    me = {"rowdata": p, 
+        "avatar": fl, \
+        "path_avatar": 'avatars/' + str(request.user.username) + '.jpg'}
     print(me)
+
     data = {"person": me}
     return render(request, "beta/profile.html", context=data)
+
+@login_required(login_url='/login/')
+def edit(request):
+    return render(request, "beta/edit.html")
 
 @login_required(login_url='/login/')
 def outgoing(request):
@@ -103,8 +122,8 @@ def incoming(request):
     data = {"friends": friends_list, \
     "caption": "Incoming", \
     "btn_style": "btn-outline-danger", \
-    "btn_text": "Cancel", \
-    "action": "delete_outgoing"}
+    "btn_text": "Discard", \
+    "action": "delete_incoming"}
     print(data)
     return render(request, "shortcards.html", context=data)
 
