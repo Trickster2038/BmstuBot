@@ -102,13 +102,8 @@ def friends(request):
                 "avatar": fl, \
                 "path_avatar": 'avatars/' + str(x.user1) + '.jpg'})
 
-        data = {"friends": friends_list, \
-        "caption": _("Friends"), \
-        "btn_text": _("Delete"), \
-        "action": "delete_friend",\
-        "alt_btn": False}
-        # print(data)
-        return render(request, "lists/fullcards.html", context=data)
+        data = {"friends": friends_list}
+        return render(request, "lists/friends.html", context=data)
     else:
         return render(request, "lists/empty_list.html")
 

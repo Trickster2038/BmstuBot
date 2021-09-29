@@ -16,7 +16,7 @@
 </style>
 
 <div class="card" id="header">
-    <h1 align="center" class="card-body">{{ caption }}</h1>
+    <h1 align="center" class="card-body">{% trans 'Friends' %}</h1>
 </div>
 
 {% for person in friends %}
@@ -60,8 +60,8 @@
 
             <div class="action">
                 <button class="btn btn-outline-danger action" 
-                onclick="send_ajax({{ person.rowdata.id}}, '{{ action }}')">
-                {{ btn_text }}</button>
+                onclick="send_ajax({{ person.rowdata.id}}, 'delete_friend')">
+                {% trans 'Delete' %}</button>
             </div>
         </div>
     </div>

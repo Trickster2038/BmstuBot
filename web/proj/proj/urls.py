@@ -32,11 +32,11 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('admin/', admin.site.urls),
 
-    path('asyncDeleteOutgoing/', asynchandlers.async_delete_outgoing),
-    path('asyncDeleteIncoming/', asynchandlers.async_delete_incoming),
-    path('asyncAcceptIncoming/', asynchandlers.async_accept_incoming),
-    path('asyncDeleteFriend/', asynchandlers.async_delete_friend),
-    path('asyncSubscribeRequest/', asynchandlers.async_subscribe_request),
+    path('asyncDeleteOutgoing/', asynchandlers.delete_outgoing),
+    path('asyncDeleteIncoming/', asynchandlers.delete_incoming),
+    path('asyncAcceptIncoming/', asynchandlers.accept_incoming),
+    path('asyncDeleteFriend/', asynchandlers.delete_friend),
+    path('asyncSubscribeRequest/', asynchandlers.subscribe_request),
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]

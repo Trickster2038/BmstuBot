@@ -20,9 +20,8 @@ import os
 
 
 # TODO
-# - full profile, edit, avataer, verify, delete, (moderator)
+# - full profile, edit, avatar, verify, delete, (moderator)
 # - less params for friends view
-# - rename async
  
 def index(request):
     return render(request, 'misc/root.html')
