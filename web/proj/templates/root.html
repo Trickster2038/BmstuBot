@@ -1,0 +1,37 @@
+{% extends  'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cards.css' %}"/>
+<style type="text/css">
+#header {
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+#edit {
+	width: 100%;
+}
+p {
+	margin: 8px;
+}
+</style>
+
+
+
+<div class="card" id="header">
+	<h1 align="center" class="card-body">{% trans 'Welcome' %}</h1>
+</div>
+<!-- <p>Hi {{ user.username }}!</p> -->
+
+<div>
+	<div class="card shortcard">
+		<div class="card-body">
+			<p>
+				{% trans 'TXT.Welcome' %}
+			</p>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

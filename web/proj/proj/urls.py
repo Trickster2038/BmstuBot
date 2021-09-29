@@ -27,7 +27,8 @@ urlpatterns = [
     # path('edit-handler/', views.edit_handler, name='edit_handler'),
 
     path('login/', authviews.LoginView.as_view(), name='login'),
-    path('logout/', authviews.LogoutView.as_view(), name='logout'),
+    # path('logout/', authviews.LogoutView.as_view(), name='logout'),
+    path('logout/', views.logout_view, name='logout'),
     path('', views.index, name='home'),
     path('admin/', admin.site.urls),
     path('asyncview/', views.asyncview),

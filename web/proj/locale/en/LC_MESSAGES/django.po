@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 15:18+0000\n"
+"POT-Creation-Date: 2021-09-29 15:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,122 +16,120 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: beta/forms.py:8
 msgid "Name"
-msgstr "Имя"
+msgstr ""
 
 #: beta/forms.py:9
 msgid "Surname"
-msgstr "Фамилия"
+msgstr ""
 
 #: beta/forms.py:10 templates/beta/profile.html:38 templates/fullcards.html:40
 #: templates/shortcards.html:32
 msgid "Course"
-msgstr "Курс"
+msgstr ""
 
 #: beta/views.py:36 beta/views.py:70 beta/views.py:100 beta/views.py:132
 msgid "not checked"
-msgstr "не проверен"
+msgstr ""
 
 #: beta/views.py:36 beta/views.py:70 beta/views.py:100 beta/views.py:132
 msgid "on check"
-msgstr "на проверке"
+msgstr ""
 
 #: beta/views.py:36 beta/views.py:70 beta/views.py:100 beta/views.py:132
 msgid "checked"
-msgstr "проверен"
+msgstr ""
 
 #: beta/views.py:86 templates/base.html:58
 msgid "Outgoing"
-msgstr "Исходящие"
+msgstr ""
 
 #: beta/views.py:87
 msgid "Cancel"
-msgstr "Отменить"
+msgstr ""
 
 #: beta/views.py:115 templates/base.html:59
 msgid "Incoming"
-msgstr "Входящие"
+msgstr ""
 
 #: beta/views.py:116
 msgid "Discard"
-msgstr "Отказать"
+msgstr ""
 
 #: beta/views.py:119
 msgid "Accept"
-msgstr "Принять"
+msgstr ""
 
 #: beta/views.py:159 templates/base.html:60
 msgid "Friends"
-msgstr "Друзья"
+msgstr ""
 
 #: beta/views.py:160
 msgid "Delete"
-msgstr "Удалить"
+msgstr ""
 
 #: templates/base.html:23 templates/base.html:28 templates/base_minimal.html:6
 #: templates/base_minimal.html:11
 msgid "Info.Portal"
-msgstr "Инфопортал 'Наставник'"
+msgstr ""
 
 #: templates/base.html:36
 msgid "Account"
-msgstr "Аккаунт"
+msgstr ""
 
 #: templates/base.html:40 templates/base_minimal.html:20
 msgid "Switch Locale"
-msgstr "Сменить язык"
+msgstr ""
 
 #: templates/base.html:44
 msgid "Exit"
-msgstr "Выход"
+msgstr ""
 
 #: templates/base.html:61
 msgid "TXT.Search"
-msgstr "Поиск"
+msgstr "Search"
 
 #: templates/base.html:62
 msgid "Safe search"
-msgstr "Безопасный поиск"
+msgstr "Safe search"
 
 #: templates/beta/edit.html:16
 msgid "Edit profile"
-msgstr "Редактировать профиль"
+msgstr ""
 
 #: templates/beta/profile.html:20
 msgid "Profile"
-msgstr "Профиль"
+msgstr ""
 
 #: templates/beta/profile.html:37 templates/fullcards.html:39
 #: templates/shortcards.html:31
 msgid "Department"
-msgstr "Кафедра"
+msgstr ""
 
 #: templates/beta/profile.html:39 templates/fullcards.html:41
 #: templates/shortcards.html:33
 msgid "Bio"
-msgstr "О себе"
+msgstr ""
 
 #: templates/beta/profile.html:41 templates/fullcards.html:43
 #: templates/shortcards.html:35
 msgid "Trusted"
-msgstr "Модерация"
+msgstr ""
 
 #: templates/beta/profile.html:44
 msgid "Edit"
-msgstr "Изменить"
+msgstr ""
 
 #: templates/empty_list.html:10
 msgid "List is empty"
-msgstr "Список пуст"
+msgstr ""
 
 #: templates/empty_list.html:11
 msgid "TXT.Empty_list"
-msgstr "Этот список пока пуск"
+msgstr "This list is empty at the moment"
 
 #: templates/fullcards.html:36
 msgid "ID"
@@ -143,24 +141,24 @@ msgstr ""
 
 #: templates/fullcards.html:45
 msgid "Moderator"
-msgstr "Модератор"
+msgstr ""
 
 #: templates/fullcards.html:53
 msgid "Curator"
-msgstr "Куратор"
+msgstr ""
 
 #: templates/registration/login.html:13
 msgid "Log in to your account"
-msgstr "Войдите в свой аккаунт"
+msgstr ""
 
 #: templates/registration/login.html:21
 msgid "Log in"
-msgstr "Войти"
+msgstr ""
 
 #: templates/root.html:23
 msgid "Welcome"
-msgstr "Добро пожаловать"
+msgstr ""
 
 #: templates/root.html:31
 msgid "TXT.Welcome"
-msgstr "Добро пожаловать на наш уютный сайт"
+msgstr "Welcome to our cozy site"

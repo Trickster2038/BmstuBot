@@ -8,21 +8,21 @@
 ul {
 	list-style-type: none;
 }
-input {
+input[type="text"] {
 	display: block;
 }
 </style>
 <div class="card" id="header">
-	<h1 align="center" class="card-body">Edit profile</h1>
+	<h1 align="center" class="card-body">{% trans 'Edit profile' %}</h1>
 </div>
 
 <div>
 	<div class="card shortcard" id="card-{{ person.rowdata.id }}">
 		<div class="card-body">
-			<form action="/edit/" method="post">
+			<form action="/edit/" method="post" class="form">
 				{% csrf_token %}
 				{{ form }}
-				<input type="submit" value="Submit">
+				<input type="submit" value="Submit" class="btn btn-outline-primary">
 			</form>
 		</div>
 	</div>
