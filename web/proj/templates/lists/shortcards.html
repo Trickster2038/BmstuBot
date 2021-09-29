@@ -42,11 +42,13 @@
             </div>
             {% endif %}
 
+            {% if neg_btn %}
             <div class="action">
                 <button class="btn btn-outline-danger action" 
                 onclick="send_ajax({{ person.rowdata.id}}, '{{ action }}')">
                 {{ btn_text }}</button>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

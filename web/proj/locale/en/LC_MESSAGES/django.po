@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 15:20+0000\n"
+"POT-Creation-Date: 2021-09-29 18:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,125 +26,140 @@ msgstr ""
 msgid "Surname"
 msgstr ""
 
-#: beta/forms.py:10 templates/beta/profile.html:38 templates/fullcards.html:40
-#: templates/shortcards.html:32
+#: beta/forms.py:10 templates/lists/fullcards.html:40
+#: templates/lists/shortcards.html:32 templates/profile/profile.html:38
 msgid "Course"
 msgstr ""
 
-#: beta/views.py:36 beta/views.py:70 beta/views.py:100 beta/views.py:132
+#: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
+#: beta/listviews.py:139 beta/views.py:37
 msgid "not checked"
 msgstr ""
 
-#: beta/views.py:36 beta/views.py:70 beta/views.py:100 beta/views.py:132
+#: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
+#: beta/listviews.py:139 beta/views.py:37
 msgid "on check"
 msgstr ""
 
-#: beta/views.py:36 beta/views.py:70 beta/views.py:100 beta/views.py:132
+#: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
+#: beta/listviews.py:139 beta/views.py:37
 msgid "checked"
 msgstr ""
 
-#: beta/views.py:86 templates/base.html:58
+#: beta/listviews.py:32 templates/base/base.html:58
 msgid "Outgoing"
 msgstr ""
 
-#: beta/views.py:87
+#: beta/listviews.py:33
 msgid "Cancel"
 msgstr ""
 
-#: beta/views.py:115 templates/base.html:59
+#: beta/listviews.py:62 templates/base/base.html:59
 msgid "Incoming"
 msgstr ""
 
-#: beta/views.py:116
+#: beta/listviews.py:63
 msgid "Discard"
 msgstr ""
 
-#: beta/views.py:119
+#: beta/listviews.py:66
 msgid "Accept"
 msgstr ""
 
-#: beta/views.py:159 templates/base.html:60
+#: beta/listviews.py:106 templates/base/base.html:60
 msgid "Friends"
 msgstr ""
 
-#: beta/views.py:160
+#: beta/listviews.py:107
 msgid "Delete"
 msgstr ""
 
-#: templates/base.html:23 templates/base.html:28 templates/base_minimal.html:6
-#: templates/base_minimal.html:11
-msgid "Info.Portal"
-msgstr ""
-
-#: templates/base.html:36
-msgid "Account"
-msgstr ""
-
-#: templates/base.html:40 templates/base_minimal.html:20
-msgid "Switch Locale"
-msgstr ""
-
-#: templates/base.html:44
-msgid "Exit"
-msgstr ""
-
-#: templates/base.html:61
+#: beta/listviews.py:156 templates/base/base.html:62
 msgid "TXT.Search"
 msgstr "Search"
 
-#: templates/base.html:62
+#: beta/listviews.py:157
+msgid "Subscribe"
+msgstr ""
+
+#: templates/base/base.html:23 templates/base/base.html:28
+#: templates/base/base_minimal.html:6 templates/base/base_minimal.html:11
+msgid "Info.Portal"
+msgstr ""
+
+#: templates/base/base.html:36
+msgid "Account"
+msgstr ""
+
+#: templates/base/base.html:40 templates/base/base_minimal.html:20
+msgid "Switch Locale"
+msgstr ""
+
+#: templates/base/base.html:44
+msgid "Exit"
+msgstr ""
+
+#: templates/base/base.html:64
 msgid "Safe search"
 msgstr "Safe search"
 
-#: templates/beta/edit.html:16
-msgid "Edit profile"
-msgstr ""
-
-#: templates/beta/profile.html:20
-msgid "Profile"
-msgstr ""
-
-#: templates/beta/profile.html:37 templates/fullcards.html:39
-#: templates/shortcards.html:31
-msgid "Department"
-msgstr ""
-
-#: templates/beta/profile.html:39 templates/fullcards.html:41
-#: templates/shortcards.html:33
-msgid "Bio"
-msgstr ""
-
-#: templates/beta/profile.html:41 templates/fullcards.html:43
-#: templates/shortcards.html:35
-msgid "Trusted"
-msgstr ""
-
-#: templates/beta/profile.html:44
-msgid "Edit"
-msgstr ""
-
-#: templates/empty_list.html:10
+#: templates/lists/empty_list.html:10
 msgid "List is empty"
 msgstr ""
 
-#: templates/empty_list.html:11
+#: templates/lists/empty_list.html:11
 msgid "TXT.Empty_list"
 msgstr "This list is empty at the moment"
 
-#: templates/fullcards.html:36
+#: templates/lists/fullcards.html:36
 msgid "ID"
 msgstr ""
 
-#: templates/fullcards.html:37
+#: templates/lists/fullcards.html:37
 msgid "Telegram"
 msgstr ""
 
-#: templates/fullcards.html:45
+#: templates/lists/fullcards.html:39 templates/lists/shortcards.html:31
+#: templates/profile/profile.html:37
+msgid "Department"
+msgstr ""
+
+#: templates/lists/fullcards.html:41 templates/lists/shortcards.html:33
+#: templates/profile/profile.html:39
+msgid "Bio"
+msgstr ""
+
+#: templates/lists/fullcards.html:43 templates/lists/shortcards.html:35
+#: templates/profile/profile.html:41
+msgid "Trusted"
+msgstr ""
+
+#: templates/lists/fullcards.html:45
 msgid "Moderator"
 msgstr ""
 
-#: templates/fullcards.html:53
+#: templates/lists/fullcards.html:53
 msgid "Curator"
+msgstr ""
+
+#: templates/misc/root.html:23
+msgid "Welcome"
+msgstr ""
+
+#: templates/misc/root.html:31
+msgid "TXT.Welcome"
+msgstr "Welcome to our cozy site"
+
+#: templates/profile/edit.html:16
+msgid "Edit profile"
+msgstr ""
+
+#: templates/profile/profile.html:20
+msgid "Profile"
+msgstr ""
+
+#: templates/profile/profile.html:44
+msgid "Edit"
 msgstr ""
 
 #: templates/registration/login.html:13
@@ -154,11 +169,3 @@ msgstr ""
 #: templates/registration/login.html:21
 msgid "Log in"
 msgstr ""
-
-#: templates/root.html:23
-msgid "Welcome"
-msgstr ""
-
-#: templates/root.html:31
-msgid "TXT.Welcome"
-msgstr "Welcome to our cozy site"

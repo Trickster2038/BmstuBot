@@ -20,10 +20,9 @@ import os
 
 
 # TODO
-# + i18n
-# - full profile, edit, delete, (moderator)
-# - search + safe
-# - separate asyncviews/handlers
+# - full profile, edit, avataer, verify, delete, (moderator)
+# - less params for friends view
+# - rename async
  
 def index(request):
     return render(request, 'misc/root.html')

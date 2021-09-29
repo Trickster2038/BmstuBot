@@ -58,8 +58,10 @@
           <a class="nav-link text-light" href="/outgoing/">{% trans 'Outgoing' %}</a>
           <a class="nav-link text-light" href="/incoming/">{% trans 'Incoming' %}</a>
           <a class="nav-link text-light" href="/friends/">{% trans 'Friends' %}</a>
-          <a class="nav-link text-light" href="/search/">{% trans 'TXT.Search' %}</a>
-          <a class="nav-link text-light" href="/search/">{% trans 'Safe search' %}</a>
+          <a class="nav-link text-light" href="/search?safe=false">
+          {% trans 'TXT.Search' %}</a>
+          <a class="nav-link text-light" href="/search?safe=true">
+          {% trans 'Safe search' %}</a>
         </nav>
       </div>
 

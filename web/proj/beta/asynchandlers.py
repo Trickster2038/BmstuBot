@@ -27,3 +27,11 @@ def async_delete_friend(request):
     print("> delete in view")
     FriendsT.objects.filter(user2=request.user.username, user1=target, applied=True).delete()
     FriendsT.objects.filter(user1=request.user.username, user2=target, applied=True).delete()
+
+@login_required(login_url='/login/')
+def async_subscribe_request(request):
+    # print("> subscribe")
+    target=request.POST['target']
+    msg = FriendsT(user1=request.user.username, user2=target, applied=False)
+    # print(msg)
+    msg.save()

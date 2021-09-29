@@ -22,6 +22,7 @@ urlpatterns = [
     path('outgoing/', listviews.outgoing, name='outgoing'),
     path('incoming/', listviews.incoming, name='icoming'),
     path('friends/', listviews.friends, name='friends'),
+    path('search/', listviews.search, name='search'),
 
     path('', views.index, name='home'),
     path('profile/', views.profile, name='profile'),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('asyncDeleteIncoming/', asynchandlers.async_delete_incoming),
     path('asyncAcceptIncoming/', asynchandlers.async_accept_incoming),
     path('asyncDeleteFriend/', asynchandlers.async_delete_friend),
+    path('asyncSubscribeRequest/', asynchandlers.async_subscribe_request),
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]
