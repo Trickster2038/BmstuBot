@@ -26,7 +26,7 @@ import os
 # - separate asyncviews/handlers
  
 def index(request):
-    return render(request, 'root.html')
+    return render(request, 'misc/root.html')
 
 @login_required(login_url='/login/')
 def profile(request):
@@ -46,7 +46,7 @@ def profile(request):
     # print(me)
 
     data = {"person": me}
-    return render(request, "beta/profile.html", context=data)
+    return render(request, "profile/profile.html", context=data)
 
 @login_required(login_url='/login/')
 def edit(request):
@@ -59,7 +59,7 @@ def edit(request):
         # initial={'tank': 123}
         form = NameForm()
 
-    return render(request, 'beta/edit.html', {'form': form})
+    return render(request, 'profile/edit.html', {'form': form})
 
 # def asyncview(request):
 #     print("> ajax test view")

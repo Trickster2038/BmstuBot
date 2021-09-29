@@ -32,9 +32,9 @@ def outgoing(request):
         "action": "delete_outgoing", \
         "alt_btn": False}
         # print(data)
-        return render(request, "shortcards.html", context=data)
+        return render(request, "lists/shortcards.html", context=data)
     else:
-        return render(request, "empty_list.html")
+        return render(request, "lists/empty_list.html")
 
 @login_required(login_url='/login/')
 def incoming(request):
@@ -63,9 +63,9 @@ def incoming(request):
         "alt_btn_text": _("Accept"), \
         "alt_action": "accept_incoming"}
         # print(data)
-        return render(request, "shortcards.html", context=data)
+        return render(request, "lists/shortcards.html", context=data)
     else:
-        return render(request, "empty_list.html")
+        return render(request, "lists/empty_list.html")
 
 @login_required(login_url='/login/')
 def friends(request):
@@ -104,6 +104,6 @@ def friends(request):
         "btn_text": _("Delete"), \
         "action": "delete_friend"}
         # print(data)
-        return render(request, "fullcards.html", context=data)
+        return render(request, "lists/fullcards.html", context=data)
     else:
-        return render(request, "empty_list.html")
+        return render(request, "lists/empty_list.html")
