@@ -16,27 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as authviews
 from django.urls import path, include
-from beta import views
+from beta import views, asynchandlers, listviews
 
 urlpatterns = [
-    path('outgoing/', views.outgoing, name='outgoing'),
-    path('incoming/', views.incoming, name='icoming'),
-    path('friends/', views.friends, name='friends'),
+    path('outgoing/', listviews.outgoing, name='outgoing'),
+    path('incoming/', listviews.incoming, name='icoming'),
+    path('friends/', listviews.friends, name='friends'),
+
+    path('', views.index, name='home'),
     path('profile/', views.profile, name='profile'),
     path('edit/', views.edit, name='edit'),
-    # path('edit-handler/', views.edit_handler, name='edit_handler'),
 
     path('login/', authviews.LoginView.as_view(), name='login'),
-    # path('logout/', authviews.LogoutView.as_view(), name='logout'),
     path('logout/', views.logout_view, name='logout'),
-    path('', views.index, name='home'),
     path('admin/', admin.site.urls),
-    path('asyncview/', views.asyncview),
 
-    path('asyncDeleteOutgoing/', views.async_delete_outgoing),
-    path('asyncDeleteIncoming/', views.async_delete_incoming),
-    path('asyncAcceptIncoming/', views.async_accept_incoming),
-    path('asyncDeleteFriend/', views.async_delete_friend),
+    path('asyncDeleteOutgoing/', asynchandlers.async_delete_outgoing),
+    path('asyncDeleteIncoming/', asynchandlers.async_delete_incoming),
+    path('asyncAcceptIncoming/', asynchandlers.async_accept_incoming),
+    path('asyncDeleteFriend/', asynchandlers.async_delete_friend),
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]
