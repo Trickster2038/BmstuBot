@@ -1,6 +1,6 @@
 from beta.models import PersonT, FriendsT, FacultiesT
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 from django.shortcuts import redirect
 from django.conf import settings
@@ -20,7 +20,7 @@ import os
 
 
 # TODO
-# - full profile, edit, avatar, verify, delete, (moderator)
+# - edit, avatar, verify, delete, (moderator)
  
 def index(request):
     return render(request, 'misc/root.html')

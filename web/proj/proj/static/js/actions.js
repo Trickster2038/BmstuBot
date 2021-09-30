@@ -18,6 +18,8 @@ function send_ajax(target, action) {
         url = "http://localhost:8000/asyncDeleteFriend/"
     } else if(action == "send_subscribe_request"){
         url = "http://localhost:8000/asyncSubscribeRequest/"
+    } else if(action == "delete_profile"){
+        url = "http://localhost:8000/profileDelete/"
     }
 
     $.ajax({
@@ -53,6 +55,7 @@ function deleteProfile(){
     var r = confirm("Delete profile?");
     if (r == true) {
       console.log("confirmed");
+      send_ajax(0, "delete_profile")
       // $.get("http://localhost:8000/asyncDeleteProfile/",
       //   console.log("ajax delete send"));
     } else {

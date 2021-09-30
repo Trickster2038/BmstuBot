@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as authviews
 from django.urls import path, include
-from beta import views, asynchandlers, listviews
+from beta import views, asynchandlers, listviews, profilehandlers
 
 urlpatterns = [
     path('outgoing/', listviews.outgoing, name='outgoing'),
@@ -37,6 +37,9 @@ urlpatterns = [
     path('asyncAcceptIncoming/', asynchandlers.accept_incoming),
     path('asyncDeleteFriend/', asynchandlers.delete_friend),
     path('asyncSubscribeRequest/', asynchandlers.subscribe_request),
+
+    path('profileDelete/', profilehandlers.delete),
+    path('verify/', profilehandlers.verify),
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]
