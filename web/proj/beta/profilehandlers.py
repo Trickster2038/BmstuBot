@@ -13,21 +13,13 @@ def delete(request):
 @login_required(login_url='/login/')
 def verify(request):
     if request.method == 'POST':
-        form = ImageForm(request.POST)
-        user_id = request.user.username
-        print("> ImageForm"+ str(type(request.POST['image'])))
-        print("> ImageForm"+ str(request.FILES))
-        for x in request.FILES:
-            print("> ImageForm"+ str(x))
-
-        form = ImageForm(request.POST or None, request.FILES or None)
-        # form.save()
-        print("> ImageForm"+ str(form))
-        file_image = request.POST.get('image')
-        print("> ImageForm"+ str(file_image))
-        # file = open("sample_image.png", "wb")
-        # file.write(response.content)
-        # file.close()
+        form = ImageForm(request.POST, request.FILES)
+        print("> get form")
+        if form.is_valid():
+            print("> save image")
+            form.save()
+        else:
+            print("> form error")
         return HttpResponse('Form test')
 
     else:

@@ -29,5 +29,12 @@ class FacultiesT(models.Model):
     name = models.CharField(max_length=5)
     departments = models.IntegerField()
 
+class Image(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='verify', blank=True)
+
+    def __str__(self):
+        return self.title
+
 
 # Create your models here.

@@ -18,6 +18,9 @@ from django.contrib.auth import views as authviews
 from django.urls import path, include
 from beta import views, asynchandlers, listviews, profilehandlers
 
+from django.templatetags.static import static
+from django.conf import settings
+
 urlpatterns = [
     path('outgoing/', listviews.outgoing, name='outgoing'),
     path('incoming/', listviews.incoming, name='icoming'),
@@ -43,3 +46,6 @@ urlpatterns = [
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]
+
+# urlpatterns += static(settings.MEDIA_URL,\
+#                           document_root=settings.MEDIA_ROOT)
