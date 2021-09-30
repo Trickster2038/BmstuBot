@@ -1,4 +1,4 @@
-from beta.models import PersonT, FriendsT, FacultiesT
+from beta.models import PersonT, FriendsT, FacultiesT, UserImage
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import ImageForm
@@ -14,10 +14,15 @@ def delete(request):
 def verify(request):
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
+        # form.title = str(request.user.username)
         print("> get form")
         if form.is_valid():
             print("> save image")
-            form.save()
+            # form.folder = "verify"
+            # form.title = str(request.user.username)
+            # form.save()
+            img = UserImage(user=request.user.username, image=request.FILES['image'])
+            img.save()
         else:
             print("> form error")
         return HttpResponse('Form test')

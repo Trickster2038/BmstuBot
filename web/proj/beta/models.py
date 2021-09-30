@@ -30,11 +30,20 @@ class FacultiesT(models.Model):
     departments = models.IntegerField()
 
 class Image(models.Model):
-    title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='verify', blank=True)
+    def photo_path(instance, filename):
+        return "verify/" + instance.title + ".jpg"
 
-    def __str__(self):
-        return self.title
+    # user = models.ForeignKey(User, unique=False)
+    title = models.CharField(max_length=200)
+    # folder = models.CharField(max_length=200)
+    image = models.ImageField(upload_to=photo_path)
+
+class UserImage(models.Model):
+    def photo_path(instance, filename):
+        return "verify/" + str(instance.user) + ".jpg"
+
+    user = models.IntegerField()
+    image = models.ImageField(upload_to=photo_path)
 
 
 # Create your models here.
