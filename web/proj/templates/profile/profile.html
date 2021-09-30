@@ -4,13 +4,22 @@
 
 {% block main %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/cards.css' %}"/>
+<script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>
+<script>
+	var csrftoken = '{{ csrf_token }}';
+</script>
+<script type="text/javascript" src="{% static 'js/actions.js'%}"></script>
 <style type="text/css">
 #header {
 	margin-top: 16px;
 	margin-bottom: 16px;
 }
-#edit {
+.btn {
 	width: 100%;
+	margin-bottom: 8px;
+}
+.form-check-input {
+        margin: 8px;
 }
 </style>
 
@@ -34,17 +43,51 @@
 			<hr/>
 			<p class="name"> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
 			<hr/>
+			<p>{% trans 'ID' %}: {{ person.rowdata.id }}</p>
+			<p>{% trans 'Telegram' %}: @{{ person.rowdata.username }}</p>
+			<hr/>
 			<p>{% trans 'Department' %}: {{ person.rowdata.department }}</p>
 			<p>{% trans 'Course' %}: {{ person.rowdata.course }}</p>
 			<p>{% trans 'Bio' %}: {{ person.rowdata.bio }}</p>
 
 			<p>{% trans 'Trusted' %}: {{ person.rowdata.trusted }}<p>
+				<hr/>
+				<p>{% trans 'Moderator' %}: 
+					{% if person.rowdata.is_moderator %}
+					<input type="checkbox" class="form-check-input" checked disabled>
+					{% else %}
+					<input type="checkbox" class="form-check-input" disabled>
+					{% endif %}
+				</p>
+
+				<div>{% trans 'Curator' %}:
+					{% if person.rowdata.is_curator %}
+					<input type="checkbox" class="form-check-input" checked disabled>
+					{% else %}
+					<input type="checkbox" class="form-check-input" disabled>
+					{% endif %}
+				</div>
+
+				<br/>
+
 				<div class="action">
-					<a class="btn btn-outline-primary action" href="/edit/" id="edit">
-				{% trans 'Edit' %} </a>
+					<a class="btn btn-outline-primary action" href="/verify/">
+					{% trans 'Verify' %} </a>
+				</div>
+				<div class="action">
+					<a class="btn btn-outline-primary action" href="/avatar/">
+					{% trans 'Avatar' %} </a>
+				</div>
+				<div class="action">
+					<a class="btn btn-outline-primary action" href="/edit/">
+					{% trans 'Edit' %} </a>
+				</div>
+				<div class="action">
+					<button class="btn btn-outline-danger action" onclick="deleteProfile()">
+					{% trans 'Delete profile' %} </button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-{% endblock %}
+	{% endblock %}

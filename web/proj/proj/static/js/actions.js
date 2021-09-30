@@ -23,9 +23,9 @@ function send_ajax(target, action) {
     $.ajax({
         type: "POST",
         url: url,
-    data: { csrfmiddlewaretoken: csrftoken,   // < here 
-        state:"inactive", 
-        target: target
+        data: { csrfmiddlewaretoken: csrftoken,   // < here 
+            state:"inactive", 
+            target: target
     },
     success: function() {
         console.log("ajax delivered")
@@ -47,4 +47,23 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+function deleteProfile(){
+    var r = confirm("Delete profile?");
+    if (r == true) {
+      console.log("confirmed");
+      // $.get("http://localhost:8000/asyncDeleteProfile/",
+      //   console.log("ajax delete send"));
+    } else {
+      console.log("canceled")
+    }
+    // var iframe = document.createElement("IFRAME");
+    // iframe.setAttribute("src", 'data:text/plain,');
+    // document.documentElement.appendChild(iframe);
+    // if(window.frames[0].window.confirm("Are you sure?")){
+    //     // what to do if answer "YES"
+    // }else{
+    //     // what to do if answer "NO"
+    // }
 }

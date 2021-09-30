@@ -21,7 +21,6 @@ import os
 
 # TODO
 # - full profile, edit, avatar, verify, delete, (moderator)
-# - less params for friends view
  
 def index(request):
     return render(request, 'misc/root.html')
