@@ -1,4 +1,4 @@
-from beta.models import PersonT, FriendsT, FacultiesT
+from beta.models import PersonT, FriendsT, FacultiesT, UserImage
 from django.shortcuts import render
 from django.templatetags.static import static
 from django.contrib.staticfiles import finders
@@ -20,8 +20,9 @@ def outgoing(request):
             p.faculty = FacultiesT.objects.get(id=p.faculty).name
             p.department = p.faculty + str(p.department)
 
-            picture = finders.find('avatars/' + str(x.user2) + '.jpg')
-            fl = (picture != None)
+            fl = (UserImage.objects\
+                .filter(user=p.id, folder="avatars").count()\
+                > 0)
             # print("> " + url + " " + str(fl) + " " + str(gg)) 
             friends_list.append({"rowdata": p, 
                 "avatar": fl, \
@@ -51,8 +52,9 @@ def incoming(request):
             p.faculty = FacultiesT.objects.get(id=p.faculty).name
             p.department = p.faculty + str(p.department)
 
-            picture = finders.find('avatars/' + str(x.user1) + '.jpg')
-            fl = (picture != None)
+            fl = (UserImage.objects\
+                .filter(user=p.id, folder="avatars").count()\
+                > 0)
             friends_list.append({"rowdata": p, 
                 "avatar": fl, \
                 "path_avatar": 'avatars/' + str(x.user1) + '.jpg'})
@@ -84,8 +86,9 @@ def friends(request):
             p.faculty = FacultiesT.objects.get(id=p.faculty).name
             p.department = p.faculty + str(p.department)
 
-            picture = finders.find('avatars/' + str(x.user2) + '.jpg')
-            fl = (picture != None)
+            fl = (UserImage.objects\
+                .filter(user=p.id, folder="avatars").count()\
+                > 0)
             friends_list.append({"rowdata": p, 
                 "avatar": fl, \
                 "path_avatar": 'avatars/' + str(x.user2) + '.jpg'})
@@ -96,8 +99,9 @@ def friends(request):
             p.faculty = FacultiesT.objects.get(id=p.faculty).name
             p.department = p.faculty + str(p.department)
 
-            picture = finders.find('avatars/' + str(x.user1) + '.jpg')
-            fl = (picture != None)
+            fl = (UserImage.objects\
+                .filter(user=p.id, folder="avatars").count()\
+                > 0)
             friends_list.append({"rowdata": p, 
                 "avatar": fl, \
                 "path_avatar": 'avatars/' + str(x.user1) + '.jpg'})
@@ -139,8 +143,9 @@ def search(request):
             p.faculty = FacultiesT.objects.get(id=p.faculty).name
             p.department = p.faculty + str(p.department)
 
-            picture = finders.find('avatars/' + str(p.id) + '.jpg')
-            fl = (picture != None)
+            fl = (UserImage.objects\
+                .filter(user=p.id, folder="avatars").count()\
+                > 0)
             friends_list.append({"rowdata": p, 
                 "avatar": fl, \
                 "path_avatar": 'avatars/' + str(p.id) + '.jpg'})

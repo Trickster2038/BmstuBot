@@ -20,8 +20,8 @@ import os
 
 
 # TODO
-# - edit, avatar, verify, delete, (moderator)
-# - remove avatar before new upload
+# - edit, delete, (moderator)
+# - media sources
  
 def index(request):
     return render(request, 'misc/root.html')
