@@ -31,25 +31,19 @@ class FacultiesT(models.Model):
     name = models.CharField(max_length=5)
     departments = models.IntegerField()
 
-class Image(models.Model):
-    # def photo_path(instance, filename):
-    #     return "verify/" + instance.title + ".jpg"
-
-    # user = models.ForeignKey(User, unique=False)
-    # title = models.CharField(max_length=200)
-    # folder = models.CharField(max_length=200)
-    image = models.ImageField(upload_to="default/")
-
 class UserImage(models.Model):
     def photo_path(instance, filename):
-        return "verify/" + str(instance.user) + ".jpg"
-
-    def delete(self, *args, **kwargs):
-       os.remove(os.path.join(settings.MEDIA_ROOT, "verify/" + str(self.user) + ".jpg"))
-       super(UserImage,self).delete(*args,**kwargs)
-
+        return instance.folder + "/" + str(instance.user) + ".jpg"
     user = models.IntegerField()
     image = models.ImageField(upload_to=photo_path)
+    folder = models.CharField(max_length=10)
+    def delete(self, *args, **kwargs):
+       print("> gg")
+       os.remove(os.path.join(settings.MEDIA_ROOT, self.folder + "/" + str(self.user) + ".jpg"))
+       super(UserImage,self).delete(*args,**kwargs)
 
+class Image(models.Model):
+    image = models.ImageField(upload_to="default/")
+    n1 = models.IntegerField()
 
 # Create your models here.

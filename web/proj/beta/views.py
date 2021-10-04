@@ -1,4 +1,4 @@
-from beta.models import PersonT, FriendsT, FacultiesT
+from beta.models import PersonT, FriendsT, FacultiesT, UserImage
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 
@@ -37,6 +37,9 @@ def profile(request):
 
     picture = finders.find('avatars/' + str(request.user.username) + '.jpg')
     fl = (picture != None)
+
+    # x = UserAvatarImage.objects.get(user=request.user.username)
+    # print(str(x))
 
     me = {"rowdata": p, 
         "avatar": fl, \

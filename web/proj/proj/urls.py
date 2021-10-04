@@ -20,6 +20,11 @@ from beta import views, asynchandlers, listviews, profilehandlers
 
 from django.templatetags.static import static
 from django.conf import settings
+# import os
+# from django.conf.urls import url
+from django.conf.urls.static import static
+
+# SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 urlpatterns = [
     path('outgoing/', listviews.outgoing, name='outgoing'),
@@ -47,5 +52,13 @@ urlpatterns = [
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]
 
+if settings.DEBUG:
+     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 # urlpatterns += static(settings.MEDIA_URL,\
-#                           document_root=settings.MEDIA_ROOT)
+#                           {document_root:settings.MEDIA_ROOT})
+
+# sSITE_ROOT = os.path.realpath(os.path.dirname(__file__))  
+# urlpatterns += 
+    # url(r'^static/(?P<path>.*)$','django.views.static.serve',
+        # {'document_root': os.path.join(SITE_ROOT, 'static')})

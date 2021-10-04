@@ -35,7 +35,7 @@
 		<div class="card-body">
 			<div class="avatar">
 				{% if person.avatar %}
-				<img class="avatar" src="{% static person.path_avatar %}">
+				<img class="avatar" src="/media/avatars/{{ person.rowdata.id }}.jpg">
 				{% else %}
 				<img class="avatar" src="{% static  'default_avatar.jpg'%}">
 				{% endif %}
