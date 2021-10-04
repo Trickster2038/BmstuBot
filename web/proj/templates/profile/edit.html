@@ -11,18 +11,24 @@ ul {
 input[type="text"] {
 	display: block;
 }
+input.action {
+	width: 100%;
+    margin-top: 8px;
+}
 </style>
 <div class="card" id="header">
-	<h1 align="center" class="card-body">{% trans 'Edit profile' %}</h1>
+	<h1 align="center" class="card-body">{{ caption }}</h1>
 </div>
 
 <div>
-	<div class="card shortcard" id="card-{{ person.rowdata.id }}">
+	<div class="card shortcard">
 		<div class="card-body">
-			<form action="/edit/" method="post" class="form">
+			<form action="{{ action }}" method="post" class="form" enctype="multipart/form-data">
 				{% csrf_token %}
 				{{ form }}
-				<input type="submit" value="Submit" class="btn btn-outline-primary">
+				<div class="action">
+					<input type="submit" value="Submit" class="btn btn-outline-primary action">
+				</div>
 			</form>
 		</div>
 	</div>

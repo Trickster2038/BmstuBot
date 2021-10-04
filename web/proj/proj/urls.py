@@ -34,7 +34,6 @@ urlpatterns = [
 
     path('', views.index, name='home'),
     path('profile/', views.profile, name='profile'),
-    path('edit/', views.edit, name='edit'),
 
     path('login/', authviews.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
@@ -48,17 +47,11 @@ urlpatterns = [
 
     path('profileDelete/', profilehandlers.delete),
     path('verify/', profilehandlers.verify),
+    path('avatar/', profilehandlers.avatar),
+    path('edit/', profilehandlers.edit, name='edit'),
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]
 
 if settings.DEBUG:
      urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# urlpatterns += static(settings.MEDIA_URL,\
-#                           {document_root:settings.MEDIA_ROOT})
-
-# sSITE_ROOT = os.path.realpath(os.path.dirname(__file__))  
-# urlpatterns += 
-    # url(r'^static/(?P<path>.*)$','django.views.static.serve',
-        # {'document_root': os.path.join(SITE_ROOT, 'static')})

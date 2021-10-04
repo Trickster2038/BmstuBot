@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import ImageForm
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 
 @login_required(login_url='/login/')
 def delete(request):
@@ -11,16 +12,27 @@ def delete(request):
         return HttpResponse('delete profile')
 
 @login_required(login_url='/login/')
+def edit(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        print("> " + str(request.POST['name']))
+        return HttpResponse('Form test')
+
+    else:
+        # initial={'tank': 123}
+        form = NameForm()
+
+    return render(request, 'profile/edit.html', {'form': form})
+
+@login_required(login_url='/login/')
 def verify(request):
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         # form.title = str(request.user.username)
         print("> get form")
+        print(request.FILES.keys())
         if form.is_valid():
             print("> save image")
-            # form.folder = "verify"
-            # form.title = str(request.user.username)
-            # form.save()
             try:
                 p = UserImage.objects.filter(user=request.user.username, folder="verify")
                 for x in p:
@@ -33,10 +45,51 @@ def verify(request):
             img.save()
         else:
             print("> form error")
+            print(form.errors)
         return HttpResponse('Form test')
 
     else:
         # initial={'tank': 123}
         form = ImageForm()
 
-    return render(request, 'profile/verify.html', {'form': form})
+    return render(request, 'profile/edit.html', \
+        {'form': form, 'action': '/verify/', 'caption':_("Edit verification photo")})
+
+@login_required(login_url='/login/')
+def avatar(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        # form.title = str(request.user.username)
+        print("> get form")
+        print(request.FILES.keys())
+        # try:
+        #     form.save()
+        # except Exception as e:
+        #     print(e)
+        if form.is_valid():
+            try:
+                p = UserImage.objects.filter(user=request.user.username, folder="avatars")
+                for x in p:
+                    x.delete()
+            except:
+                print("no image")
+            # print(request.FILES.keys())
+            # print("p1")
+            # m = request.FILES['image']
+            # print("p2")
+            img = UserImage(user=request.user.username, \
+                folder="avatars", \
+                image=request.FILES['image'])
+            img.save()
+            print("> avatar save")
+        else:
+            print("> form error")
+            print(form.errors)
+        return HttpResponse('Form test')
+
+    else:
+        # initial={'tank': 123}
+        form = ImageForm()
+
+    return render(request, 'profile/edit.html', \
+        {'form': form, 'action': '/avatar/', 'caption':_("Edit avatar")})

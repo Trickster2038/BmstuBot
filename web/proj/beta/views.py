@@ -8,7 +8,7 @@ from django.conf import settings
 from django.templatetags.static import static
 from django.contrib.staticfiles import finders
 from django.contrib.auth.decorators import login_required
-from .forms import NameForm
+# from .forms import NameForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import logout
 import os
@@ -35,11 +35,12 @@ def profile(request):
     p.faculty = FacultiesT.objects.get(id=p.faculty).name
     p.department = p.faculty + str(p.department)
 
-    picture = finders.find('avatars/' + str(request.user.username) + '.jpg')
-    fl = (picture != None)
+    # picture = finders.find('avatars/' + str(request.user.username) + '.jpg')
+    # fl = (picture != None)
 
-    # x = UserAvatarImage.objects.get(user=request.user.username)
-    # print(str(x))
+    fl = (UserImage.objects\
+        .filter(user=request.user.username, folder="avatars").count()\
+        > 0)
 
     me = {"rowdata": p, 
         "avatar": fl, \
@@ -48,19 +49,6 @@ def profile(request):
 
     data = {"person": me}
     return render(request, "profile/profile.html", context=data)
-
-@login_required(login_url='/login/')
-def edit(request):
-    if request.method == 'POST':
-        form = NameForm(request.POST)
-        print("> " + str(request.POST['name']))
-        return HttpResponse('Form test')
-
-    else:
-        # initial={'tank': 123}
-        form = NameForm()
-
-    return render(request, 'profile/edit.html', {'form': form})
 
 # def asyncview(request):
 #     print("> ajax test view")
