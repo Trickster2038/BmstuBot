@@ -49,6 +49,7 @@ urlpatterns = [
     path('verify/', profilehandlers.verify),
     path('avatar/', profilehandlers.avatar),
     path('edit/', profilehandlers.edit, name='edit'),
+    path('switchCurator/', profilehandlers.switch_curator),
 
     path(r'setlanguage/', views.set_language, name='set_language'),
 ]

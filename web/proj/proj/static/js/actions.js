@@ -56,17 +56,8 @@ function deleteProfile(){
     if (r == true) {
       console.log("confirmed");
       send_ajax(0, "delete_profile")
-      // $.get("http://localhost:8000/asyncDeleteProfile/",
-      //   console.log("ajax delete send"));
     } else {
       console.log("canceled")
     }
-    // var iframe = document.createElement("IFRAME");
-    // iframe.setAttribute("src", 'data:text/plain,');
-    // document.documentElement.appendChild(iframe);
-    // if(window.frames[0].window.confirm("Are you sure?")){
-    //     // what to do if answer "YES"
-    // }else{
-    //     // what to do if answer "NO"
-    // }
+
 }

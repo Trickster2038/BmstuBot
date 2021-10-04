@@ -7,6 +7,13 @@ from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect
 
 @login_required(login_url='/login/')
+def switch_curator(request):
+    p = PersonT.objects.get(id=request.user.username)
+    p.is_curator = not p.is_curator 
+    p.save()
+    return HttpResponseRedirect("/profile/")
+
+@login_required(login_url='/login/')
 def delete(request):
     if request.method=="POST":
         print("profile delete handler")
@@ -43,6 +50,9 @@ def verify(request):
                 folder="verify", \
                 image=request.FILES['image'])
             img.save()
+            p = PersonT.objects.get(id=request.user.username)
+            p.trusted = 1
+            p.save()
         else:
             print("> form error")
             print(form.errors)
@@ -71,6 +81,9 @@ def avatar(request):
                 folder="avatars", \
                 image=request.FILES['image'])
             img.save()
+            p = PersonT.objects.get(id=request.user.username)
+            p.trusted = 0
+            p.save()
             print("> avatar save")
         else:
             print("> form error")
