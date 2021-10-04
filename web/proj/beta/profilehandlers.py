@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .forms import ImageForm
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
+from django.shortcuts import redirect
 
 @login_required(login_url='/login/')
 def delete(request):
@@ -28,7 +29,6 @@ def edit(request):
 def verify(request):
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
-        # form.title = str(request.user.username)
         print("> get form")
         print(request.FILES.keys())
         if form.is_valid():
@@ -46,10 +46,8 @@ def verify(request):
         else:
             print("> form error")
             print(form.errors)
-        return HttpResponse('Form test')
-
+        return HttpResponseRedirect("/profile/")
     else:
-        # initial={'tank': 123}
         form = ImageForm()
 
     return render(request, 'profile/edit.html', \
@@ -62,10 +60,6 @@ def avatar(request):
         # form.title = str(request.user.username)
         print("> get form")
         print(request.FILES.keys())
-        # try:
-        #     form.save()
-        # except Exception as e:
-        #     print(e)
         if form.is_valid():
             try:
                 p = UserImage.objects.filter(user=request.user.username, folder="avatars")
@@ -73,10 +67,6 @@ def avatar(request):
                     x.delete()
             except:
                 print("no image")
-            # print(request.FILES.keys())
-            # print("p1")
-            # m = request.FILES['image']
-            # print("p2")
             img = UserImage(user=request.user.username, \
                 folder="avatars", \
                 image=request.FILES['image'])
@@ -85,7 +75,7 @@ def avatar(request):
         else:
             print("> form error")
             print(form.errors)
-        return HttpResponse('Form test')
+        return HttpResponseRedirect("/profile/")
 
     else:
         # initial={'tank': 123}
