@@ -30,18 +30,9 @@ def index(request):
 def profile(request):
     # print("session: " + request.user.username)
     p = PersonT.objects.get(id=request.user.username)
-    trustmap = [_("not checked"), _("on check"), _("checked")]
-    p.trusted = _(trustmap[p.trusted])
-    p.faculty = FacultiesT.objects.get(id=p.faculty).name
-    p.department = p.faculty + str(p.department)
+    p = p.detail()
 
-    # picture = finders.find('avatars/' + str(request.user.username) + '.jpg')
-    # fl = (picture != None)
-
-    fl = (UserImage.objects\
-        .filter(user=request.user.username, folder="avatars").count()\
-        > 0)
-
+    fl = p.avatar_exist()
     me = {"rowdata": p, 
         "avatar": fl, \
         "path_avatar": 'avatars/' + str(request.user.username) + '.jpg'}

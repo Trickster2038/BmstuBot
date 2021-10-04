@@ -12,21 +12,9 @@ def outgoing(request):
     friends = FriendsT.objects.filter(user1=request.user.username, applied=False)
     if friends.count() != 0:
         friends_list = []
-        trustmap = [_("not checked"), _("on check"), _("checked")]
         for x in friends:
             p = PersonT.objects.get(id=x.user2)
-
-            p.trusted = _(trustmap[p.trusted])
-            p.faculty = FacultiesT.objects.get(id=p.faculty).name
-            p.department = p.faculty + str(p.department)
-
-            fl = (UserImage.objects\
-                .filter(user=p.id, folder="avatars").count()\
-                > 0)
-            # print("> " + url + " " + str(fl) + " " + str(gg)) 
-            friends_list.append({"rowdata": p, 
-                "avatar": fl, \
-                "path_avatar": 'avatars/' + str(x.user2) + '.jpg'})
+            p.append_to_list(friends_list)
 
         data = {"friends": friends_list, \
         "neg_btn": True, \
@@ -34,7 +22,6 @@ def outgoing(request):
         "btn_text": _("Cancel"), \
         "action": "delete_outgoing", \
         "alt_btn": False}
-        # print(data)
         return render(request, "lists/shortcards.html", context=data)
     else:
         return render(request, "lists/empty_list.html")
@@ -44,20 +31,9 @@ def incoming(request):
     friends = FriendsT.objects.filter(user2=request.user.username, applied=False)
     if friends.count() != 0:
         friends_list = []
-        trustmap = [_("not checked"), _("on check"), _("checked")]
         for x in friends:
             p = PersonT.objects.get(id=x.user1)
-
-            p.trusted = _(trustmap[p.trusted])
-            p.faculty = FacultiesT.objects.get(id=p.faculty).name
-            p.department = p.faculty + str(p.department)
-
-            fl = (UserImage.objects\
-                .filter(user=p.id, folder="avatars").count()\
-                > 0)
-            friends_list.append({"rowdata": p, 
-                "avatar": fl, \
-                "path_avatar": 'avatars/' + str(x.user1) + '.jpg'})
+            p.append_to_list(friends_list)
 
         data = {"friends": friends_list, \
         "neg_btn": True, \
@@ -81,30 +57,10 @@ def friends(request):
         trustmap = [_("not checked"), _("on check"), _("checked")]
         for x in friends1:
             p = PersonT.objects.get(id=x.user2)
-
-            p.trusted = _(trustmap[p.trusted])
-            p.faculty = FacultiesT.objects.get(id=p.faculty).name
-            p.department = p.faculty + str(p.department)
-
-            fl = (UserImage.objects\
-                .filter(user=p.id, folder="avatars").count()\
-                > 0)
-            friends_list.append({"rowdata": p, 
-                "avatar": fl, \
-                "path_avatar": 'avatars/' + str(x.user2) + '.jpg'})
+            p.append_to_list(friends_list)
         for x in friends2:
             p = PersonT.objects.get(id=x.user1)
-
-            p.trusted = _(trustmap[p.trusted])
-            p.faculty = FacultiesT.objects.get(id=p.faculty).name
-            p.department = p.faculty + str(p.department)
-
-            fl = (UserImage.objects\
-                .filter(user=p.id, folder="avatars").count()\
-                > 0)
-            friends_list.append({"rowdata": p, 
-                "avatar": fl, \
-                "path_avatar": 'avatars/' + str(x.user1) + '.jpg'})
+            p.append_to_list(friends_list)
 
         data = {"friends": friends_list}
         return render(request, "lists/friends.html", context=data)
@@ -135,20 +91,8 @@ def search(request):
 
     if friends.count() != 0:
         friends_list = []
-        trustmap = [_("not checked"), _("on check"), _("checked")]
         for p in friends:
-            # p = PersonT.objects.get(id=x.user1)
-
-            p.trusted = _(trustmap[p.trusted])
-            p.faculty = FacultiesT.objects.get(id=p.faculty).name
-            p.department = p.faculty + str(p.department)
-
-            fl = (UserImage.objects\
-                .filter(user=p.id, folder="avatars").count()\
-                > 0)
-            friends_list.append({"rowdata": p, 
-                "avatar": fl, \
-                "path_avatar": 'avatars/' + str(p.id) + '.jpg'})
+            p.append_to_list(friends_list)
 
         data = {"friends": friends_list, \
         "neg_btn": False, \
