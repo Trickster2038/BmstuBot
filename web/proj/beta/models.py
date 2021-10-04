@@ -1,4 +1,6 @@
 from django.db import models
+import os
+from django.conf import settings
 
 class PersonT(models.Model):
     id = models.AutoField(primary_key=True)
@@ -30,17 +32,21 @@ class FacultiesT(models.Model):
     departments = models.IntegerField()
 
 class Image(models.Model):
-    def photo_path(instance, filename):
-        return "verify/" + instance.title + ".jpg"
+    # def photo_path(instance, filename):
+    #     return "verify/" + instance.title + ".jpg"
 
     # user = models.ForeignKey(User, unique=False)
-    title = models.CharField(max_length=200)
+    # title = models.CharField(max_length=200)
     # folder = models.CharField(max_length=200)
-    image = models.ImageField(upload_to=photo_path)
+    image = models.ImageField(upload_to="default/")
 
 class UserImage(models.Model):
     def photo_path(instance, filename):
         return "verify/" + str(instance.user) + ".jpg"
+
+    def delete(self, *args, **kwargs):
+       os.remove(os.path.join(settings.MEDIA_ROOT, "verify/" + str(self.user) + ".jpg"))
+       super(UserImage,self).delete(*args,**kwargs)
 
     user = models.IntegerField()
     image = models.ImageField(upload_to=photo_path)

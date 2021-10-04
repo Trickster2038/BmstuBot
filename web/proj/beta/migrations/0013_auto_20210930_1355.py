@@ -22,6 +22,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='image',
             name='image',
-            field=models.ImageField(upload_to=beta.models.Image.photo_path),
+            field=models.ImageField(upload_to="/default"),
         ),
     ]

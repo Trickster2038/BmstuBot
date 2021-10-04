@@ -21,6 +21,7 @@ def verify(request):
             # form.folder = "verify"
             # form.title = str(request.user.username)
             # form.save()
+            UserImage.objects.get(user=request.user.username).delete()
             img = UserImage(user=request.user.username, image=request.FILES['image'])
             img.save()
         else:
