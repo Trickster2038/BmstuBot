@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 18:22+0000\n"
+"POT-Creation-Date: 2021-10-04 16:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,31 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: beta/forms.py:8
-msgid "Name"
-msgstr ""
-
-#: beta/forms.py:9
-msgid "Surname"
-msgstr ""
-
-#: beta/forms.py:10 templates/lists/fullcards.html:40
-#: templates/lists/shortcards.html:32 templates/profile/profile.html:38
-msgid "Course"
-msgstr ""
-
 #: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:139 beta/views.py:37
+#: beta/listviews.py:134 beta/views.py:33
 msgid "not checked"
 msgstr ""
 
 #: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:139 beta/views.py:37
+#: beta/listviews.py:134 beta/views.py:33
 msgid "on check"
 msgstr ""
 
 #: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:139 beta/views.py:37
+#: beta/listviews.py:134 beta/views.py:33
 msgid "checked"
 msgstr ""
 
@@ -66,20 +53,20 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: beta/listviews.py:106 templates/base/base.html:60
-msgid "Friends"
-msgstr ""
-
-#: beta/listviews.py:107
-msgid "Delete"
-msgstr ""
-
-#: beta/listviews.py:156 templates/base/base.html:62
+#: beta/listviews.py:151 templates/base/base.html:62
 msgid "TXT.Search"
 msgstr "Search"
 
-#: beta/listviews.py:157
+#: beta/listviews.py:152
 msgid "Subscribe"
+msgstr ""
+
+#: beta/profilehandlers.py:64
+msgid "Edit verification photo"
+msgstr ""
+
+#: beta/profilehandlers.py:98
+msgid "Edit avatar"
 msgstr ""
 
 #: templates/base/base.html:23 templates/base/base.html:28
@@ -92,11 +79,15 @@ msgid "Account"
 msgstr ""
 
 #: templates/base/base.html:40 templates/base/base_minimal.html:20
-msgid "Switch Locale"
-msgstr ""
+msgid "TXT.Switch_Locale"
+msgstr "Switch locale"
 
 #: templates/base/base.html:44
 msgid "Exit"
+msgstr ""
+
+#: templates/base/base.html:60 templates/lists/friends.html:19
+msgid "Friends"
 msgstr ""
 
 #: templates/base/base.html:64
@@ -111,35 +102,44 @@ msgstr ""
 msgid "TXT.Empty_list"
 msgstr "This list is empty at the moment"
 
-#: templates/lists/fullcards.html:36
+#: templates/lists/friends.html:36 templates/profile/profile.html:46
 msgid "ID"
 msgstr ""
 
-#: templates/lists/fullcards.html:37
+#: templates/lists/friends.html:37 templates/profile/profile.html:47
 msgid "Telegram"
 msgstr ""
 
-#: templates/lists/fullcards.html:39 templates/lists/shortcards.html:31
-#: templates/profile/profile.html:37
+#: templates/lists/friends.html:39 templates/lists/shortcards.html:31
+#: templates/profile/profile.html:49
 msgid "Department"
 msgstr ""
 
-#: templates/lists/fullcards.html:41 templates/lists/shortcards.html:33
-#: templates/profile/profile.html:39
+#: templates/lists/friends.html:40 templates/lists/shortcards.html:32
+#: templates/profile/profile.html:50
+msgid "Course"
+msgstr ""
+
+#: templates/lists/friends.html:41 templates/lists/shortcards.html:33
+#: templates/profile/profile.html:51
 msgid "Bio"
 msgstr ""
 
-#: templates/lists/fullcards.html:43 templates/lists/shortcards.html:35
-#: templates/profile/profile.html:41
+#: templates/lists/friends.html:43 templates/lists/shortcards.html:35
+#: templates/profile/profile.html:53
 msgid "Trusted"
 msgstr ""
 
-#: templates/lists/fullcards.html:45
+#: templates/lists/friends.html:45 templates/profile/profile.html:55
 msgid "Moderator"
 msgstr ""
 
-#: templates/lists/fullcards.html:53
+#: templates/lists/friends.html:53 templates/profile/profile.html:63
 msgid "Curator"
+msgstr ""
+
+#: templates/lists/friends.html:64
+msgid "Delete"
 msgstr ""
 
 #: templates/misc/root.html:23
@@ -150,16 +150,28 @@ msgstr ""
 msgid "TXT.Welcome"
 msgstr "Welcome to our cozy site"
 
-#: templates/profile/edit.html:16
-msgid "Edit profile"
-msgstr ""
-
-#: templates/profile/profile.html:20
+#: templates/profile/profile.html:29
 msgid "Profile"
 msgstr ""
 
-#: templates/profile/profile.html:44
+#: templates/profile/profile.html:75
+msgid "TXT.Switch_curator"
+msgstr "Switch curator mode"
+
+#: templates/profile/profile.html:80
+msgid "Verify"
+msgstr ""
+
+#: templates/profile/profile.html:84
+msgid "Avatar"
+msgstr ""
+
+#: templates/profile/profile.html:88
 msgid "Edit"
+msgstr ""
+
+#: templates/profile/profile.html:92
+msgid "Delete profile"
 msgstr ""
 
 #: templates/registration/login.html:13

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 18:22+0000\n"
+"POT-Creation-Date: 2021-10-04 16:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,31 +20,18 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: beta/forms.py:8
-msgid "Name"
-msgstr "Имя"
-
-#: beta/forms.py:9
-msgid "Surname"
-msgstr "Фамилия"
-
-#: beta/forms.py:10 templates/lists/fullcards.html:40
-#: templates/lists/shortcards.html:32 templates/profile/profile.html:38
-msgid "Course"
-msgstr "Курс"
-
 #: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:139 beta/views.py:37
+#: beta/listviews.py:134 beta/views.py:33
 msgid "not checked"
 msgstr "не проверен"
 
 #: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:139 beta/views.py:37
+#: beta/listviews.py:134 beta/views.py:33
 msgid "on check"
 msgstr "на проверке"
 
 #: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:139 beta/views.py:37
+#: beta/listviews.py:134 beta/views.py:33
 msgid "checked"
 msgstr "проверен"
 
@@ -68,21 +55,21 @@ msgstr "Отказать"
 msgid "Accept"
 msgstr "Принять"
 
-#: beta/listviews.py:106 templates/base/base.html:60
-msgid "Friends"
-msgstr "Друзья"
-
-#: beta/listviews.py:107
-msgid "Delete"
-msgstr "Удалить"
-
-#: beta/listviews.py:156 templates/base/base.html:62
+#: beta/listviews.py:151 templates/base/base.html:62
 msgid "TXT.Search"
 msgstr "Поиск"
 
-#: beta/listviews.py:157
+#: beta/listviews.py:152
 msgid "Subscribe"
 msgstr "Подписаться"
+
+#: beta/profilehandlers.py:64
+msgid "Edit verification photo"
+msgstr "Редактировать верификационое фото"
+
+#: beta/profilehandlers.py:98
+msgid "Edit avatar"
+msgstr "Редактировать аватар"
 
 #: templates/base/base.html:23 templates/base/base.html:28
 #: templates/base/base_minimal.html:6 templates/base/base_minimal.html:11
@@ -94,12 +81,16 @@ msgid "Account"
 msgstr "Аккаунт"
 
 #: templates/base/base.html:40 templates/base/base_minimal.html:20
-msgid "Switch Locale"
+msgid "TXT.Switch_Locale"
 msgstr "Сменить язык"
 
 #: templates/base/base.html:44
 msgid "Exit"
 msgstr "Выход"
+
+#: templates/base/base.html:60 templates/lists/friends.html:19
+msgid "Friends"
+msgstr "Друзья"
 
 #: templates/base/base.html:64
 msgid "Safe search"
@@ -113,36 +104,45 @@ msgstr "Список пуст"
 msgid "TXT.Empty_list"
 msgstr "Этот список пока пуск"
 
-#: templates/lists/fullcards.html:36
+#: templates/lists/friends.html:36 templates/profile/profile.html:46
 msgid "ID"
 msgstr ""
 
-#: templates/lists/fullcards.html:37
+#: templates/lists/friends.html:37 templates/profile/profile.html:47
 msgid "Telegram"
 msgstr ""
 
-#: templates/lists/fullcards.html:39 templates/lists/shortcards.html:31
-#: templates/profile/profile.html:37
+#: templates/lists/friends.html:39 templates/lists/shortcards.html:31
+#: templates/profile/profile.html:49
 msgid "Department"
 msgstr "Кафедра"
 
-#: templates/lists/fullcards.html:41 templates/lists/shortcards.html:33
-#: templates/profile/profile.html:39
+#: templates/lists/friends.html:40 templates/lists/shortcards.html:32
+#: templates/profile/profile.html:50
+msgid "Course"
+msgstr "Курс"
+
+#: templates/lists/friends.html:41 templates/lists/shortcards.html:33
+#: templates/profile/profile.html:51
 msgid "Bio"
 msgstr "О себе"
 
-#: templates/lists/fullcards.html:43 templates/lists/shortcards.html:35
-#: templates/profile/profile.html:41
+#: templates/lists/friends.html:43 templates/lists/shortcards.html:35
+#: templates/profile/profile.html:53
 msgid "Trusted"
 msgstr "Модерация"
 
-#: templates/lists/fullcards.html:45
+#: templates/lists/friends.html:45 templates/profile/profile.html:55
 msgid "Moderator"
 msgstr "Модератор"
 
-#: templates/lists/fullcards.html:53
+#: templates/lists/friends.html:53 templates/profile/profile.html:63
 msgid "Curator"
 msgstr "Куратор"
+
+#: templates/lists/friends.html:64
+msgid "Delete"
+msgstr "Удалить"
 
 #: templates/misc/root.html:23
 msgid "Welcome"
@@ -152,17 +152,31 @@ msgstr "Добро пожаловать"
 msgid "TXT.Welcome"
 msgstr "Добро пожаловать на наш уютный сайт"
 
-#: templates/profile/edit.html:16
-msgid "Edit profile"
-msgstr "Редактировать профиль"
-
-#: templates/profile/profile.html:20
+#: templates/profile/profile.html:29
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/profile/profile.html:44
+#: templates/profile/profile.html:75
+msgid "TXT.Switch_curator"
+msgstr "Изменить режим куратора"
+
+#: templates/profile/profile.html:80
+msgid "Verify"
+msgstr "Верифицировать"
+
+#: templates/profile/profile.html:84
+msgid "Avatar"
+msgstr "Аватар"
+
+#: templates/profile/profile.html:88
 msgid "Edit"
 msgstr "Изменить"
+
+#: templates/profile/profile.html:92
+#, fuzzy
+#| msgid "Edit profile"
+msgid "Delete profile"
+msgstr "Редактировать профиль"
 
 #: templates/registration/login.html:13
 msgid "Log in to your account"
@@ -171,3 +185,9 @@ msgstr "Войдите в свой аккаунт"
 #: templates/registration/login.html:21
 msgid "Log in"
 msgstr "Войти"
+
+#~ msgid "Name"
+#~ msgstr "Имя"
+
+#~ msgid "Surname"
+#~ msgstr "Фамилия"
