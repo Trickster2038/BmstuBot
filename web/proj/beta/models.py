@@ -39,11 +39,12 @@ class PersonT(models.Model):
         return fl
     def append_to_list(self, p_list):
         p = self
-        p = p.detail()
-        fl = p.avatar_exist() 
-        p_list.append({"rowdata": p, 
-                "avatar": fl, \
-                "path_avatar": 'avatars/' + str(p.id) + '.jpg'})
+        if p.is_filled:
+            p = p.detail()
+            fl = p.avatar_exist() 
+            p_list.append({"rowdata": p, 
+                    "avatar": fl, \
+                    "path_avatar": 'avatars/' + str(p.id) + '.jpg'})
 
 class FriendsT(models.Model):
     id = models.AutoField(primary_key=True)

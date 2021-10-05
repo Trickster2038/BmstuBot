@@ -9,7 +9,8 @@ import os
 
 @login_required(login_url='/login/')
 def outgoing(request):
-    friends = FriendsT.objects.filter(user1=request.user.username, applied=False)
+    friends = FriendsT.objects\
+        .filter(user1=request.user.username, applied=False)
     if friends.count() != 0:
         friends_list = []
         for x in friends:
@@ -28,7 +29,8 @@ def outgoing(request):
 
 @login_required(login_url='/login/')
 def incoming(request):
-    friends = FriendsT.objects.filter(user2=request.user.username, applied=False)
+    friends = FriendsT.objects\
+        .filter(user2=request.user.username, applied=False)
     if friends.count() != 0:
         friends_list = []
         for x in friends:
@@ -50,8 +52,10 @@ def incoming(request):
 
 @login_required(login_url='/login/')
 def friends(request):
-    friends1 = FriendsT.objects.filter(user1=request.user.username, applied=True)
-    friends2 = FriendsT.objects.filter(user2=request.user.username, applied=True)
+    friends1 = FriendsT.objects\
+        .filter(user1=request.user.username, applied=True)
+    friends2 = FriendsT.objects\
+        .filter(user2=request.user.username, applied=True)
     if friends1.count() + friends2.count() != 0:
         friends_list = []
         trustmap = [_("not checked"), _("on check"), _("checked")]
@@ -80,11 +84,11 @@ def search(request):
         .values_list('user2', flat=True))
 
     if not safety:
-        friends = PersonT.objects.filter(faculty= me.faculty,\
+        friends = PersonT.objects.filter(faculty= me.faculty, is_filled=True,\
             department= me.department, course__gt= me.course, is_curator= True)\
         .exclude(id__in= requested)
     else:
-        friends = PersonT.objects.filter(faculty= me.faculty,\
+        friends = PersonT.objects.filter(faculty= me.faculty, is_filled=True,\
             department= me.department, course__gt= me.course, is_curator= True,\
             trusted= 2)\
         .exclude(id__in= requested)
