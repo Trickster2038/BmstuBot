@@ -8,7 +8,7 @@ COURSE_CHOICES = [('1', '1'), ('2', '2'), ('3', '3'),\
 class EditForm(forms.Form):
     COURSE_CHOICES = [('1', '1'), ('2', '2'), ('3', '3'),\
     ('4', '4'), ('5', '5'), ('6', '6')]
-    bio = forms.CharField(label=_("Bio"))
+    bio = forms.CharField(label=_("Bio"), widget=forms.Textarea())
     course = forms.ChoiceField(choices=COURSE_CHOICES, label=_("Course"))
     # curator = forms.BooleanField(required=False, label=_("TXT.Curator_mode"))
 
