@@ -9,17 +9,21 @@ function send_ajax(target, action) {
     // console.log(action == 'delete_outgoing')
 
     if(action == 'delete_outgoing') {
-        url = "http://localhost:8000/asyncDeleteOutgoing/"
+        url = "/asyncDeleteOutgoing/"
     } else if(action == 'delete_incoming'){
-        url = "http://localhost:8000/asyncDeleteIncoming/"
+        url = "/asyncDeleteIncoming/"
     } else if(action == "accept_incoming"){
-        url = "http://localhost:8000/asyncAcceptIncoming/"
+        url = "/asyncAcceptIncoming/"
     } else if(action == "delete_friend"){
-        url = "http://localhost:8000/asyncDeleteFriend/"
+        url = "/asyncDeleteFriend/"
     } else if(action == "send_subscribe_request"){
-        url = "http://localhost:8000/asyncSubscribeRequest/"
+        url = "/asyncSubscribeRequest/"
     } else if(action == "delete_profile"){
-        url = "http://localhost:8000/profileDelete/"
+        url = "/profileDelete/"
+    } else if(action == "confirm_moderation"){
+        url = "/confirmModeration/"
+    } else if(action == "dicard_moderation"){
+        url = "/discardModeration/"
     }
 
     $.ajax({

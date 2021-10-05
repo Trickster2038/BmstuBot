@@ -1,0 +1,15 @@
+{% extends  'base/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cards.css' %}"/>
+<script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>
+
+<div class="card" id="header">
+    <h1 align="center" class="card-body">{% trans 'Become a moderator' %}</h1>
+    <p align="center">{% trans 'TXT.become_moderator' %}</p>
+</div>
+
+
+{% endblock %}

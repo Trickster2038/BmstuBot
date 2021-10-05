@@ -35,3 +35,25 @@ def subscribe_request(request):
     msg = FriendsT(user1=request.user.username, user2=target, applied=False)
     msg.save()
     return HttpResponse('subscribe request')
+
+@login_required(login_url='/login/')
+def confirm_moderation(request):
+    # print("> confirm moderation")
+    p = PersonT.objects.get(id=request.user.username)
+    if p.is_moderator:
+        target=request.POST['target']
+        x = PersonT.objects.get(id=target)
+        x.trusted = 2
+        x.save()
+    return HttpResponse('ajax moderation')
+
+@login_required(login_url='/login/')
+def discard_moderation(request):
+    # print("> confirm moderation")
+    p = PersonT.objects.get(id=request.user.username)
+    if p.is_moderator:
+        target=request.POST['target']
+        x = PersonT.objects.get(id=target)
+        x.trusted = 0
+        x.save()
+    return HttpResponse('ajax moderation')

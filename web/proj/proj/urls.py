@@ -45,6 +45,8 @@ urlpatterns = [
     path('asyncAcceptIncoming/', asynchandlers.accept_incoming),
     path('asyncDeleteFriend/', asynchandlers.delete_friend),
     path('asyncSubscribeRequest/', asynchandlers.subscribe_request),
+    path('confirmModeration/', asynchandlers.confirm_moderation),
+    path('discardModeration/', asynchandlers.discard_moderation),
 
     path('profileDelete/', profilehandlers.delete),
     path('verify/', profilehandlers.verify),

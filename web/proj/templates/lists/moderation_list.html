@@ -1,0 +1,89 @@
+{% extends  'base/base_wide.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cards.css' %}"/>
+<script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>
+<script>
+    var csrftoken = '{{ csrf_token }}';
+</script>
+<script type="text/javascript" src="{% static 'js/actions.js'%}"></script>
+<style type="text/css">
+.form-check-input {
+    margin: 8px;
+}
+img.moderation-photo {
+    max-height: 45%;
+    max-width: 45%;
+    padding: 8px;
+}
+/*div.moderation-photo {
+    text-align: justify;
+}*/
+.multi-photos {
+    width: 90%;
+    text-align: center;
+}
+</style>
+
+<div class="card" id="header">
+    <h1 align="center" class="card-body">{% trans 'Moderation' %}</h1>
+</div>
+
+{% for person in accounts %}
+<div>
+    <div class="card shortcard" id="card-{{ person.rowdata.id }}">
+        <div class="card-body">
+            <div class="multi-photos">
+                <span class="moderation-photo">
+                    <img class="moderation-photo" src="/media/avatars/{{ person.rowdata.id }}.jpg">
+                </span>
+                <span class="moderation-photo">
+                    <img class="moderation-photo" src="/media/verify/{{ person.rowdata.id }}.jpg">
+                </span>
+            </div>
+            <hr/>
+            <p class="name"> {{ person.rowdata.name }} {{ person.rowdata.surname }}</p>
+            <hr/>
+            <p>{% trans 'ID' %}: {{ person.rowdata.id }}</p>
+            <p>{% trans 'Telegram' %}: @{{ person.rowdata.username }}</p>
+            <hr/>
+            <p>{% trans 'Department' %}: {{ person.rowdata.department }}</p>
+            <p>{% trans 'Course' %}: {{ person.rowdata.course }}</p>
+            <p>{% trans 'Bio' %}: {{ person.rowdata.bio }}</p>
+
+            <p>{% trans 'Trusted' %}: {{ person.rowdata.trusted }}<p>
+                <hr/>
+                <p>{% trans 'Moderator' %}: 
+                    {% if person.rowdata.is_moderator %}
+                    <input type="checkbox" class="form-check-input" checked disabled>
+                    {% else %}
+                    <input type="checkbox" class="form-check-input" disabled>
+                    {% endif %}
+                </p>
+
+                <div>{% trans 'Curator' %}:
+                    {% if person.rowdata.is_curator %}
+                    <input type="checkbox" class="form-check-input" checked disabled>
+                    {% else %}
+                    <input type="checkbox" class="form-check-input" disabled>
+                    {% endif %}
+                </div>
+
+            <div class="action">
+                <button class="btn btn-outline-primary action" 
+                onclick="send_ajax({{ person.rowdata.id }}, 'confirm_moderation')">
+                {% trans 'Confirm' %}</button>
+            </div>
+            <div class="action">
+                <button class="btn btn-outline-danger action" 
+                onclick="send_ajax({{ person.rowdata.id }}, 'confirm_moderation')">
+                {% trans 'Discard' %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
