@@ -11,18 +11,19 @@ import os
 def outgoing(request):
     friends = FriendsT.objects\
         .filter(user1=request.user.username, applied=False)
-    if friends.count() != 0:
-        friends_list = []
-        for x in friends:
-            p = PersonT.objects.get(id=x.user2)
-            p.append_to_list(friends_list)
+    # if friends.count() != 0:
+    friends_list = []
+    for x in friends:
+        p = PersonT.objects.get(id=x.user2)
+        p.append_to_list(friends_list)
 
-        data = {"friends": friends_list, \
-        "neg_btn": True, \
-        "caption": _("Outgoing"), \
-        "btn_text": _("Cancel"), \
-        "action": "delete_outgoing", \
-        "alt_btn": False}
+    data = {"friends": friends_list, \
+    "neg_btn": True, \
+    "caption": _("Outgoing"), \
+    "btn_text": _("Cancel"), \
+    "action": "delete_outgoing", \
+    "alt_btn": False}
+    if len(friends_list) > 0:
         return render(request, "lists/shortcards.html", context=data)
     else:
         return render(request, "lists/empty_list.html")
@@ -31,21 +32,22 @@ def outgoing(request):
 def incoming(request):
     friends = FriendsT.objects\
         .filter(user2=request.user.username, applied=False)
-    if friends.count() != 0:
-        friends_list = []
-        for x in friends:
-            p = PersonT.objects.get(id=x.user1)
-            p.append_to_list(friends_list)
+    # if friends.count() != 0:
+    friends_list = []
+    for x in friends:
+        p = PersonT.objects.get(id=x.user1)
+        p.append_to_list(friends_list)
 
-        data = {"friends": friends_list, \
-        "neg_btn": True, \
-        "caption": _("Incoming"), \
-        "btn_text": _("Discard"), \
-        "action": "delete_incoming", \
-        "alt_btn": True, \
-        "alt_btn_text": _("Accept"), \
-        "alt_action": "accept_incoming"}
+    data = {"friends": friends_list, \
+    "neg_btn": True, \
+    "caption": _("Incoming"), \
+    "btn_text": _("Discard"), \
+    "action": "delete_incoming", \
+    "alt_btn": True, \
+    "alt_btn_text": _("Accept"), \
+    "alt_action": "accept_incoming"}
         # print(data)
+    if len(friends_list) > 0:
         return render(request, "lists/shortcards.html", context=data)
     else:
         return render(request, "lists/empty_list.html")
@@ -56,17 +58,18 @@ def friends(request):
         .filter(user1=request.user.username, applied=True)
     friends2 = FriendsT.objects\
         .filter(user2=request.user.username, applied=True)
-    if friends1.count() + friends2.count() != 0:
-        friends_list = []
-        trustmap = [_("not checked"), _("on check"), _("checked")]
-        for x in friends1:
-            p = PersonT.objects.get(id=x.user2)
-            p.append_to_list(friends_list)
-        for x in friends2:
-            p = PersonT.objects.get(id=x.user1)
-            p.append_to_list(friends_list)
+    # if friends1.count() + friends2.count() != 0:
+    friends_list = []
+    trustmap = [_("not checked"), _("on check"), _("checked")]
+    for x in friends1:
+        p = PersonT.objects.get(id=x.user2)
+        p.append_to_list(friends_list)
+    for x in friends2:
+        p = PersonT.objects.get(id=x.user1)
+        p.append_to_list(friends_list)
 
-        data = {"friends": friends_list}
+    data = {"friends": friends_list}
+    if len(friends_list) > 0:
         return render(request, "lists/friends.html", context=data)
     else:
         return render(request, "lists/empty_list.html")
@@ -108,3 +111,21 @@ def search(request):
         return render(request, "lists/shortcards.html", context=data)
     else:
         return render(request, "lists/empty_list.html")
+
+@login_required(login_url='/login/')
+def moderate(request):
+    me = PersonT.objects.get(id=request.user.username)
+    if me.is_moderator:
+        accounts = PersonT.objects.filter(trusted=1)
+        # if accounts.count() != 0:
+        acc_list = []
+        for x in accounts:
+            x.append_to_moderation(acc_list)
+
+        data = {"accounts": acc_list}
+        if len(acc_list) > 0:
+            return render(request, "lists/moderation_list.html", context=data)
+        else:
+            return render(request, "lists/empty_list.html")
+    else:
+            return render(request, "lists/moderator_signup.html")

@@ -37,14 +37,29 @@ class PersonT(models.Model):
         fl = (UserImage.objects.filter(user=p.id, folder="avatars")\
             .count() > 0)
         return fl
+    def verify_exist(self):
+        p = self
+        fl = (UserImage.objects.filter(user=p.id, folder="verify")\
+            .count() > 0)
+        return fl
     def append_to_list(self, p_list):
         p = self
         if p.is_filled:
             p = p.detail()
             fl = p.avatar_exist() 
-            p_list.append({"rowdata": p, 
+            p_list.append({"rowdata": p, \
                     "avatar": fl, \
                     "path_avatar": 'avatars/' + str(p.id) + '.jpg'})
+    def append_to_moderation(self, p_list):
+        p = self
+        if p.is_filled:
+            p = p.detail()
+            fl = p.avatar_exist()
+            fl_verify = p.verify_exist() 
+            if fl and fl_verify:
+                p_list.append({"rowdata": p, \
+                        "path_avatar": 'avatars/' + str(p.id) + '.jpg', \
+                        "path_verify": 'verify/' + str(p.id) + '.jpg'})
 
 class FriendsT(models.Model):
     id = models.AutoField(primary_key=True)

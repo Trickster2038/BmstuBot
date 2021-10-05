@@ -31,6 +31,7 @@ urlpatterns = [
     path('incoming/', listviews.incoming, name='icoming'),
     path('friends/', listviews.friends, name='friends'),
     path('search/', listviews.search, name='search'),
+    path('moderate/', listviews.moderate),
 
     path('', views.index, name='home'),
     path('profile/', views.profile, name='profile'),
