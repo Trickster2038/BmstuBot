@@ -20,6 +20,13 @@ def delete(request):
         return HttpResponse('delete profile')
 
 @login_required(login_url='/login/')
+def delete_avatar(request):
+    p = UserImage.objects.filter(user=request.user.username, folder="avatars")
+    for x in p:
+        x.delete()
+    return HttpResponseRedirect("/profile/")
+
+@login_required(login_url='/login/')
 def edit(request):
     if request.method == 'POST':
         form = NameForm(request.POST)

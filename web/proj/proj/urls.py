@@ -48,6 +48,7 @@ urlpatterns = [
     path('profileDelete/', profilehandlers.delete),
     path('verify/', profilehandlers.verify),
     path('avatar/', profilehandlers.avatar),
+    path('deleteAvatar/', profilehandlers.delete_avatar),
     path('edit/', profilehandlers.edit, name='edit'),
     path('switchCurator/', profilehandlers.switch_curator),
 

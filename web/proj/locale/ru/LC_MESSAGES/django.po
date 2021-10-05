@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-04 16:28+0000\n"
+"POT-Creation-Date: 2021-10-05 11:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,54 +20,51 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:134 beta/views.py:33
-msgid "not checked"
-msgstr "не проверен"
-
-#: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:134 beta/views.py:33
-msgid "on check"
-msgstr "на проверке"
-
-#: beta/listviews.py:15 beta/listviews.py:46 beta/listviews.py:79
-#: beta/listviews.py:134 beta/views.py:33
-msgid "checked"
-msgstr "проверен"
-
-#: beta/listviews.py:32 templates/base/base.html:58
+#: beta/listviews.py:21 templates/base/base.html:58
 msgid "Outgoing"
 msgstr "Исходящие"
 
-#: beta/listviews.py:33
+#: beta/listviews.py:22
 msgid "Cancel"
 msgstr "Отменить"
 
-#: beta/listviews.py:62 templates/base/base.html:59
+#: beta/listviews.py:40 templates/base/base.html:59
 msgid "Incoming"
 msgstr "Входящие"
 
-#: beta/listviews.py:63
+#: beta/listviews.py:41
 msgid "Discard"
 msgstr "Отказать"
 
-#: beta/listviews.py:66
+#: beta/listviews.py:44
 msgid "Accept"
 msgstr "Принять"
 
-#: beta/listviews.py:151 templates/base/base.html:62
+#: beta/listviews.py:57 beta/models.py:24
+msgid "not checked"
+msgstr "не проверен"
+
+#: beta/listviews.py:57 beta/models.py:24
+msgid "on check"
+msgstr "на проверке"
+
+#: beta/listviews.py:57 beta/models.py:24
+msgid "checked"
+msgstr "проверен"
+
+#: beta/listviews.py:100 templates/base/base.html:62
 msgid "TXT.Search"
 msgstr "Поиск"
 
-#: beta/listviews.py:152
+#: beta/listviews.py:101
 msgid "Subscribe"
 msgstr "Подписаться"
 
-#: beta/profilehandlers.py:64
+#: beta/profilehandlers.py:71
 msgid "Edit verification photo"
 msgstr "Редактировать верификационое фото"
 
-#: beta/profilehandlers.py:98
+#: beta/profilehandlers.py:105
 msgid "Edit avatar"
 msgstr "Редактировать аватар"
 
@@ -173,6 +170,10 @@ msgid "Edit"
 msgstr "Изменить"
 
 #: templates/profile/profile.html:92
+msgid "TXT.Delete_avatar"
+msgstr "Удалить аватар"
+
+#: templates/profile/profile.html:96
 #, fuzzy
 #| msgid "Edit profile"
 msgid "Delete profile"
