@@ -1,6 +1,7 @@
 from django.db import models
 import os
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
 class PersonT(models.Model):
@@ -8,7 +9,11 @@ class PersonT(models.Model):
     name = models.CharField(max_length=20)
     surname = models.CharField(max_length=20)   
     department = models.IntegerField()
-    course = models.IntegerField()
+    course = models.IntegerField(default=1,\
+        validators=[
+            MaxValueValidator(6),
+            MinValueValidator(1)
+        ])
     bio = models.CharField(max_length=400) 
     is_filled = models.BooleanField()
     rating = models.IntegerField()

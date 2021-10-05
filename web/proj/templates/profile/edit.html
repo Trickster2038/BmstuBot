@@ -8,7 +8,7 @@
 ul {
 	list-style-type: none;
 }
-input[type="text"] {
+label {
 	display: block;
 }
 input.action {
@@ -27,7 +27,7 @@ input.action {
 				{% csrf_token %}
 				{{ form }}
 				<div class="action">
-					<input type="submit" value="Submit" class="btn btn-outline-primary action">
+					<input type="submit" value="{% trans 'Submit' %}" class="btn btn-outline-primary action">
 				</div>
 			</form>
 		</div>
