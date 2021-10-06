@@ -12,6 +12,14 @@ SELECT_COLUMNS = 'beta_persont.id, beta_persont.name, beta_persont.surname, \
 beta_facultiest.name as faculty, beta_persont.department as dept, beta_persont.course, \
 beta_persont.is_moderator as moderator'
 
+def not_empty(function):
+    def wrapper(arg):
+        func = function(arg)
+        if func.empty:
+            raise Exception('No rows found with this params')
+        return func
+    return wrapper
+
 def connect():
     os.environ['DJANGO_SETTINGS_MODULE'] = 'django_settings'
     db = settings.DB
@@ -47,18 +55,22 @@ def show_by_nickname(nick):
     where beta_persont.username = '{nick}'", conn)
     return result
 
+@not_empty
 def grant_moderator_by_id(id):
     cursor.execute(f"update beta_persont set is_moderator = True where id = {id}")
     return show_by_id(id)
 
+@not_empty
 def rm_moderator_by_id(id):
     cursor.execute(f"update beta_persont set is_moderator = False where id = {id}")
     return show_by_id(id)
 
+@not_empty
 def grant_moderator_by_nickname(nick):
     cursor.execute(f"update beta_persont set is_moderator = True where username = '{nick}'")
     return show_by_nickname(nick)
 
+@not_empty
 def rm_moderator_by_nickname(nick):
     cursor.execute(f"update beta_persont set is_moderator = False where username = '{nick}'")
     return show_by_nickname(nick)
