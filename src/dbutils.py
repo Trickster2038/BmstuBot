@@ -26,7 +26,11 @@ def connect():
     cursor = conn.cursor()
 
 def get_info(id):
-    cursor.execute("SELECT name, surname, faculty, department, course, trusted, bio, username, is_moderator, is_curator  from public.users where id = {}".format(id))
+    cursor.execute(f"SELECT beta_persont.name, beta_persont.surname, beta_facultiest.name, \
+    beta_persont.department, beta_persont.course, beta_persont.trusted, beta_persont.bio,  \
+    beta_persont.username, beta_persont.is_moderator, beta_persont.is_curator \
+    FROM beta_persont JOIN beta_facultiest ON beta_persont.faculty = beta_facultiest.id \
+    WHERE  beta_persont.id = {id}")
     result = cursor.fetchone()
     return result
 
@@ -89,7 +93,7 @@ def id_exists(id):
     return res != None
 
 def is_filled(id):
-    cursor.execute("SELECT is_filled from public.users where id = {}".format(id))
+    cursor.execute(f"SELECT is_filled from beta_persont where id = {id}")
     result = cursor.fetchone()
     if result == None:
         result = [False]
