@@ -35,7 +35,7 @@ def get_info(id):
     return result
 
 def pop_moderator_pool(id):
-    cursor.execute("SELECT id  from public.users where id <> {} and trusted = 1 ORDER BY RANDOM() LIMIT 1".format(id))
+    cursor.execute(f"SELECT id from beta_persont where id <> {id} and trusted = 1 ORDER BY RANDOM() LIMIT 1")
     result = cursor.fetchone()
     if result != None:
         result = int(result[0])
@@ -47,48 +47,36 @@ def avatar_exists(id):
 def verify_exists(id):
     return os.path.isfile("../media/verify/" + str(id) + ".jpg")
 
+# db test >>>
 def write_name(id, str, nick):
     name = make_capital(str)
-    cursor.execute("INSERT into public.\"users\" values ({}, '{{{}}}', null, null, null, null, default, default, default, '{{{}}}', null, default, default, default)"\
-        .format(id, name, nick))
+    cursor.execute(f"INSERT beta_persont values ({id}, '{name}', null, null, \
+     null, null, default, default, default, '{nick}', \
+     null, default, default, default)")
 
-def write_surname(id, str):
-    surname = make_capital(str)
-    cursor.execute("UPDATE public.\"users\" set \"surname\" = '{{{}}}' where id = {}"\
-        .format(surname, id))
+def write_surname(id, str1):
+    surname = make_capital(str1)
+    cursor.execute(f"UPDATE beta_persont set surname = '{surname}' where id = {id}")
 
 def write_faculty(id, code):
-    cursor.execute("UPDATE public.\"users\" set \"faculty\" = {} where id = {}"\
-        .format(code, id))
+    cursor.execute(f"UPDATE beta_persont set faculty = {code} where id = {id}")
 
 def write_department(id, code):
-    cursor.execute("UPDATE public.\"users\" set \"department\" = {} where id = {}"\
-        .format(code, id))
+    cursor.execute(f"UPDATE beta_persont set department = {code} where id = {id}")
 
 def write_course(id, code):
-    cursor.execute("UPDATE public.\"users\" set \"course\" = {} where id = {}"\
-        .format(code, id))
+    cursor.execute(f"UPDATE beta_persont set  course = {code} where id = {id}")
+# /db test
 
 def write_curator(id, fl):
-    cursor.execute("UPDATE public.\"users\" set \"is_curator\" = {} where id = {}"\
-        .format(fl, id))
+    cursor.execute(f"UPDATE beta_persont set is_curator = {fl} where id = {id}")
 
 def write_bio(id, bio):
+    cursor.execute(f"UPDATE beta_persont set bio = '{bio}' where id = {id}")
     bio = [bio]
-    cursor.execute("""
-            Update
-                public.users
-            set
-                bio = %(bio)s
-            WHERE
-                id = %(id)s
-        """, {
-            'bio': bio,
-            'id': id
-        })
 
 def id_exists(id):
-    cursor.execute("SELECT * FROM public.users where id = {}".format(id))
+    cursor.execute(f"SELECT * FROM beta_persont where id = {id}")
     res = cursor.fetchone()
     return res != None
 
@@ -100,23 +88,23 @@ def is_filled(id):
     return result[0]
 
 def is_moderator(id):
-    cursor.execute("SELECT is_moderator from public.users where id = {}".format(id))
+    cursor.execute("SELECT is_moderator from beta_persont where id = {}".format(id))
     result = cursor.fetchone()
     if result == None:
         result = [False]
     return result[0]
 
 def drop_trusted(id):
-    cursor.execute("UPDATE public.\"users\" set \"trusted\" = 0 where id = {}"\
+    cursor.execute("UPDATE beta_persont set trusted = 0 where id = {}"\
         .format(id))   
 
 def grant_trusted(id):
-    cursor.execute("UPDATE public.\"users\" set \"trusted\" = 2 where id = {}"\
-        .format(id))
+    cursor.execute(f"UPDATE beta_persont set trusted = 2 where id = {id}")
+
+# /db edit >>>
 
 def turn_moderate(id):
-    cursor.execute("UPDATE public.\"users\" set \"trusted\" = 1 where id = {}"\
-        .format(id))   
+    cursor.execute(f"UPDATE beta_persont trusted = 1 where id = {id}")
 
 def get_faculty_id(id):
     cursor.execute("SELECT faculty FROM public.users where id = {}".format(id))
