@@ -41,11 +41,20 @@ def pop_moderator_pool(id):
         result = int(result[0])
     return result
 
+def image_index(id, fldr):
+    cursor.execute(f"SELECT count(*) from beta_userimage where user = {id}\
+        and folder = '{fldr}'")
+    result = cursor.fetchone()
+    new_request = (int(result[0]) == 0)
+    if new_request:
+        path = folder + "/" + str(id) + ".jpg"
+        cursor.execute(f"INSERT into beta_userimage (default, {id}, '{path}', '{fldr}'")
+
 def avatar_exists(id):
-    return os.path.isfile("../media/avatars/" + str(id) + ".jpg")
+    return os.path.isfile("../web/proj/media/avatars/" + str(id) + ".jpg")
 
 def verify_exists(id):
-    return os.path.isfile("../media/verify/" + str(id) + ".jpg")
+    return os.path.isfile("../web/proj/media/verify/" + str(id) + ".jpg")
 
 # db test >>>
 def write_name(id, str, nick):
@@ -189,7 +198,6 @@ def apply_friend(apply_id, id):
     return request_exists
 
 def get_outcoming(id, n):
-    print("> get outcoming")
     req = "SELECT user2 from beta_friendst where user1 = {} and not applied ORDER BY RANDOM() LIMIT {}"\
         .format(id, n)
     cursor.execute(req)

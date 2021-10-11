@@ -39,7 +39,7 @@ async def show_profile(id_check, id_send, bot, with_nick=False, with_id=False, w
     s += data[6]
 
     if dbutils.avatar_exists(id_check):
-        photo = open("../media/avatars/" + str(id_check) + ".jpg", 'rb')
+        photo = open("../web/proj/media/avatars/" + str(id_check) + ".jpg", 'rb')
     else:
         photo = open("default_avatar.jpg", 'rb')
     await bot.send_photo(chat_id=id_send, photo=photo, caption=s)
@@ -47,7 +47,7 @@ async def show_profile(id_check, id_send, bot, with_nick=False, with_id=False, w
 async def show_verify(id_check, id_send, bot):
     s = "verification photo"
     if dbutils.verify_exists(id_check):
-        photo = open("../media/verify/" + str(id_check) + ".jpg", 'rb')
+        photo = open("../web/proj/media/verify/" + str(id_check) + ".jpg", 'rb')
     else:
         photo = open("default_avatar.jpg", 'rb')
     await bot.send_photo(chat_id=id_send, photo=photo, caption=s)
