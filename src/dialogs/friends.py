@@ -64,7 +64,7 @@ async def callback_incoming(call: types.CallbackQuery):
         await call.bot.send_message(call.from_user.id, "Список пуст")
     else:
         for x in incoming_list:
-            await whoami.show_profile(x, call.from_user.id, call.bot, with_nick=True)
+            await whoami.show_profile(x, call.from_user.id, call.bot)
             keyboard = types.InlineKeyboardMarkup()
             key = types.InlineKeyboardButton(text="Отклонить", callback_data= "friends_discard_" + str(x))
             keyboard.add(key)
@@ -92,7 +92,7 @@ async def callback_outcoming(call: types.CallbackQuery):
         await call.bot.send_message(call.from_user.id, "Список пуст")
     else:
         for x in outcoming_list:
-            await whoami.show_profile(x, call.from_user.id, call.bot, with_nick=True)
+            await whoami.show_profile(x, call.from_user.id, call.bot)
             keyboard = types.InlineKeyboardMarkup()
             key = types.InlineKeyboardButton(text="Отменить", callback_data= "friends_discard_" + str(x))
             keyboard.add(key)

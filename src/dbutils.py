@@ -50,9 +50,9 @@ def verify_exists(id):
 # db test >>>
 def write_name(id, str, nick):
     name = make_capital(str)
-    cursor.execute(f"INSERT beta_persont values ({id}, '{name}', null, null, \
-     null, null, default, default, default, '{nick}', \
-     null, default, default, default)")
+    cursor.execute(f"INSERT beta_persont values ({id}, '{name}', ' ', 0, \
+     0,' ', false, 0, 0, '{nick}', \
+     0, 0, false, false)")
 
 def write_surname(id, str1):
     surname = make_capital(str1)
@@ -101,37 +101,37 @@ def drop_trusted(id):
 def grant_trusted(id):
     cursor.execute(f"UPDATE beta_persont set trusted = 2 where id = {id}")
 
-# /db edit >>>
-
 def turn_moderate(id):
     cursor.execute(f"UPDATE beta_persont trusted = 1 where id = {id}")
 
-def get_faculty_id(id):
-    cursor.execute("SELECT faculty FROM public.users where id = {}".format(id))
-    res = cursor.fetchone()
-    return int(res[0])
+# def get_faculty_id(id):
+#     cursor.execute("SELECT faculty FROM public.users where id = {}".format(id))
+#     res = cursor.fetchone()
+#     return int(res[0])
 
+# TODO: from all tables
 def delete(id):
-    cursor.execute("DELETE FROM public.users where id = {}".format(id))
+    cursor.execute(f"DELETE FROM beta_persont where id = {id}")
 
 def finish_registration(id):
-    cursor.execute("SELECT * from public.users where id = {}".format(id))
+    cursor.execute(f"SELECT * from beta_persont where id = {id}")
     result = cursor.fetchone()
     fl = True
     for x in result:
         if x == None:
             fl = False
     if fl:
-        cursor.execute("UPDATE public.\"users\" set \"is_filled\" = True where id = {}"\
-            .format(id))
+        cursor.execute(f"UPDATE beta_persont set is_filled = True where id = {id}")
     return fl
 
 # =========================================
 
 def pop_potential_friend_unsafe(id):
     data = get_info(id)
-    req = """SELECT users.id  from users, friends where users.id <> {} and faculty = {}
-        and department = {} and course > {} and is_curator and is_filled and not(user1 = {} and user2 = users.id)
+    req = """SELECT users.id from beta_persont, beta_friendst \
+        where beta_persont.id <> {} and faculty = {}
+        and department = {} and course > {} and is_curator and is_filled \
+        and not(user1 = {} and user2 = beta_persont.id)
         and user1 = {}
         ORDER BY RANDOM() LIMIT 1""".format(id, data[2], data[3], data[4], id, id)
     cursor.execute(req)
@@ -143,27 +143,31 @@ def pop_potential_friend_unsafe(id):
 
 def pop_potential_friend_safe(id):
     data = get_info(id)
-    req = """SELECT users.id  from users, friends where users.id <> {} and faculty = {}
-        and department = {} and course > {} and is_curator and is_filled and trusted = 2
-        and not(user1 = {} and user2 = users.id)
-        and user1 = {}
-        ORDER BY RANDOM() LIMIT 1""".format(id, data[2], data[3], data[4], id, id)
+    req = """SELECT users.id from beta_persont, beta_friendst \
+            where beta_persont.id <> {} and faculty = {}
+            and department = {} and course > {} and is_curator and is_filled \
+            and trusted = 2 \
+            and not(user1 = {} and user2 = beta_persont.id)
+            and user1 = {}
+            ORDER BY RANDOM() LIMIT 1""".format(id, data[2], data[3], data[4], id, id)
     cursor.execute(req)
     result = cursor.fetchone()
     if result != None:
         result = int(result[0])
     return result
 
+# db edit >>>
+
 def request_friendship(id_from, id_to):
-    cursor.execute("SELECT count(*) from friends where user1 = {} and user2 = {}".format(id_from, id_to))
+    cursor.execute("SELECT count(*) from beta_friendst where user1 = {} and user2 = {}".format(id_from, id_to))
     result = cursor.fetchone()
     new_request = (int(result[0]) == 0)
     if new_request:
-        cursor.execute("INSERT into public.\"friends\" values (default, {}, {}, default)".format(id_from, id_to))
+        cursor.execute("INSERT into beta_friendst values (default, {}, {}, false)".format(id_from, id_to))
     return new_request
 
 def get_incoming(id, n):
-    cursor.execute("SELECT user1  from public.friends where user2 =  {} and not applied ORDER BY RANDOM() LIMIT {}"\
+    cursor.execute("SELECT user1  from beta_friendst where user2 =  {} and not applied ORDER BY RANDOM() LIMIT {}"\
         .format(id, n))
     result = cursor.fetchall()
     data = []
@@ -172,20 +176,21 @@ def get_incoming(id, n):
     return data
 
 def discard_friend(id1, id2):
-    cursor.execute("DELETE from public.friends where (user1 = {} and user2 = {}) or (user1 = {} and user2 = {})"\
+    cursor.execute("DELETE from beta_friendst where (user1 = {} and user2 = {}) or (user1 = {} and user2 = {})"\
         .format(id1, id2, id2, id1))
 
 def apply_friend(apply_id, id):
-    cursor.execute("SELECT count(*) from friends where user1 = {} and user2 = {} and not applied".format(apply_id, id))
+    cursor.execute("SELECT count(*) from beta_friendst where user1 = {} and user2 = {} and not applied".format(apply_id, id))
     result = cursor.fetchone()
     request_exists = (int(result[0]) == 1)
     if request_exists:
-        cursor.execute("UPDATE public.\"friends\" set \"applied\" = True where user1 = {} and user2 = {}"\
+        cursor.execute("UPDATE beta_friendst set applied = True where user1 = {} and user2 = {}"\
         .format(apply_id, id))
     return request_exists
 
 def get_outcoming(id, n):
-    req = "SELECT user2 from public.friends where user1 = {} and not applied ORDER BY RANDOM() LIMIT {}"\
+    print("> get outcoming")
+    req = "SELECT user2 from beta_friendst where user1 = {} and not applied ORDER BY RANDOM() LIMIT {}"\
         .format(id, n)
     cursor.execute(req)
     result = cursor.fetchall()
@@ -195,7 +200,7 @@ def get_outcoming(id, n):
     return data
 
 def get_curators(id, n):
-    req = "SELECT user2 from public.friends where user1 = {} and applied ORDER BY RANDOM() LIMIT {}"\
+    req = "SELECT user2 from beta_friendst where user1 = {} and applied ORDER BY RANDOM() LIMIT {}"\
         .format(id, n)
     cursor.execute(req)
     result = cursor.fetchall()
@@ -205,7 +210,7 @@ def get_curators(id, n):
     return data
 
 def get_mypeople(id, n):
-    cursor.execute("SELECT user1  from public.friends where user2 =  {} and applied ORDER BY RANDOM() LIMIT {}"\
+    cursor.execute("SELECT user1  from beta_friendst where user2 =  {} and applied ORDER BY RANDOM() LIMIT {}"\
         .format(id, n))
     result = cursor.fetchall()
     data = []
