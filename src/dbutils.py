@@ -237,3 +237,6 @@ def set_password(id, password):
     else:
         query = "UPDATE auth_user set password='{}' where username='{}'".format(password_hash, id)
     cursor.execute(query)
+
+def refresh_nick(id, nick):
+    cursor.execute(f"UPDATE beta_persont SET username = '{nick}'")

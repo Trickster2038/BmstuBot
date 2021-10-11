@@ -24,6 +24,8 @@ async def select_option(message: types.Message):
     keyboard.add(key)
     key = types.InlineKeyboardButton(text="Задать веб-пароль", callback_data= "menu_web_password")
     keyboard.add(key)
+    key = types.InlineKeyboardButton(text="Обновить никнейм", callback_data= "menu_nick_refresh")
+    keyboard.add(key)
     await message.bot.send_message(message.from_user.id, text="Выберите опцию:", reply_markup=keyboard)
 
 def register_handlers_menu(dp: Dispatcher):

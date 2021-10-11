@@ -4,6 +4,10 @@ from states import WebStates
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 
+async def cmd_nick_refresh(call: types.CallbackQuery):
+    dbutils.refresh_nick(call.from_user.id, call.from_user.username)
+    await call.bot.send_message(call.from_user.id, "Никнейм обновлен")
+
 async def cmd_web_password(call: types.CallbackQuery, state: FSMContext):
     if dbutils.is_filled(call.from_user.id):
         await WebStates.password.set()
@@ -22,6 +26,7 @@ async def process_web_password(message: types.Message, state: FSMContext):
        await message.bot.send_message(message.from_user.id, "Пароль сохранен")
 
 def register_handlers_web(dp: Dispatcher):
+    dp.register_callback_query_handler(cmd_nick_refresh, lambda call: call.data == "menu_nick_refresh") 
     dp.register_callback_query_handler(cmd_web_password, lambda call: call.data == "menu_web_password") 
     dp.register_message_handler(process_web_password, state=WebStates.password) 
     
