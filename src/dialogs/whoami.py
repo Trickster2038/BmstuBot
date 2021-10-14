@@ -36,7 +36,7 @@ async def show_profile(id_check, id_send, bot, with_nick=False, with_id=False, w
     s += "кафедра: " + data[2] + "-" + str(int(data[3])) + "\n"
     s += "курс: " + str(int(data[4])) + "\n"
     s += "данные аккаунта: " + trust_mods[int(data[5])] + "\n\n"
-    s += data[6]
+    s += "О себе: " + data[6]
 
     if dbutils.avatar_exists(id_check):
         photo = open("../web/proj/media/avatars/" + str(id_check) + ".jpg", 'rb')
