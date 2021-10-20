@@ -22,7 +22,7 @@ function send_ajax(target, action) {
         url = "/profileDelete/"
     } else if(action == "confirm_moderation"){
         url = "/confirmModeration/"
-    } else if(action == "dicard_moderation"){
+    } else if(action == "discard_moderation"){
         url = "/discardModeration/"
     }
 
