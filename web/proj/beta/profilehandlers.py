@@ -36,7 +36,9 @@ def edit(request):
         print("> bio: " + str(request.POST['bio']))
         if form.is_valid():
             p = PersonT.objects.get(id=request.user.username)
-            p.trusted = (p.course == int(request.POST['course']))
+            trusted = (p.course == int(request.POST['course']))
+            if not trusted:
+                p.trusted = 0
             p.bio = request.POST['bio']
             p.course = int(request.POST['course'])
             # p.is_curator = request.POST['curator']
