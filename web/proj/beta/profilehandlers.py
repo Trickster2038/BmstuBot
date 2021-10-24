@@ -61,7 +61,10 @@ def verify(request):
             print("> save image")
             p = UserImage.objects.filter(user=request.user.username, folder="verify")
             for x in p:
-                x.delete()
+                try:
+                    x.delete()
+                except Exception as e:
+                    pass
             img = UserImage(user=request.user.username, \
                 folder="verify", \
                 image=request.FILES['image'])
@@ -89,7 +92,10 @@ def avatar(request):
         if form.is_valid():
             p = UserImage.objects.filter(user=request.user.username, folder="avatars")
             for x in p:
-                x.delete()
+                try:
+                    x.delete()
+                except Exception as e:
+                    pass
             img = UserImage(user=request.user.username, \
                 folder="avatars", \
                 image=request.FILES['image'])

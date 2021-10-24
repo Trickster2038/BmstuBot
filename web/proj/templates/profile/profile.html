@@ -28,7 +28,6 @@
 <div class="card" id="header">
 	<h1 align="center" class="card-body">{% trans 'Profile' %}</h1>
 </div>
-<!-- <p>Hi {{ user.username }}!</p> -->
 
 <div>
 	<div class="card shortcard">
@@ -54,17 +53,17 @@
 				<hr/>
 				<p>{% trans 'Moderator' %}: 
 					{% if person.rowdata.is_moderator %}
-					<input type="checkbox" class="form-check-input" checked disabled>
+					<input type="checkbox" class="form-check-input" id="moderator-checkbox"  checked disabled>
 					{% else %}
-					<input type="checkbox" class="form-check-input" disabled>
+					<input type="checkbox" class="form-check-input" d="moderator-checkbox"disabled>
 					{% endif %}
 				</p>
 
 				<div>{% trans 'Curator' %}:
 					{% if person.rowdata.is_curator %}
-					<input type="checkbox" class="form-check-input" checked disabled>
+					<input type="checkbox" class="form-check-input" id="curator-checkbox" checked disabled>
 					{% else %}
-					<input type="checkbox" class="form-check-input" disabled>
+					<input type="checkbox" class="form-check-input" id="curator-checkbox" disabled>
 					{% endif %}
 				</div>
 
